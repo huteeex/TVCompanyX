@@ -513,30 +513,46 @@ const AgentChatPage: React.FC = () => {
   return (
     <Layout role="agent">
       <div className="grid grid-cols-4 gap-4" style={{height: 'calc(100vh - 100px)'}}>
-        <aside className="col-span-1 bg-white rounded-lg shadow-sm p-3 flex flex-col h-full">
-          <h3 className="font-semibold mb-2 text-sm">Чаты</h3>
+        <aside className="col-span-1 bg-gradient-to-b from-neutral-50 to-white rounded-xl shadow-lg border border-neutral-200 p-4 flex flex-col h-full">
+          {/* Header */}
+          <div className="mb-4">
+            <h3 className="text-lg font-bold text-neutral-900 mb-1">Чаты</h3>
+            <p className="text-xs text-neutral-500">Активные диалоги с клиентами</p>
+          </div>
           
           {/* Status filter */}
-          <div className="mb-3 flex-shrink-0">
-            <select 
-              value={statusFilter} 
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-primary-500"
-            >
-              <option value="all">Все заявки ({getStatusCount('all')})</option>
-              <option value="in_progress">В работе ({getStatusCount('in_progress')})</option>
-              <option value="sent_to_commercial">В ком. отделе ({getStatusCount('sent_to_commercial')})</option>
-              <option value="approved">Одобрена ({getStatusCount('approved')})</option>
-              <option value="rejected">Отклонена ({getStatusCount('rejected')})</option>
-            </select>
+          <div className="mb-4 flex-shrink-0">
+            <div className="relative">
+              <select 
+                value={statusFilter} 
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full appearance-none px-3 py-2.5 bg-white border border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer shadow-sm"
+              >
+                <option value="all">📋 Все заявки ({getStatusCount('all')})</option>
+                <option value="in_progress">⚙️ В работе ({getStatusCount('in_progress')})</option>
+                <option value="sent_to_commercial">📤 В ком. отделе ({getStatusCount('sent_to_commercial')})</option>
+                <option value="approved">✅ Одобрена ({getStatusCount('approved')})</option>
+                <option value="rejected">❌ Отклонена ({getStatusCount('rejected')})</option>
+              </select>
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg className="h-4 w-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-1.5 flex-1 overflow-y-auto mb-3" style={{maxHeight: 'calc(100% - 150px)'}}>
+          <div className="space-y-2 flex-1 overflow-y-auto mb-4 pr-1" style={{maxHeight: 'calc(100% - 150px)'}}>
             {filteredRooms.length === 0 ? (
-              <div className="text-center py-8 text-neutral-500">
-                <p className="text-sm">Нет заявок</p>
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto mb-4 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <p className="text-sm font-medium text-neutral-700">Нет заявок</p>
                 {statusFilter !== 'all' && (
-                  <p className="text-xs mt-2">Попробуйте другой фильтр</p>
+                  <p className="text-xs text-neutral-500 mt-1">Попробуйте другой фильтр</p>
                 )}
               </div>
             ) : (
@@ -544,27 +560,48 @@ const AgentChatPage: React.FC = () => {
                 const roomIdStr = r.id
                 const unread = r.unread || 0
                 const title = r.name || 'Клиент'
+                const isActive = room === roomIdStr
                 return (
-                  <div key={roomIdStr} className={`w-full p-1.5 rounded ${room === roomIdStr ? 'bg-primary-50' : ''}`}>
-                    <button onClick={() => router.push(`/agent/chat?room=${encodeURIComponent(roomIdStr)}`)} className="w-full text-left">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <div className="text-xs font-medium">{title}</div>
-                          <div className="text-xs text-neutral-500 mt-0.5">{r.subtitle}</div>
-                          {r.status && (
-                            <span className={`inline-block mt-1 px-1.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(r.status)}`}>
-                              {getStatusText(r.status)}
-                            </span>
-                          )}
+                  <button 
+                    key={roomIdStr}
+                    onClick={() => router.push(`/agent/chat?room=${encodeURIComponent(roomIdStr)}`)}
+                    className={`w-full p-3 rounded-lg text-left transition-all duration-200 ${
+                      isActive 
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg scale-[1.02]' 
+                        : 'bg-white hover:bg-neutral-50 border border-neutral-200 hover:border-primary-200 hover:shadow-md'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className={`text-sm font-semibold truncate mb-1 ${
+                          isActive ? 'text-white' : 'text-neutral-900'
+                        }`}>
+                          {title}
                         </div>
-                        <div>
-                          {unread > 0 && (
-                            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary-500 text-white text-xs">{unread}</span>
-                          )}
+                        <div className={`text-xs truncate mb-2 ${
+                          isActive ? 'text-primary-100' : 'text-neutral-500'
+                        }`}>
+                          {r.subtitle}
                         </div>
+                        {r.status && (
+                          <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                            isActive 
+                              ? 'bg-white/20 text-white' 
+                              : getStatusColor(r.status)
+                          }`}>
+                            {getStatusText(r.status)}
+                          </span>
+                        )}
                       </div>
-                    </button>
-                  </div>
+                      {unread > 0 && (
+                        <div className={`flex-shrink-0 ${
+                          isActive ? 'bg-white text-primary-600' : 'bg-primary-500 text-white'
+                        } h-6 min-w-[24px] px-1.5 rounded-full flex items-center justify-center text-xs font-bold shadow-sm`}>
+                          {unread}
+                        </div>
+                      )}
+                    </div>
+                  </button>
                 )
               })
             )}
@@ -572,18 +609,20 @@ const AgentChatPage: React.FC = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex flex-col gap-1.5 flex-shrink-0 border-t pt-2">
-              <div className="text-xs text-neutral-600 text-center">
+            <div className="flex flex-col gap-2 flex-shrink-0 border-t border-neutral-200 pt-3">
+              <div className="text-xs text-neutral-600 text-center font-medium">
                 {startIndex + 1}-{Math.min(endIndex, filteredRooms.length)} из {filteredRooms.length}
               </div>
               
-              <div className="flex items-center justify-center gap-1">
+              <div className="flex items-center justify-center gap-1.5">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-2 py-1 text-xs rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-1.5 text-xs rounded-lg bg-white border border-neutral-200 text-neutral-700 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                 >
-                  ←
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
                 </button>
                 
                 {totalPages <= 5 ? (
@@ -591,17 +630,17 @@ const AgentChatPage: React.FC = () => {
                     <button
                       key={page}
                       onClick={() => handlePageChange(page)}
-                      className={`px-2 py-1 text-xs rounded-md ${
+                      className={`min-w-[32px] px-2 py-1.5 text-xs font-medium rounded-lg transition-all shadow-sm ${
                         currentPage === page
-                          ? 'bg-primary-600 text-white'
-                          : 'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
+                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md'
+                          : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700'
                       }`}
                     >
                       {page}
                     </button>
                   ))
                 ) : (
-                  <form onSubmit={handleQuickJump} className="flex items-center gap-1">
+                  <form onSubmit={handleQuickJump} className="flex items-center gap-1.5">
                     <input
                       type="number"
                       min="1"
@@ -609,107 +648,120 @@ const AgentChatPage: React.FC = () => {
                       value={pageInput}
                       onChange={(e) => setPageInput(e.target.value)}
                       placeholder={currentPage.toString()}
-                      className="w-12 px-1 py-1 border border-neutral-300 rounded-md text-center text-xs"
+                      className="w-12 px-2 py-1.5 border border-neutral-200 rounded-lg text-center text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     />
-                    <span className="text-xs text-neutral-600">/{totalPages}</span>
+                    <span className="text-xs text-neutral-600 font-medium">/{totalPages}</span>
                   </form>
                 )}
                 
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-2 py-1 text-xs rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-1.5 text-xs rounded-lg bg-white border border-neutral-200 text-neutral-700 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
                 >
-                  →
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
             </div>
           )}
         </aside>
-        <main className="col-span-3 bg-white rounded-lg shadow-sm p-3 h-full flex flex-col">
+        <main className="col-span-3 bg-gradient-to-br from-white to-neutral-50 rounded-xl shadow-lg border border-neutral-200 p-4 h-full flex flex-col">
           {loading || !routerReady ? (
             // Show loading state while data loads OR router is not ready
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Загрузка чатов...</p>
+                <div className="relative w-16 h-16 mx-auto mb-4">
+                  <div className="absolute inset-0 rounded-full border-4 border-neutral-200"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-primary-600 border-t-transparent animate-spin"></div>
+                </div>
+                <p className="text-neutral-600 font-medium">Загрузка чатов...</p>
+                <p className="text-xs text-neutral-500 mt-1">Пожалуйста, подождите</p>
               </div>
             </div>
           ) : isCustomerChat && room ? (
             // Show customer chat and commercial chat side by side
-            <div className="grid grid-cols-2 gap-2 -m-3" style={{ height: 'calc(100vh - 100px)' }}>
+            <div className="grid grid-cols-2 gap-3 -m-4" style={{ height: 'calc(100vh - 100px)' }}>
               {/* Customer Chat */}
-              <div className="bg-white rounded-l-lg border-r flex flex-col overflow-hidden">
-                <div className="border-b px-2 py-1.5 bg-gradient-to-r from-blue-50 to-blue-100 flex-shrink-0">
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 text-xs truncate">💬 {selectedRoom?.name || 'Клиент'}</h3>
-                      <p className="text-[10px] text-gray-600 truncate">
-                        {selectedRoom?.subtitle || 'Загрузка...'}
-                      </p>
+              <div className="bg-white rounded-l-xl border-r border-neutral-200 flex flex-col overflow-hidden">
+                <div className="border-b border-neutral-200 px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 flex-shrink-0">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-lg">
+                        {selectedRoom?.name?.charAt(0) || '👤'}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-white text-sm truncate">
+                          {selectedRoom?.name || 'Клиент'}
+                        </h3>
+                        <p className="text-xs text-primary-100 truncate">
+                          {selectedRoom?.subtitle || 'Загрузка...'}
+                        </p>
+                      </div>
                     </div>
                   </div>
                   
                   {/* Action Buttons - show for in_progress and sent_to_commercial */}
                   {applicationData && (applicationData.status === 'in_progress' || applicationData.status === 'sent_to_commercial') && (
-                    <div className="flex items-center gap-1 mt-1">
+                    <div className="flex items-center gap-2 mt-3">
                       <button
                         onClick={handleViewDetails}
-                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-3 py-2 bg-white/90 hover:bg-white text-primary-700 border border-white/50 rounded-lg text-xs font-medium hover:shadow-md transition-all flex items-center justify-center gap-1.5"
                         title="Посмотреть детали"
                       >
-                        <Eye className="h-3 w-3" />
-                        <span className="hidden sm:inline">Детали</span>
+                        <Eye className="h-4 w-4" />
+                        <span>Детали</span>
                       </button>
                       <button
                         onClick={handleEdit}
-                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-3 py-2 bg-white/90 hover:bg-white text-primary-700 border border-white/50 rounded-lg text-xs font-medium hover:shadow-md transition-all flex items-center justify-center gap-1.5"
                         title="Редактировать"
                       >
-                        <Edit2 className="h-3 w-3" />
-                        <span className="hidden sm:inline">Изменить</span>
+                        <Edit2 className="h-4 w-4" />
+                        <span>Изменить</span>
                       </button>
                       {applicationData.status === 'in_progress' && (
                         <button
                           onClick={handleSendToCommercial}
                           disabled={sendingToCommercial}
-                          className="flex-1 px-1.5 py-1 bg-primary-600 text-white rounded text-[10px] font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
+                          className="flex-1 px-3 py-2 bg-white text-primary-700 border border-white/50 rounded-lg text-xs font-medium hover:bg-white hover:shadow-md transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
                           title="В коммерческий отдел"
                         >
-                          <Send className="h-3 w-3" />
-                          <span className="hidden sm:inline">{sendingToCommercial ? '...' : 'В отдел'}</span>
+                          <Send className="h-4 w-4" />
+                          <span>{sendingToCommercial ? 'Отправка...' : 'В отдел'}</span>
                         </button>
                       )}
                       <button
                         onClick={handleCancelApplication}
                         disabled={cancelling}
-                        className="px-1.5 py-1 bg-neutral-600 text-white rounded text-[10px] font-medium hover:bg-neutral-700 transition-colors flex items-center justify-center disabled:opacity-50"
+                        className="px-3 py-2 bg-white/90 hover:bg-white text-white border border-white/50 rounded-lg text-xs font-medium hover:shadow-md transition-all flex items-center justify-center disabled:opacity-50"
                         title="Отменить заявку"
                       >
-                        <XCircle className="h-3 w-3" />
+                        <XCircle className="h-4 w-4 text-neutral-600" />
                       </button>
                     </div>
                   )}
                   
                   {/* Send Contract Button - show only for approved applications */}
                   {applicationData && applicationData.status === 'approved' && (
-                    <div className="flex items-center gap-1 mt-1">
+                    <div className="flex items-center gap-2 mt-3">
                       <button
                         onClick={handleViewDetails}
-                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-3 py-2 bg-white/90 hover:bg-white text-primary-700 border border-white/50 rounded-lg text-xs font-medium hover:shadow-md transition-all flex items-center justify-center gap-1.5"
                         title="Посмотреть детали"
                       >
-                        <Eye className="h-3 w-3" />
-                        <span className="hidden sm:inline">Детали</span>
+                        <Eye className="h-4 w-4" />
+                        <span>Детали</span>
                       </button>
                       <button
                         onClick={handleSendContract}
                         disabled={sendingContract}
-                        className="flex-1 px-1.5 py-1 bg-primary-600 text-white rounded text-[10px] font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
+                        className="flex-1 px-3 py-2 bg-white text-primary-700 border border-white/50 rounded-lg text-xs font-medium hover:bg-white hover:shadow-md transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
                         title="Отправить договор"
                       >
-                        <FileText className="h-3 w-3" />
-                        <span className="hidden sm:inline">{sendingContract ? 'Отправка...' : 'Договор'}</span>
+                        <FileText className="h-4 w-4" />
+                        <span>{sendingContract ? 'Отправка...' : 'Договор'}</span>
                       </button>
                     </div>
                   )}
@@ -725,7 +777,7 @@ const AgentChatPage: React.FC = () => {
 
               {/* Commercial Department Chat - Only when status is sent_to_commercial */}
               {applicationData && applicationData.status === 'sent_to_commercial' ? (
-                <div className="bg-white rounded-r-lg flex flex-col overflow-hidden">
+                <div className="bg-white rounded-r-xl flex flex-col overflow-hidden">\n                  <div className="border-b border-neutral-200 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 flex-shrink-0">\n                    <div className="flex items-center gap-3">\n                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">\n                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />\n                        </svg>\n                      </div>\n                      <div className="flex-1 min-w-0">\n                        <h3 className="font-bold text-white text-sm">\n                          Коммерческий отдел\n                        </h3>\n                        <p className="text-xs text-primary-100">\n                          Обсуждение деталей заявки\n                        </p>\n                      </div>\n                    </div>\n                  </div>
                   <div className="border-b px-2 py-1.5 bg-gradient-to-r from-purple-50 to-purple-100 flex-shrink-0">
                     <h3 className="font-semibold text-purple-900 flex items-center gap-1 text-xs">
                       <span className="text-sm">🏢</span>
@@ -812,40 +864,62 @@ const AgentChatPage: React.FC = () => {
 
       {/* Details Modal */}
       {showDetailsModal && applicationData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-gray-900">Детали заявки</h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+            {/* Header */}
+            <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+                  <Eye className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Детали заявки</h3>
+                  <p className="text-sm text-primary-100">ID: #{applicationData.id.slice(-8)}</p>
+                </div>
+              </div>
               <button
                 onClick={() => setShowDetailsModal(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-white hover:bg-white/20 transition-colors p-2 rounded-lg"
               >
-                <XMarkIcon className="h-6 w-6" />
+                <X className="h-6 w-6" />
               </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            {/* Content */}
+            <div className="p-6 space-y-6 overflow-y-auto max-h-[calc(90vh-100px)]">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm font-medium text-gray-500 mb-1">ID заявки</p>
-                  <p className="text-lg font-semibold text-gray-900">#{applicationData.id.slice(-8)}</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm font-medium text-gray-500 mb-1">Статус</p>
-                  <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(applicationData.status)}`}>
+                <div className="bg-gradient-to-br from-primary-50 to-primary-100 p-5 rounded-xl border border-primary-200">
+                  <p className="text-sm font-medium text-primary-700 mb-2">Статус заявки</p>
+                  <span className={`inline-flex px-4 py-2 text-sm font-bold rounded-lg shadow-sm ${getStatusColor(applicationData.status)}`}>
                     {getStatusText(applicationData.status)}
                   </span>
                 </div>
+                <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 p-5 rounded-xl border border-neutral-200">
+                  <p className="text-sm font-medium text-neutral-600 mb-2">Дата создания</p>
+                  <p className="text-lg font-bold text-neutral-900">
+                    {new Date(applicationData.created_at).toLocaleDateString('ru-RU')}
+                  </p>
+                </div>
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-sm font-medium text-gray-500 mb-2">📺 Программа</p>
-                <p className="text-lg font-semibold text-gray-900">{applicationData.show_name || 'Не указано'}</p>
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl border border-blue-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm font-semibold text-blue-700">Программа</p>
+                </div>
+                <p className="text-xl font-bold text-blue-900">{applicationData.show_name || 'Не указано'}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm font-medium text-gray-500 mb-2">📅 Дата показа</p>
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-xl border border-green-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p className="text-sm font-semibold text-green-700">Дата показа</p>
+                  </div>
                   <p className="text-gray-900">
                     {applicationData.scheduled_at 
                       ? new Date(applicationData.scheduled_at).toLocaleString('ru-RU', {
