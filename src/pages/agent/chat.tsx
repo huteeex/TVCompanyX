@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import socketService from '../../utils/socket'
 import toast from 'react-hot-toast'
-import { XMarkIcon, PaperAirplaneIcon, EyeIcon, PencilIcon, XCircleIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
+import { X, Send, Eye, Edit2, XCircle, FileText } from 'lucide-react'
 
 const AgentChatPage: React.FC = () => {
   const router = useRouter()
@@ -45,12 +45,12 @@ const AgentChatPage: React.FC = () => {
   // Helper to get status badge color
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800'
-      case 'in_progress': return 'bg-blue-100 text-blue-800'
-      case 'sent_to_commercial': return 'bg-purple-100 text-purple-800'
-      case 'approved': return 'bg-green-100 text-green-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'pending': return 'bg-neutral-200 text-neutral-700'
+      case 'in_progress': return 'bg-primary-100 text-primary-700'
+      case 'sent_to_commercial': return 'bg-primary-200 text-primary-800'
+      case 'approved': return 'bg-primary-100 text-primary-700'
+      case 'rejected': return 'bg-neutral-200 text-neutral-700'
+      default: return 'bg-neutral-100 text-neutral-600'
     }
   }
 
@@ -559,7 +559,7 @@ const AgentChatPage: React.FC = () => {
                         </div>
                         <div>
                           {unread > 0 && (
-                            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">{unread}</span>
+                            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary-500 text-white text-xs">{unread}</span>
                           )}
                         </div>
                       </div>
@@ -655,38 +655,38 @@ const AgentChatPage: React.FC = () => {
                     <div className="flex items-center gap-1 mt-1">
                       <button
                         onClick={handleViewDetails}
-                        className="flex-1 px-1.5 py-1 bg-white text-blue-700 border border-blue-200 rounded text-[10px] font-medium hover:bg-blue-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
                         title="Посмотреть детали"
                       >
-                        <EyeIcon className="h-3 w-3" />
+                        <Eye className="h-3 w-3" />
                         <span className="hidden sm:inline">Детали</span>
                       </button>
                       <button
                         onClick={handleEdit}
-                        className="flex-1 px-1.5 py-1 bg-white text-green-700 border border-green-200 rounded text-[10px] font-medium hover:bg-green-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
                         title="Редактировать"
                       >
-                        <PencilIcon className="h-3 w-3" />
+                        <Edit2 className="h-3 w-3" />
                         <span className="hidden sm:inline">Изменить</span>
                       </button>
                       {applicationData.status === 'in_progress' && (
                         <button
                           onClick={handleSendToCommercial}
                           disabled={sendingToCommercial}
-                          className="flex-1 px-1.5 py-1 bg-purple-600 text-white rounded text-[10px] font-medium hover:bg-purple-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
+                          className="flex-1 px-1.5 py-1 bg-primary-600 text-white rounded text-[10px] font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
                           title="В коммерческий отдел"
                         >
-                          <PaperAirplaneIcon className="h-3 w-3" />
+                          <Send className="h-3 w-3" />
                           <span className="hidden sm:inline">{sendingToCommercial ? '...' : 'В отдел'}</span>
                         </button>
                       )}
                       <button
                         onClick={handleCancelApplication}
                         disabled={cancelling}
-                        className="px-1.5 py-1 bg-red-600 text-white rounded text-[10px] font-medium hover:bg-red-700 transition-colors flex items-center justify-center disabled:opacity-50"
+                        className="px-1.5 py-1 bg-neutral-600 text-white rounded text-[10px] font-medium hover:bg-neutral-700 transition-colors flex items-center justify-center disabled:opacity-50"
                         title="Отменить заявку"
                       >
-                        <XCircleIcon className="h-3 w-3" />
+                        <XCircle className="h-3 w-3" />
                       </button>
                     </div>
                   )}
@@ -696,19 +696,19 @@ const AgentChatPage: React.FC = () => {
                     <div className="flex items-center gap-1 mt-1">
                       <button
                         onClick={handleViewDetails}
-                        className="flex-1 px-1.5 py-1 bg-white text-blue-700 border border-blue-200 rounded text-[10px] font-medium hover:bg-blue-50 transition-colors flex items-center justify-center gap-0.5"
+                        className="flex-1 px-1.5 py-1 bg-white text-primary-700 border border-primary-200 rounded text-[10px] font-medium hover:bg-primary-50 transition-colors flex items-center justify-center gap-0.5"
                         title="Посмотреть детали"
                       >
-                        <EyeIcon className="h-3 w-3" />
+                        <Eye className="h-3 w-3" />
                         <span className="hidden sm:inline">Детали</span>
                       </button>
                       <button
                         onClick={handleSendContract}
                         disabled={sendingContract}
-                        className="flex-1 px-1.5 py-1 bg-green-600 text-white rounded text-[10px] font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
+                        className="flex-1 px-1.5 py-1 bg-primary-600 text-white rounded text-[10px] font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-0.5 disabled:opacity-50"
                         title="Отправить договор"
                       >
-                        <DocumentTextIcon className="h-3 w-3" />
+                        <FileText className="h-3 w-3" />
                         <span className="hidden sm:inline">{sendingContract ? 'Отправка...' : 'Договор'}</span>
                       </button>
                     </div>
@@ -783,7 +783,7 @@ const AgentChatPage: React.FC = () => {
                         : 'Для работы с коммерческим отделом измените статус заявки на "В коммерческий отдел".'}
                     </p>
                     {applicationData?.status === 'in_progress' && (
-                      <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 rounded-full text-blue-700 text-sm">
+                      <div className="inline-flex items-center space-x-2 px-4 py-2 bg-primary-50 rounded-full text-primary-700 text-sm">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
@@ -864,7 +864,7 @@ const AgentChatPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+              <div className="bg-primary-50 border border-primary-200 p-4 rounded-lg">
                 <p className="text-sm font-medium text-green-700 mb-2">💰 Стоимость</p>
                 <p className="text-2xl font-bold text-green-600">
                   {(applicationData.cost || 0).toLocaleString('ru-RU')} ₽
@@ -931,21 +931,21 @@ const AgentChatPage: React.FC = () => {
       {showEditModal && applicationData && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 border-b px-6 py-4 flex items-center justify-between">
+            <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 border-b px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="bg-white/20 p-2 rounded-lg">
-                  <PencilIcon className="h-6 w-6 text-white" />
+                  <Edit2 className="h-6 w-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white">Редактировать заявку</h3>
-                  <p className="text-sm text-blue-100">ID: {appId?.slice(-8)}</p>
+                  <p className="text-sm text-primary-100">ID: {appId?.slice(-8)}</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowEditModal(false)}
                 className="text-white hover:bg-white/20 transition-colors p-2 rounded-lg"
               >
-                <XMarkIcon className="h-6 w-6" />
+                <X className="h-6 w-6" />
               </button>
             </div>
 
