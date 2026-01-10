@@ -165,17 +165,17 @@ const CommercialDashboard: React.FC = () => {
         label: `Количество заявок ${getPeriodLabel()}`,
         data: [stats.pending, stats.approved, stats.rejected],
         backgroundColor: [
-          'rgba(251, 191, 36, 0.7)',
-          'rgba(34, 197, 94, 0.7)',
-          'rgba(239, 68, 68, 0.7)',
+          'rgba(99, 102, 241, 0.8)',
+          'rgba(99, 102, 241, 0.6)',
+          'rgba(163, 163, 163, 0.5)',
         ],
         borderColor: [
-          'rgb(251, 191, 36)',
-          'rgb(34, 197, 94)',
-          'rgb(239, 68, 68)',
+          'rgb(99, 102, 241)',
+          'rgb(99, 102, 241)',
+          'rgb(115, 115, 115)',
         ],
         borderWidth: 2,
-        borderRadius: 6,
+        borderRadius: 8,
         barThickness: 60,
       },
     ],
@@ -193,12 +193,12 @@ const CommercialDashboard: React.FC = () => {
         display: true,
         text: `Статусы заявок ${getPeriodLabel()}`,
         font: {
-          size: 14,
+          size: 16,
           weight: 'bold' as const,
         },
-        color: '#1f2937',
+        color: '#4338ca',
         padding: {
-          bottom: 20,
+          bottom: 24,
         },
       },
     },
@@ -208,18 +208,21 @@ const CommercialDashboard: React.FC = () => {
         ticks: {
           stepSize: 1,
           font: {
-            size: 12,
+            size: 13,
           },
+          color: '#737373',
         },
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
+          color: 'rgba(99, 102, 241, 0.1)',
         },
       },
       x: {
         ticks: {
           font: {
-            size: 12,
+            size: 13,
+            weight: 500,
           },
+          color: '#525252',
         },
         grid: {
           display: false,
@@ -242,55 +245,57 @@ const CommercialDashboard: React.FC = () => {
     <Layout role="commercial">
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-neutral-900">
-              Добро пожаловать, {user?.name}!
-            </h1>
-            <p className="text-neutral-600">
-              Панель управления коммерческого отдела
-            </p>
+        <div className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 rounded-2xl shadow-lg p-8 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">
+                Добро пожаловать, {user?.name}!
+              </h1>
+              <p className="text-primary-100">
+                Панель управления коммерческого отдела
+              </p>
+            </div>
+            <button
+              onClick={loadAllApplications}
+              className="flex items-center space-x-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 hover:scale-105"
+            >
+              <RefreshCw className="h-5 w-5" />
+              <span className="font-medium">Обновить</span>
+            </button>
           </div>
-          <button
-            onClick={loadAllApplications}
-            className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-          >
-            <RefreshCw className="h-5 w-5" />
-            <span>Обновить</span>
-          </button>
         </div>
 
         {/* Period Selector */}
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <div className="flex items-center space-x-4">
-            <span className="text-sm font-medium text-neutral-700">Период статистики:</span>
+            <span className="text-sm font-semibold text-neutral-700">Период статистики:</span>
             <div className="flex space-x-2">
               <button
                 onClick={() => setPeriod('day')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
                   period === 'day'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md shadow-primary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:scale-105'
                 }`}
               >
                 День
               </button>
               <button
                 onClick={() => setPeriod('week')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
                   period === 'week'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md shadow-primary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:scale-105'
                 }`}
               >
                 Неделя
               </button>
               <button
                 onClick={() => setPeriod('month')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
                   period === 'month'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md shadow-primary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:scale-105'
                 }`}
               >
                 Месяц
@@ -301,81 +306,86 @@ const CommercialDashboard: React.FC = () => {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <div className="group bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-lg hover:border-primary-300 transition-all duration-300">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="flex-1">
                 <p className="text-sm font-medium text-neutral-600">Заявок на рассмотрении</p>
-                <p className="text-3xl font-bold text-neutral-900 mt-2">{stats.pending}</p>
+                <p className="text-3xl font-bold text-neutral-900 mt-2 group-hover:text-primary-600 transition-colors">{stats.pending}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-primary-100">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-primary-100 to-primary-50 group-hover:from-primary-200 group-hover:to-primary-100 transition-all duration-300">
                 <ClipboardList className="h-8 w-8 text-primary-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <div className="group bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-lg hover:border-primary-300 transition-all duration-300">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="flex-1">
                 <p className="text-sm font-medium text-neutral-600">Одобрено</p>
-                <p className="text-3xl font-bold text-primary-600 mt-2">{stats.approved}</p>
+                <p className="text-3xl font-bold text-primary-600 mt-2 group-hover:scale-110 transition-transform">{stats.approved}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-primary-100">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-primary-100 to-primary-50 group-hover:from-primary-200 group-hover:to-primary-100 transition-all duration-300">
                 <CheckCircle className="h-8 w-8 text-primary-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <div className="group bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-lg hover:border-neutral-300 transition-all duration-300">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="flex-1">
                 <p className="text-sm font-medium text-neutral-600">Отклонено</p>
                 <p className="text-3xl font-bold text-neutral-900 mt-2">{stats.rejected}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-neutral-100">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-neutral-100 to-neutral-50 group-hover:from-neutral-200 group-hover:to-neutral-100 transition-all duration-300">
                 <XCircle className="h-8 w-8 text-neutral-500" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <div className="group bg-gradient-to-br from-primary-600 to-primary-500 rounded-xl shadow-md p-6 hover:shadow-xl hover:scale-105 transition-all duration-300">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-neutral-600">Общий доход</p>
-                <p className="text-2xl font-bold text-primary-600 mt-2">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-primary-100">Общий доход</p>
+                <p className="text-2xl font-bold text-white mt-2">
                   {stats.totalRevenue.toLocaleString('ru-RU')} ₽
                 </p>
-                <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
+                <p className="text-xs text-primary-100 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-primary-100">
-                <DollarSign className="h-8 w-8 text-primary-600" />
+              <div className="p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+                <DollarSign className="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Chart */}
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-8">
+          <div className="max-w-4xl mx-auto">
             <Bar data={chartData} options={chartOptions} />
           </div>
         </div>
 
         {/* Pending Applications Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
-          <div className="p-6 border-b border-neutral-200">
-            <h3 className="text-lg font-semibold text-neutral-900">
-              Заявки на рассмотрении ({pendingApplications.length})
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+          <div className="p-6 border-b border-neutral-200 bg-gradient-to-r from-neutral-50 to-white">
+            <h3 className="text-lg font-bold text-neutral-900">
+              Заявки на рассмотрении
+              <span className="ml-2 inline-flex items-center justify-center px-3 py-1 text-sm font-semibold text-primary-600 bg-primary-100 rounded-full">
+                {pendingApplications.length}
+              </span>
             </h3>
           </div>
 
           <div className="p-6">
             {pendingApplications.length === 0 ? (
-              <div className="text-center py-8">
-                <ClipboardList className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-neutral-900 mb-2">
+              <div className="text-center py-12">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-50 mb-4">
+                  <ClipboardList className="h-8 w-8 text-primary-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
                 <p className="text-neutral-600">
@@ -385,31 +395,31 @@ const CommercialDashboard: React.FC = () => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-neutral-200">
-                  <thead className="bg-neutral-50">
+                  <thead className="bg-gradient-to-r from-neutral-50 to-neutral-100/50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Клиент
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Шоу
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Дата размещения
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Длительность
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Стоимость
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-neutral-200">
                     {pendingApplications.map((application) => (
-                      <tr key={application.id} className="hover:bg-neutral-50">
+                      <tr key={application.id} className="hover:bg-primary-50/30 transition-colors duration-150">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {application.customer_name || 
                            `${application.customer_first_name || ''} ${application.customer_last_name || ''}`.trim() ||
@@ -434,18 +444,18 @@ const CommercialDashboard: React.FC = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                           <button
                             onClick={() => handleApproveApplication(application.id)}
-                            className="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-700 rounded-md hover:bg-primary-200 transition-colors"
+                            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-lg hover:from-primary-700 hover:to-primary-600 transition-all duration-300 hover:scale-105 shadow-sm"
                             title="Одобрить"
                           >
-                            <CheckCircle className="h-4 w-4 mr-1" />
+                            <CheckCircle className="h-4 w-4 mr-1.5" />
                             Одобрить
                           </button>
                           <button
                             onClick={() => handleRejectApplication(application.id)}
-                            className="inline-flex items-center px-3 py-1 bg-neutral-100 text-neutral-700 rounded-md hover:bg-neutral-200 transition-colors"
+                            className="inline-flex items-center px-4 py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-all duration-300 hover:scale-105"
                             title="Отклонить"
                           >
-                            <XCircle className="h-4 w-4 mr-1" />
+                            <XCircle className="h-4 w-4 mr-1.5" />
                             Отклонить
                           </button>
                         </td>
