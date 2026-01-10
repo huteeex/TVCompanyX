@@ -199,10 +199,10 @@ const StaffManagementPage: React.FC = () => {
   const getRoleColor = (role: string) => {
     const colors: { [key: string]: string } = {
       agent: 'bg-primary-100 text-primary-700',
-      commercial: 'bg-accent-100 text-accent-700',
+      commercial: 'bg-primary-50 text-primary-600',
       director: 'bg-primary-200 text-primary-800',
-      accountant: 'bg-accent-200 text-accent-800',
-      company: 'bg-primary-50 text-primary-600',
+      accountant: 'bg-primary-100 text-primary-600',
+      company: 'bg-neutral-100 text-neutral-600',
       it_admin: 'bg-neutral-100 text-neutral-700'
     }
     return colors[role] || 'bg-neutral-100 text-neutral-700'
@@ -479,7 +479,7 @@ const StaffManagementPage: React.FC = () => {
         {showEditModal && selectedStaff && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="bg-gradient-to-r from-accent-500 to-accent-600 px-6 py-4 flex justify-between items-center">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4 flex justify-between items-center">
                 <h2 className="text-xl font-bold text-white">Редактировать сотрудника</h2>
                 <button onClick={() => {
                   setShowEditModal(false)
@@ -584,7 +584,7 @@ const StaffManagementPage: React.FC = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-accent-500 to-accent-600 text-white rounded-xl hover:shadow-soft-lg transition-all duration-300 font-medium"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:shadow-soft-lg transition-all duration-300 font-medium"
                   >
                     Сохранить
                   </button>

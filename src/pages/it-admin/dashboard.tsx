@@ -82,10 +82,10 @@ const ITAdminDashboard: React.FC = () => {
     const colors: { [key: string]: string } = {
       customer: 'bg-primary-600',
       agent: 'bg-primary-500',
-      commercial: 'bg-accent-500',
+      commercial: 'bg-primary-400',
       director: 'bg-primary-700',
-      accountant: 'bg-accent-400',
-      company: 'bg-primary-400',
+      accountant: 'bg-primary-300',
+      company: 'bg-neutral-400',
       it_admin: 'bg-neutral-500'
     }
     return colors[role] || 'bg-neutral-500'
@@ -191,7 +191,7 @@ const ITAdminDashboard: React.FC = () => {
                           {stats.active_users}
                         </p>
                       </div>
-                      <div className="p-4 bg-gradient-to-br from-accent-400 to-accent-500 rounded-xl shadow-soft">
+                      <div className="p-4 bg-gradient-to-br from-primary-400 to-primary-500 rounded-xl shadow-soft">
                         <CheckCircle className="h-8 w-8 text-white" />
                       </div>
                     </div>
