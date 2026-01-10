@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { XMarkIcon } from '@heroicons/react/24/solid'
+import { X, Tv, Calendar, Clock, DollarSign, FileText, Phone, Save } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 interface Application {
@@ -98,31 +98,32 @@ const EditApplicationModal: React.FC<EditApplicationModalProps> = ({ application
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 flex items-center justify-between rounded-t-xl">
+        <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 flex items-center justify-between rounded-t-xl">
           <div>
             <h3 className="text-xl font-bold">Редактирование заявки</h3>
-            <p className="text-blue-100 text-sm">ID: #{application.id.slice(-8)}</p>
+            <p className="text-primary-100 text-sm">ID: #{application.id.slice(-8)}</p>
           </div>
           <button
             onClick={onClose}
             className="text-white hover:bg-white hover:bg-opacity-20 rounded-lg p-2 transition-colors"
           >
-            <XMarkIcon className="h-6 w-6" />
+            <X className="h-6 w-6" />
           </button>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Show Selection */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              📺 Программа *
+          <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+            <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+              <Tv className="h-4 w-4 mr-2 text-primary-600" />
+              Программа *
             </label>
             <select
               value={formData.show_id}
               onChange={(e) => setFormData({ ...formData, show_id: e.target.value })}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="">Выберите программу</option>
               {shows.map(show => (
@@ -131,29 +132,31 @@ const EditApplicationModal: React.FC<EditApplicationModalProps> = ({ application
                 </option>
               ))}
             </select>
-            <p className="text-xs text-gray-500 mt-1">Выберите программу для размещения рекламы</p>
+            <p className="text-xs text-neutral-500 mt-1">Выберите программу для размещения рекламы</p>
           </div>
 
           {/* Scheduled Date & Time */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              📅 Дата и время показа *
+          <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+            <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+              <Calendar className="h-4 w-4 mr-2 text-primary-600" />
+              Дата и время показа *
             </label>
             <input
               type="datetime-local"
               value={formData.scheduled_at}
               onChange={(e) => setFormData({ ...formData, scheduled_at: e.target.value })}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
-            <p className="text-xs text-gray-500 mt-1">Укажите точную дату и время показа рекламы</p>
+            <p className="text-xs text-neutral-500 mt-1">Укажите точную дату и время показа рекламы</p>
           </div>
 
           {/* Duration & Cost */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                ⏱️ Длительность (секунды) *
+            <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+              <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+                <Clock className="h-4 w-4 mr-2 text-primary-600" />
+                Длительность (секунды) *
               </label>
               <input
                 type="number"
@@ -162,16 +165,17 @@ const EditApplicationModal: React.FC<EditApplicationModalProps> = ({ application
                 required
                 min="1"
                 max="300"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
-              <p className="text-xs text-gray-500 mt-1">
-                {formData.duration_seconds > 0 && `${formData.duration_seconds} сек (≈ ${(formData.duration_seconds / 60).toFixed(2)} мин)`}
+              <p className="text-xs text-neutral-500 mt-1">
+                {formData.duration_seconds > 0 && `≈ ${Math.floor(formData.duration_seconds / 60)} мин ${formData.duration_seconds % 60} сек`}
               </p>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                💰 Стоимость (₽) *
+            <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+              <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+                <DollarSign className="h-4 w-4 mr-2 text-primary-600" />
+                Стоимость (₽) *
               </label>
               <input
                 type="number"
@@ -180,68 +184,73 @@ const EditApplicationModal: React.FC<EditApplicationModalProps> = ({ application
                 required
                 min="0"
                 step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 {formData.cost > 0 && `${Number(formData.cost).toLocaleString('ru-RU')} ₽`}
               </p>
             </div>
           </div>
 
           {/* Description */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              📝 Описание
+          <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+            <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+              <FileText className="h-4 w-4 mr-2 text-primary-600" />
+              Описание
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              rows={4}
+              rows={3}
               placeholder="Дополнительные детали заявки..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
             />
-            <p className="text-xs text-gray-500 mt-1">Укажите дополнительную информацию о заявке</p>
+            <p className="text-xs text-neutral-500 mt-1">{formData.description.length} символов</p>
           </div>
 
           {/* Contact Phone */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              📞 Контактный телефон
+          <div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+            <label className="flex items-center text-sm font-semibold text-neutral-700 mb-2">
+              <Phone className="h-4 w-4 mr-2 text-primary-600" />
+              Контактный телефон
             </label>
             <input
               type="tel"
               value={formData.contact_phone}
               onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
-              placeholder="+7 (XXX) XXX-XX-XX"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="+7 (900) 000 00-00"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
-            <p className="text-xs text-gray-500 mt-1">Телефон для связи по этой заявке</p>
+            <p className="text-xs text-neutral-500 mt-1">Телефон для связи по этой заявке</p>
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-neutral-200">
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              className="px-6 py-3 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors font-medium"
             >
-              Отмена
+              Отменить
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              className="flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
             >
               {loading ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                   Сохранение...
-                </span>
+                </>
               ) : (
-                'Сохранить изменения'
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Сохранить изменения
+                </>
               )}
             </button>
           </div>
