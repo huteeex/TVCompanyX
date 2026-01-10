@@ -7,6 +7,7 @@ import { RootState } from '../../redux/store'
 import socketService from '../../utils/socket'
 import toast from 'react-hot-toast'
 import { X, Send, Eye, Edit2, XCircle, FileText } from 'lucide-react'
+import { IMaskInput } from 'react-imask'
 
 const AgentChatPage: React.FC = () => {
   const router = useRouter()
@@ -1094,12 +1095,13 @@ const AgentChatPage: React.FC = () => {
                     </svg>
                     <span>Контактный телефон</span>
                   </label>
-                  <input
-                    type="text"
+                  <IMaskInput
+                    mask="+{7} (000) 000 00-00"
                     value={editFormData.contact_phone || ''}
-                    onChange={(e) => setEditFormData({ ...editFormData, contact_phone: e.target.value })}
+                    unmask={false}
+                    onAccept={(value) => setEditFormData({ ...editFormData, contact_phone: value })}
+                    placeholder="+7 (900) 000 00-00"
                     className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
-                    placeholder="+7 (999) 999-99-99"
                   />
                 </div>
 
