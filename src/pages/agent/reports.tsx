@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Layout from '../../components/layout/Layout'
 import { reportAPI } from '../../utils/api'
 import toast from 'react-hot-toast'
-import { DocumentArrowDownIcon, CalendarIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import { Download, Calendar, ChartBar } from 'lucide-react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -137,9 +137,9 @@ const ReportsPage: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      generating: { color: 'bg-yellow-100 text-yellow-800', text: 'Генерируется' },
-      ready: { color: 'bg-green-100 text-green-800', text: 'Готов' },
-      error: { color: 'bg-red-100 text-red-800', text: 'Ошибка' },
+      generating: { color: 'bg-primary-100 text-primary-700', text: 'Генерируется' },
+      ready: { color: 'bg-primary-100 text-primary-700', text: 'Готов' },
+      error: { color: 'bg-neutral-200 text-neutral-700', text: 'Ошибка' },
     }
 
     const config = statusConfig[status as keyof typeof statusConfig]
@@ -154,7 +154,7 @@ const ReportsPage: React.FC = () => {
     <Layout role="agent">
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
-          <DocumentArrowDownIcon className="h-8 w-8 text-primary-600" />
+          <Download className="h-8 w-8 text-primary-600" />
           <div>
             <h1 className="text-2xl font-bold text-neutral-900">
               Отчеты для клиентов
@@ -339,7 +339,7 @@ const ReportsPage: React.FC = () => {
                 {
                   name: 'Месячный отчет',
                   description: 'Отчет по заявкам за текущий месяц',
-                  icon: CalendarIcon,
+                  icon: Calendar,
                   action: () => {
                     const now = new Date()
                     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
@@ -350,7 +350,7 @@ const ReportsPage: React.FC = () => {
                 {
                   name: 'Квартальный отчет',
                   description: 'Отчет по заявкам за текущий квартал',
-                  icon: ChartBarIcon,
+                  icon: ChartBar,
                   action: () => {
                     const now = new Date()
                     const quarter = Math.floor(now.getMonth() / 3)
@@ -362,7 +362,7 @@ const ReportsPage: React.FC = () => {
                 {
                   name: 'Годовой отчет',
                   description: 'Отчет по заявкам за текущий год',
-                  icon: DocumentArrowDownIcon,
+                  icon: Download,
                   action: () => {
                     const now = new Date()
                     const startOfYear = new Date(now.getFullYear(), 0, 1)
@@ -402,7 +402,7 @@ const ReportsPage: React.FC = () => {
           <div className="p-6">
             {reports.length === 0 ? (
               <div className="text-center py-8">
-                <DocumentArrowDownIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <Download className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Отчеты не найдены
                 </h3>
@@ -473,7 +473,7 @@ const ReportsPage: React.FC = () => {
         </div>
 
         {/* Information */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">
             Информация об отчетах
           </h3>
