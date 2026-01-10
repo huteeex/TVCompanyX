@@ -18,6 +18,7 @@ const CustomerChatPage: React.FC = () => {
   const [pageInput, setPageInput] = useState('')
   const [loading, setLoading] = useState(true)
   const [routerReady, setRouterReady] = useState(false)
+  const [showChatList, setShowChatList] = useState(true) // For mobile: show list or chat
   const roomsPerPage = 5
 
   // Helper to get status badge text
@@ -50,6 +51,13 @@ const CustomerChatPage: React.FC = () => {
       setRouterReady(true)
     }
   }, [router.isReady])
+
+  // Auto-hide chat list on mobile when room is selected
+  useEffect(() => {
+    if (room) {
+      setShowChatList(false)
+    }
+  }, [room])
 
   // Fetch applications once on mount
   useEffect(() => {
@@ -138,63 +146,84 @@ const CustomerChatPage: React.FC = () => {
 
   return (
     <Layout role="customer">
-      <div className="grid grid-cols-4 gap-6">
-        <aside className="col-span-1 bg-white rounded-lg shadow-sm p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold">Мои чаты</h3>
-            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary-100 text-primary-800 text-xs font-medium">
-              {filteredRooms.length}
-            </span>
-          </div>
-          
-          {/* Filter */}
-          <div className="mb-4">
-            <select 
-              value={statusFilter} 
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-            >
-              <option value="active">
-                Активные чаты ({rooms.filter(r => r.status === 'pending' || r.status === 'in_progress' || r.status === 'sent_to_commercial').length})
-              </option>
-              <option value="all">Все чаты ({rooms.length})</option>
-            </select>
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-12rem)]">
+        {/* Chat List Sidebar - показывается на мобильных по условию */}
+        <aside className={`${
+          showChatList ? 'block' : 'hidden lg:block'
+        } w-full lg:w-80 bg-white rounded-lg shadow-sm flex flex-col overflow-hidden`}>
+          <div className="p-4 border-b border-gray-200 flex-shrink-0">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base sm:text-lg font-semibold">Мои чаты</h3>
+              <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary-100 text-primary-800 text-xs font-medium">
+                {filteredRooms.length}
+              </span>
+            </div>
+            
+            {/* Filter */}
+            <div>
+              <select 
+                value={statusFilter} 
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              >
+                <option value="active">
+                  Активные ({rooms.filter(r => r.status === 'pending' || r.status === 'in_progress' || r.status === 'sent_to_commercial').length})
+                </option>
+                <option value="all">Все чаты ({rooms.length})</option>
+              </select>
+            </div>
           </div>
 
           {filteredRooms.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-sm text-gray-500">
-                {statusFilter === 'active' ? 'Нет активных чатов' : 'Нет чатов'}
-              </p>
+            <div className="flex-1 flex items-center justify-center py-8">
+              <div className="text-center">
+                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                <p className="mt-2 text-sm text-gray-500">
+                  {statusFilter === 'active' ? 'Нет активных чатов' : 'Нет чатов'}
+                </p>
+              </div>
             </div>
           )}
           
-          <div className="space-y-2">
+          <div className="flex-1 overflow-y-auto p-4 space-y-2">
             {paginatedRooms.map(r => {
               const roomIdStr = r.id
               const unread = r.unread || 0
               const title = r.name || 'Агент'
               return (
-                <div key={roomIdStr} className={`w-full p-2 rounded ${room === roomIdStr ? 'bg-primary-50' : ''}`}>
-                  <button onClick={() => router.push(`/customer/chat?room=${encodeURIComponent(roomIdStr)}`)} className="w-full text-left">
-                    <div className="flex justify-between items-center">
-                      <div className="flex-1">
-                        <div className="text-sm font-medium">{title}</div>
-                        <div className="text-xs text-neutral-500 mt-1">{r.subtitle}</div>
-                        {r.status && (
-                          <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(r.status)}`}>
-                            {getStatusText(r.status)}
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        {unread > 0 && (
-                          <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">{unread}</span>
-                        )}
-                      </div>
+                <button 
+                  key={roomIdStr} 
+                  onClick={() => {
+                    router.push(`/customer/chat?room=${encodeURIComponent(roomIdStr)}`)
+                    setShowChatList(false)
+                  }}
+                  className={`w-full p-3 rounded-lg text-left transition-colors active:scale-98 ${
+                    room === roomIdStr 
+                      ? 'bg-primary-50 border border-primary-200' 
+                      : 'hover:bg-gray-50 border border-transparent'
+                  }`}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-gray-900 truncate">{title}</div>
+                      <div className="text-xs text-gray-500 mt-1 truncate">{r.subtitle}</div>
+                      {r.status && (
+                        <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium ${
+                          getStatusColor(r.status)
+                        }`}>
+                          {getStatusText(r.status)}
+                        </span>
+                      )}
                     </div>
-                  </button>
-                </div>
+                    {unread > 0 && (
+                      <span className="flex-shrink-0 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs ml-2">
+                        {unread}
+                      </span>
+                    )}
+                  </div>
+                </button>
               )
             })}
           </div>
@@ -208,11 +237,11 @@ const CustomerChatPage: React.FC = () => {
               </div>
               
               {/* Page numbers */}
-              <div className="flex items-center justify-center gap-1 mb-2">
+              <div className="flex items-center justify-center gap-1 sm:gap-2 mb-2 overflow-x-auto">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2.5 py-2 sm:px-3 sm:py-2 text-sm sm:text-base rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-transform flex-shrink-0"
                 >
                   ←
                 </button>
@@ -233,7 +262,7 @@ const CustomerChatPage: React.FC = () => {
                     <button
                       key={i}
                       onClick={() => handlePageChange(pageNum)}
-                      className={`px-3 py-1 rounded ${
+                      className={`px-2.5 py-2 sm:px-3 sm:py-2 text-sm sm:text-base rounded active:scale-95 transition-transform flex-shrink-0 ${
                         currentPage === pageNum
                           ? 'bg-primary-600 text-white'
                           : 'bg-gray-100 hover:bg-gray-200'
@@ -247,7 +276,7 @@ const CustomerChatPage: React.FC = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2.5 py-2 sm:px-3 sm:py-2 text-sm sm:text-base rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-transform flex-shrink-0"
                 >
                   →
                 </button>
@@ -256,7 +285,7 @@ const CustomerChatPage: React.FC = () => {
               {/* Quick page jump */}
               {totalPages > 5 && (
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-xs text-gray-600">Перейти на страницу:</span>
+                  <span className="text-xs sm:text-sm text-gray-600">Перейти:</span>
                   <input
                     type="number"
                     min="1"
@@ -264,12 +293,12 @@ const CustomerChatPage: React.FC = () => {
                     value={pageInput}
                     onChange={(e) => setPageInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handlePageInputSubmit()}
-                    className="w-16 px-2 py-1 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-500"
+                    className="w-16 sm:w-20 px-2 py-2 text-sm sm:text-base border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="№"
                   />
                   <button
                     onClick={handlePageInputSubmit}
-                    className="px-2 py-1 text-xs bg-primary-600 text-white rounded hover:bg-primary-700"
+                    className="px-3 py-2 text-sm sm:text-base bg-primary-600 text-white rounded hover:bg-primary-700 active:scale-95 transition-transform"
                   >
                     →
                   </button>
@@ -278,8 +307,25 @@ const CustomerChatPage: React.FC = () => {
             </div>
           )}
         </aside>
-        <main className="col-span-3">
-          <div className="h-[70vh] card">
+
+        {/* Chat Area */}
+        <main className={`${
+          showChatList ? 'hidden lg:flex' : 'flex'
+        } flex-1 flex flex-col min-w-0`}>
+          {/* Back button for mobile */}
+          {!showChatList && (
+            <button
+              onClick={() => setShowChatList(true)}
+              className="lg:hidden mb-3 px-3 py-2.5 text-sm font-medium text-primary-600 hover:text-primary-700 bg-white rounded-lg shadow-sm flex items-center gap-2 active:scale-95 transition-transform"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Назад к списку чатов
+            </button>
+          )}
+
+          <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
             {
               (() => {
                 // Show loading state while data is being fetched OR router is not ready

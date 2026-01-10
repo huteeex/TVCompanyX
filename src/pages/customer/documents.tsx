@@ -179,13 +179,13 @@ const DocumentsPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <DocumentTextIcon className="h-8 w-8 text-blue-600" />
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <DocumentTextIcon className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
             Мои документы
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600">
             Здесь вы можете просматривать и загружать ваши договоры
           </p>
         </div>
@@ -202,7 +202,60 @@ const DocumentsPage: React.FC = () => {
             <p className="text-gray-600">У вас пока нет договоров</p>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          <>
+            {/* Mobile Cards View */}
+            <div className="block lg:hidden space-y-3">
+              {contracts.map(contract => (
+                <div key={contract.id} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex items-center gap-2">
+                      <DocumentTextIcon className="h-5 w-5 text-blue-500 flex-shrink-0" />
+                      <span className="font-semibold text-gray-900">{contract.contract_number}</span>
+                    </div>
+                    {getStatusBadge(contract.status)}
+                  </div>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="text-gray-500">Шоу:</span>
+                      <p className="font-medium text-gray-900">{contract.show_name}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Дата эфира:</span>
+                      <p className="text-gray-700">{formatDateTime(contract.scheduled_at)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Стоимость:</span>
+                      <p className="font-semibold text-gray-900">{contract.cost.toLocaleString('ru-RU')} ₽</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Дата создания:</span>
+                      <p className="text-gray-700">{formatDate(contract.created_at)}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2 mt-4 pt-3 border-t border-gray-100">
+                    <button
+                      onClick={() => handleViewContract(contract)}
+                      className="flex-1 px-3 py-2.5 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <EyeIcon className="h-5 w-5" />
+                      Просмотр
+                    </button>
+                    <button
+                      onClick={() => handleDownloadContract(contract)}
+                      className="flex-1 px-3 py-2.5 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm font-medium"
+                    >
+                      <ArrowDownTrayIcon className="h-5 w-5" />
+                      Скачать
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className="hidden lg:block bg-white rounded-lg shadow overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
@@ -274,19 +327,20 @@ const DocumentsPage: React.FC = () => {
               </tbody>
             </table>
           </div>
+          </>
         )}
 
         {/* Contract Details Modal */}
         {showDetailsModal && selectedContract && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3 sm:p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
-                <h2 className="text-xl font-bold text-white">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+                <h2 className="text-lg sm:text-xl font-bold text-white">
                   Договор {selectedContract.contract_number}
                 </h2>
                 <button
                   onClick={() => setShowDetailsModal(false)}
-                  className="text-white hover:text-gray-200"
+                  className="text-white hover:text-gray-200 p-1 active:scale-95 transition-transform"
                 >
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -294,10 +348,10 @@ const DocumentsPage: React.FC = () => {
                 </button>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="border-b pb-4 mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Детали договора</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Детали договора</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <p className="text-sm text-gray-600">Компания</p>
                       <p className="font-medium">{selectedContract.company_name}</p>
@@ -310,7 +364,7 @@ const DocumentsPage: React.FC = () => {
                 </div>
 
                 <div className="border-b pb-4 mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Информация о заказчике</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Информация о заказчике</h3>
                   <div className="space-y-2">
                     <div>
                       <p className="text-sm text-gray-600">Имя</p>
@@ -328,7 +382,7 @@ const DocumentsPage: React.FC = () => {
                 </div>
 
                 <div className="border-b pb-4 mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Детали размещения</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Детали размещения</h3>
                   <div className="space-y-2">
                     <div>
                       <p className="text-sm text-gray-600">Шоу</p>
@@ -350,15 +404,15 @@ const DocumentsPage: React.FC = () => {
                 </div>
 
                 <div className="border-b pb-4 mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Стоимость</h3>
-                  <div className="text-3xl font-bold text-blue-600">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Стоимость</h3>
+                  <div className="text-2xl sm:text-3xl font-bold text-blue-600">
                     {selectedContract.cost.toLocaleString('ru-RU')} ₽
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Статус документа</h3>
-                  <div className="flex items-center gap-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Статус документа</h3>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     {getStatusBadge(selectedContract.status)}
                     {selectedContract.viewed_at && (
                       <div className="text-sm text-gray-600">
@@ -373,16 +427,16 @@ const DocumentsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 flex justify-end gap-3">
+                <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
                   <button
                     onClick={() => setShowDetailsModal(false)}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 active:scale-95 transition-transform"
                   >
                     Закрыть
                   </button>
                   <button
                     onClick={() => handleDownloadContract(selectedContract)}
-                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2"
+                    className="w-full sm:w-auto px-4 py-2.5 bg-green-600 text-white rounded-md hover:bg-green-700 active:scale-95 transition-transform flex items-center justify-center gap-2"
                   >
                     <ArrowDownTrayIcon className="h-5 w-5" />
                     Скачать договор

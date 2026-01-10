@@ -115,3 +115,7 @@ temp/
 *.njsproj
 *.sln
 *.sw?
+
+# Documentation folders (exclude from git)
+DETAILED_DOCS/
+docs/
