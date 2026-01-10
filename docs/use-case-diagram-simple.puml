@@ -1,0 +1,87 @@
+@startuml TV Company Ad System - Simplified Use Cases
+
+!theme plain
+skinparam actorStyle awesome
+left to right direction
+
+title Система управления рекламными заявками телекомпании (упрощённая)
+
+' Актёры
+actor Customer
+actor Agent
+actor Commercial
+actor Accountant
+actor Director
+actor ITAdmin
+
+' Основные модули
+rectangle "Система управления рекламой" {
+  
+  package "Работа с заявками" #LightGreen {
+    (Создать заявку) as CreateApp
+    (Рассчитать стоимость) as CalcCost
+    (Просмотреть заявки) as ViewApps
+    (Одобрить/Отклонить) as ApproveReject
+  }
+  
+  package "Договоры" #LightYellow {
+    (Создать договор) as CreateContract
+    (Скачать договор) as DownloadContract
+  }
+  
+  package "Платежи" #LightCoral {
+    (Зарегистрировать платёж) as RegisterPayment
+    (Финансовый отчёт) as FinReport
+  }
+  
+  package "Коммуникация" #LightCyan {
+    (Чат) as Chat
+    (Уведомления) as Notifications
+  }
+  
+  package "Расписание" #Wheat {
+    (Управление шоу) as ManageShows
+    (Рекламные слоты) as AdSlots
+  }
+  
+  package "Администрирование" #Thistle {
+    (Управление пользователями) as ManageUsers
+    (Мониторинг системы) as Monitoring
+  }
+}
+
+' Связи
+Customer --> CreateApp
+Customer --> CalcCost
+Customer --> ViewApps
+Customer --> DownloadContract
+Customer --> Chat
+Customer --> Notifications
+
+Agent --> ViewApps
+Agent --> CreateContract
+Agent --> Chat
+Agent --> Notifications
+
+Commercial --> ApproveReject
+Commercial --> ManageShows
+Commercial --> AdSlots
+Commercial --> Notifications
+
+Accountant --> RegisterPayment
+Accountant --> FinReport
+Accountant --> Notifications
+
+Director --> FinReport
+Director --> ViewApps
+Director --> Notifications
+
+ITAdmin --> ManageUsers
+ITAdmin --> Monitoring
+
+' Зависимости
+CreateApp ..> CalcCost : <<include>>
+ApproveReject ..> Notifications : <<include>>
+CreateContract ..> Notifications : <<include>>
+
+@enduml

@@ -1,0 +1,304 @@
+﻿@startuml TV Company Ad System - Use Cases
+
+!theme plain
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title Система управления рекламными заявками телекомпании
+
+' Актёры
+actor "Заказчик\n(Customer)" as Customer
+actor "Агент\n(Agent)" as Agent
+actor "Коммерческий отдел\n(Commercial)" as Commercial
+actor "Бухгалтер\n(Accountant)" as Accountant
+actor "Директор\n(Director)" as Director
+actor "IT-Администратор\n(IT Admin)" as ITAdmin
+
+' Граница системы
+rectangle "Система управления рекламой" {
+  
+  ' === МОДУЛЬ АУТЕНТИФИКАЦИИ ===
+  package "Аутентификация и авторизация" #LightBlue {
+    usecase "Войти в систему" as UC_Login
+    usecase "Выйти из системы" as UC_Logout
+    usecase "Сбросить пароль" as UC_ResetPassword
+    usecase "Управлять профилем" as UC_Profile
+  }
+  
+  ' === МОДУЛЬ ЗАЯВОК ===
+  package "Управление заявками" #LightGreen {
+    usecase "Создать заявку" as UC_CreateApp
+    usecase "Просмотреть заявки" as UC_ViewApps
+    usecase "Редактировать заявку" as UC_EditApp
+    usecase "Рассчитать стоимость\nрекламы" as UC_CalcCost
+    usecase "Отправить заявку\nна рассмотрение" as UC_SubmitApp
+    usecase "Назначить агента" as UC_AssignAgent
+    usecase "Одобрить заявку" as UC_ApproveApp
+    usecase "Отклонить заявку" as UC_RejectApp
+    usecase "Изменить статус\nзаявки" as UC_ChangeStatus
+    usecase "Просмотреть историю\nзаявок" as UC_ViewHistory
+  }
+  
+  ' === МОДУЛЬ ДОГОВОРОВ ===
+  package "Управление договорами" #LightYellow {
+    usecase "Создать договор" as UC_CreateContract
+    usecase "Отправить договор\nклиенту" as UC_SendContract
+    usecase "Просмотреть договоры" as UC_ViewContracts
+    usecase "Скачать договор" as UC_DownloadContract
+    usecase "Отметить договор\nкак просмотренный" as UC_ViewContract
+  }
+  
+  ' === МОДУЛЬ ПЛАТЕЖЕЙ ===
+  package "Управление платежами" #LightCoral {
+    usecase "Зарегистрировать\nплатёж" as UC_RegisterPayment
+    usecase "Просмотреть платежи" as UC_ViewPayments
+    usecase "Подтвердить оплату" as UC_ConfirmPayment
+    usecase "Отследить просроченные\nплатежи" as UC_TrackOverdue
+    usecase "Сформировать\nфинансовый отчёт" as UC_FinReport
+  }
+  
+  ' === МОДУЛЬ КОМИССИЙ ===
+  package "Управление комиссиями" #Lavender {
+    usecase "Рассчитать комиссию\nагента" as UC_CalcCommission
+    usecase "Просмотреть комиссии" as UC_ViewCommissions
+    usecase "Выплатить комиссию" as UC_PayCommission
+    usecase "Отчёт по комиссиям" as UC_CommissionReport
+  }
+  
+  ' === МОДУЛЬ РАСПИСАНИЯ ===
+  package "Управление расписанием" #Wheat {
+    usecase "Создать шоу" as UC_CreateShow
+    usecase "Редактировать шоу" as UC_EditShow
+    usecase "Просмотреть расписание\nшоу" as UC_ViewSchedule
+    usecase "Управлять рекламными\nслотами" as UC_ManageSlots
+    usecase "Создать расписание\nрекламы" as UC_CreateAdSchedule
+  }
+  
+  ' === МОДУЛЬ ЧАТА ===
+  package "Система коммуникации" #LightCyan {
+    usecase "Отправить сообщение\nв чат" as UC_SendMessage
+    usecase "Получить сообщения" as UC_ReceiveMessage
+    usecase "Чат с агентом" as UC_ChatAgent
+    usecase "Чат с клиентом" as UC_ChatCustomer
+    usecase "Чат коммерческого\nотдела" as UC_ChatCommercial
+    usecase "Загрузить файлы" as UC_UploadFiles
+  }
+  
+  ' === МОДУЛЬ УВЕДОМЛЕНИЙ ===
+  package "Система уведомлений" #Pink {
+    usecase "Получить уведомление" as UC_GetNotification
+    usecase "Отметить уведомление\nпрочитанным" as UC_MarkNotificationRead
+    usecase "Просмотреть все\nуведомления" as UC_ViewNotifications
+    usecase "Отправить push-\nуведомление" as UC_SendPushNotification
+  }
+  
+  ' === МОДУЛЬ ОТЧЁТОВ ===
+  package "Формирование отчётов" #LightSalmon {
+    usecase "Экспортировать отчёт\nв PDF" as UC_ExportPDF
+    usecase "Экспортировать отчёт\nв Excel" as UC_ExportExcel
+    usecase "Сформировать отчёт\nпо заявкам" as UC_AppReport
+    usecase "Просмотреть статистику" as UC_ViewStats
+    usecase "Дашборд директора" as UC_DirectorDashboard
+  }
+  
+  ' === МОДУЛЬ АДМИНИСТРИРОВАНИЯ ===
+  package "Администрирование системы" #Thistle {
+    usecase "Управлять пользователями" as UC_ManageUsers
+    usecase "Назначать роли" as UC_AssignRoles
+    usecase "Просмотреть логи\nсистемы" as UC_ViewLogs
+    usecase "Мониторинг базы данных" as UC_DBMonitoring
+    usecase "Управлять настройками\nсистемы" as UC_SystemSettings
+    usecase "Просмотреть статистику\nпользователей" as UC_UserStats
+  }
+  
+  ' === МОДУЛЬ ПУБЛИЧНЫХ УСЛУГ ===
+  package "Публичный доступ" #LightGray {
+    usecase "Просмотреть публичную\nленту услуг" as UC_ViewServicesFeed
+  }
+}
+
+' =======================================
+' СВЯЗИ ЗАКАЗЧИК (CUSTOMER)
+' =======================================
+Customer --> UC_Login
+Customer --> UC_Logout
+Customer --> UC_Profile
+Customer --> UC_CreateApp
+Customer --> UC_ViewApps
+Customer --> UC_EditApp
+Customer --> UC_CalcCost
+Customer --> UC_SubmitApp
+Customer --> UC_ViewHistory
+Customer --> UC_ViewContracts
+Customer --> UC_DownloadContract
+Customer --> UC_ViewContract
+Customer --> UC_ChatAgent
+Customer --> UC_SendMessage
+Customer --> UC_ReceiveMessage
+Customer --> UC_GetNotification
+Customer --> UC_ViewNotifications
+Customer --> UC_MarkNotificationRead
+Customer --> UC_ViewServicesFeed
+
+' =======================================
+' СВЯЗИ АГЕНТ (AGENT)
+' =======================================
+Agent --> UC_Login
+Agent --> UC_Logout
+Agent --> UC_Profile
+Agent --> UC_ViewApps
+Agent --> UC_EditApp
+Agent --> UC_ChangeStatus
+Agent --> UC_CreateContract
+Agent --> UC_SendContract
+Agent --> UC_ViewContracts
+Agent --> UC_ChatCustomer
+Agent --> UC_ChatCommercial
+Agent --> UC_SendMessage
+Agent --> UC_ReceiveMessage
+Agent --> UC_UploadFiles
+Agent --> UC_GetNotification
+Agent --> UC_ViewNotifications
+Agent --> UC_MarkNotificationRead
+Agent --> UC_ViewCommissions
+Agent --> UC_AppReport
+Agent --> UC_ExportPDF
+Agent --> UC_ExportExcel
+
+' =======================================
+' СВЯЗИ КОММЕРЧЕСКИЙ ОТДЕЛ (COMMERCIAL)
+' =======================================
+Commercial --> UC_Login
+Commercial --> UC_Logout
+Commercial --> UC_Profile
+Commercial --> UC_ViewApps
+Commercial --> UC_AssignAgent
+Commercial --> UC_ApproveApp
+Commercial --> UC_RejectApp
+Commercial --> UC_ChangeStatus
+Commercial --> UC_CreateShow
+Commercial --> UC_EditShow
+Commercial --> UC_ViewSchedule
+Commercial --> UC_ManageSlots
+Commercial --> UC_CreateAdSchedule
+Commercial --> UC_ChatAgent
+Commercial --> UC_SendMessage
+Commercial --> UC_ReceiveMessage
+Commercial --> UC_GetNotification
+Commercial --> UC_ViewNotifications
+Commercial --> UC_MarkNotificationRead
+Commercial --> UC_ViewStats
+
+' =======================================
+' СВЯЗИ БУХГАЛТЕР (ACCOUNTANT)
+' =======================================
+Accountant --> UC_Login
+Accountant --> UC_Logout
+Accountant --> UC_Profile
+Accountant --> UC_ViewApps
+Accountant --> UC_RegisterPayment
+Accountant --> UC_ViewPayments
+Accountant --> UC_ConfirmPayment
+Accountant --> UC_TrackOverdue
+Accountant --> UC_FinReport
+Accountant --> UC_CalcCommission
+Accountant --> UC_ViewCommissions
+Accountant --> UC_PayCommission
+Accountant --> UC_CommissionReport
+Accountant --> UC_GetNotification
+Accountant --> UC_ViewNotifications
+Accountant --> UC_ExportPDF
+Accountant --> UC_ExportExcel
+
+' =======================================
+' СВЯЗИ ДИРЕКТОР (DIRECTOR)
+' =======================================
+Director --> UC_Login
+Director --> UC_Logout
+Director --> UC_Profile
+Director --> UC_ViewApps
+Director --> UC_ViewPayments
+Director --> UC_ViewCommissions
+Director --> UC_CommissionReport
+Director --> UC_FinReport
+Director --> UC_DirectorDashboard
+Director --> UC_ViewStats
+Director --> UC_AppReport
+Director --> UC_ExportPDF
+Director --> UC_ExportExcel
+Director --> UC_GetNotification
+Director --> UC_ViewNotifications
+
+' =======================================
+' СВЯЗИ IT-АДМИНИСТРАТОР (IT ADMIN)
+' =======================================
+ITAdmin --> UC_Login
+ITAdmin --> UC_Logout
+ITAdmin --> UC_Profile
+ITAdmin --> UC_ManageUsers
+ITAdmin --> UC_AssignRoles
+ITAdmin --> UC_ViewLogs
+ITAdmin --> UC_DBMonitoring
+ITAdmin --> UC_SystemSettings
+ITAdmin --> UC_UserStats
+ITAdmin --> UC_GetNotification
+ITAdmin --> UC_ViewNotifications
+
+' =======================================
+' ВКЛЮЧЕНИЯ (INCLUDE)
+' =======================================
+UC_CreateApp ..> UC_CalcCost : <<include>>
+UC_SubmitApp ..> UC_GetNotification : <<include>>
+UC_ApproveApp ..> UC_GetNotification : <<include>>
+UC_RejectApp ..> UC_GetNotification : <<include>>
+UC_ChangeStatus ..> UC_GetNotification : <<include>>
+UC_SendContract ..> UC_GetNotification : <<include>>
+UC_RegisterPayment ..> UC_GetNotification : <<include>>
+UC_SendMessage ..> UC_GetNotification : <<include>>
+UC_ApproveApp ..> UC_CalcCommission : <<include>>
+
+' =======================================
+' РАСШИРЕНИЯ (EXTEND)
+' =======================================
+UC_SendPushNotification ..> UC_GetNotification : <<extend>>
+UC_UploadFiles ..> UC_SendMessage : <<extend>>
+UC_ViewContract ..> UC_ViewContracts : <<extend>>
+UC_DownloadContract ..> UC_ViewContracts : <<extend>>
+
+' =======================================
+' ПРИМЕЧАНИЯ
+' =======================================
+note right of UC_Login
+  JWT токены с httpOnly cookies
+  Многофакторная аутентификация
+end note
+
+note right of UC_CalcCost
+  Расчёт на основе:
+  - Базовой цены за минуту
+  - Времени эфира
+  - Длительности ролика
+end note
+
+note right of UC_GetNotification
+  Realtime через Socket.io
+  Персистентное хранилище
+  Браузерные push-уведомления
+end note
+
+note right of UC_CreateContract
+  Автоматическая генерация
+  номера договора (DOG-2025-XXXXXX)
+end note
+
+note right of UC_CalcCommission
+  Автоматический расчёт
+  комиссии при одобрении заявки
+end note
+
+note bottom of UC_ViewServicesFeed
+  Публичная лента услуг
+  без аутентификации
+end note
+
+@enduml

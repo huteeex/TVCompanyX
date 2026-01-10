@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
 import { db } from '../../../lib/database';
+import pool from '../../../lib/database';
 import jwt from 'jsonwebtoken';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -49,6 +50,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '7d' }
     );
+
+    // Create or update active session
+    try {
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+      const userAgent = req.headers['user-agent'] || 'Unknown';
+      const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'Unknown';
+      
+      // Delete old sessions for this user (if any)
+      await pool.query('DELETE FROM active_sessions WHERE user_id = $1', [user.id]);
+      
+      // Create new session
+      await pool.query(
+        `INSERT INTO active_sessions (user_id, session_token, ip_address, user_agent, expires_at) 
+         VALUES ($1, $2, $3, $4, $5)`,
+        [user.id, token, ipAddress, userAgent, expiresAt]
+      );
+    } catch (sessionError) {
+      console.error('Error creating session:', sessionError);
+      // Don't fail login if session creation fails
+    }
 
     // Return user data and token (without password hash)
     const { password_hash, ...userWithoutPassword } = user;

@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +13,8 @@ import {
   ArcElement,
 } from 'chart.js'
 import { Line, Bar, Doughnut } from 'react-chartjs-2'
+import { Card, StatCard } from '../ui/Card'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 
 ChartJS.register(
   CategoryScale,
@@ -49,6 +52,8 @@ interface DashboardProps {
     value: string | number
     change?: number
     changeType?: 'increase' | 'decrease'
+    icon?: React.ReactNode
+    gradient?: string
   }[]
 }
 
@@ -59,6 +64,53 @@ const Dashboard: React.FC<DashboardProps> = ({ title, charts, stats }) => {
     plugins: {
       legend: {
         position: 'top' as const,
+        labels: {
+          usePointStyle: true,
+          padding: 16,
+          font: {
+            size: 13,
+            family: 'Inter, system-ui, sans-serif',
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+        padding: 12,
+        borderRadius: 8,
+        titleFont: {
+          size: 13,
+          weight: '600',
+        },
+        bodyFont: {
+          size: 13,
+        },
+        displayColors: true,
+        boxPadding: 6,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          font: {
+            size: 12,
+          },
+          color: '#64748b',
+        },
+      },
+      y: {
+        grid: {
+          color: '#f1f5f9',
+          drawBorder: false,
+        },
+        ticks: {
+          font: {
+            size: 12,
+          },
+          color: '#64748b',
+        },
       },
     },
   }
@@ -78,65 +130,83 @@ const Dashboard: React.FC<DashboardProps> = ({ title, charts, stats }) => {
     }
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  }
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-secondary-900">{title}</h1>
-      </div>
+    <div className="space-y-8">
+      {/* Header */}
+      <motion.div 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="flex items-center justify-between"
+      >
+        <h1 className="text-section text-neutral-950">{title}</h1>
+      </motion.div>
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-secondary-600">
-                    {stat.label}
-                  </p>
-                  <p className="text-2xl font-bold text-secondary-900">
-                    {stat.value}
-                  </p>
-                </div>
-                {stat.change !== undefined && (
-                  <div
-                    className={`flex items-center text-sm font-medium ${
-                      stat.changeType === 'increase'
-                        ? 'text-green-600'
-                        : 'text-red-600'
-                    }`}
-                  >
-                    <span className="mr-1">
-                      {stat.changeType === 'increase' ? '↗' : '↘'}
-                    </span>
-                    {Math.abs(stat.change)}%
-                  </div>
-                )}
-              </div>
-            </div>
+            <motion.div key={index} variants={itemVariants}>
+              <StatCard
+                label={stat.label}
+                value={stat.value}
+                change={stat.change}
+                changeType={stat.changeType}
+                icon={stat.icon}
+                gradient={stat.gradient}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className={`grid gap-6 ${charts.length === 1 ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}
+      >
         {charts.map((chart, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6"
-          >
-            <h3 className="text-lg font-semibold text-secondary-900 mb-4">
-              {chart.title}
-            </h3>
-            <div className="h-64">
-              {getChartComponent(chart)}
-            </div>
-          </div>
+          <motion.div key={index} variants={itemVariants}>
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold text-neutral-950 mb-6">
+                {chart.title}
+              </h3>
+              <div className={charts.length === 1 ? 'h-[400px]' : 'h-80'}>
+                {getChartComponent(chart)}
+              </div>
+            </Card>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

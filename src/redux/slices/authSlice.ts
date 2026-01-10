@@ -6,7 +6,7 @@ export interface User {
   id: string
   name: string
   email: string
-  role: 'customer' | 'agent' | 'commercial' | 'accountant' | 'admin' | 'director'
+  role: 'customer' | 'agent' | 'commercial' | 'accountant' | 'admin' | 'director' | 'it_admin' | 'company'
   avatar?: string
   bankDetails?: any
 }
@@ -174,6 +174,12 @@ const authSlice = createSlice({
         localStorage.setItem('testUserRole', role);
       }
     },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
+      state.isAuthenticated = true
+      state.loading = false
+      state.error = null
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -235,5 +241,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { logout, clearError, setTestUser } = authSlice.actions
+export const { logout, clearError, setTestUser, setUser } = authSlice.actions
 export default authSlice.reducer

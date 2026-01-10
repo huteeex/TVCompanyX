@@ -27,6 +27,8 @@ const AuthPage: React.FC = () => {
         accountant: '/accountant',
         admin: '/admin',
         director: '/director',
+        it_admin: '/it-admin/dashboard',
+        company: '/company',
       }
       router.push(roleRoutes[user.role] || '/customer')
     }

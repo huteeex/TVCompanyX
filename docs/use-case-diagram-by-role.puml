@@ -1,0 +1,78 @@
+@startuml TV Company Ad System - By Role
+
+!theme plain
+skinparam actorStyle awesome
+
+title Функции системы по ролям
+
+' === ЗАКАЗЧИК ===
+package "Заказчик (Customer)" #LightBlue {
+  usecase "Создать заявку" as UC1
+  usecase "Калькулятор" as UC2
+  usecase "Просмотр договоров" as UC3
+  usecase "Чат с агентом" as UC4
+  usecase "История заявок" as UC5
+}
+
+' === АГЕНТ ===
+package "Агент (Agent)" #LightGreen {
+  usecase "Обработка заявок" as UC6
+  usecase "Создание договоров" as UC7
+  usecase "Чат с клиентом" as UC8
+  usecase "Просмотр комиссий" as UC9
+  usecase "Отчёты" as UC10
+}
+
+' === КОММЕРЧЕСКИЙ ОТДЕЛ ===
+package "Коммерческий отдел" #LightYellow {
+  usecase "Одобрение заявок" as UC11
+  usecase "Назначение агентов" as UC12
+  usecase "Управление шоу" as UC13
+  usecase "Расписание" as UC14
+  usecase "Рекламные слоты" as UC15
+}
+
+' === БУХГАЛТЕР ===
+package "Бухгалтер (Accountant)" #LightCoral {
+  usecase "Регистрация платежей" as UC16
+  usecase "Расчёт комиссий" as UC17
+  usecase "Финансовые отчёты" as UC18
+  usecase "Контроль просрочек" as UC19
+}
+
+' === ДИРЕКТОР ===
+package "Директор (Director)" #Lavender {
+  usecase "Дашборд аналитики" as UC20
+  usecase "Финансовая статистика" as UC21
+  usecase "Отчёты по заявкам" as UC22
+  usecase "Контроль комиссий" as UC23
+}
+
+' === IT АДМИНИСТРАТОР ===
+package "IT-Админ" #Thistle {
+  usecase "Управление пользователями" as UC24
+  usecase "Назначение ролей" as UC25
+  usecase "Мониторинг БД" as UC26
+  usecase "Системные логи" as UC27
+}
+
+' === ОБЩИЕ МОДУЛИ ===
+package "Общие функции" #LightGray {
+  usecase "Аутентификация" as UC28
+  usecase "Уведомления" as UC29
+  usecase "Профиль" as UC30
+}
+
+' Связи с общими функциями (показываем только некоторые)
+UC1 --> UC28
+UC6 --> UC28
+UC11 --> UC28
+UC16 --> UC28
+UC20 --> UC28
+UC24 --> UC28
+
+UC6 --> UC29
+UC11 --> UC29
+UC16 --> UC29
+
+@enduml

@@ -38,7 +38,6 @@ io.on('connection', (socket) => {
   })
 
   socket.on('sendMessage', async (data) => {
-    // data includes: roomId, tempId, content, senderId, senderName, timestamp, type, fileUrl, fileName, fileSize, chatType, applicationId
     try {
       const room = data.roomId
       console.log(`[sendMessage] Received message for room ${room}`)
@@ -77,8 +76,6 @@ io.on('connection', (socket) => {
 
       const persistedMessage = await resp.json()
       console.log(`[sendMessage] Persisted message with id: ${persistedMessage.id}`)
-      
-      // Broadcast the persisted message with the original tempId so clients can replace their optimistic message
       io.to(room).emit('message', {
         ...persistedMessage,
         tempId: data.tempId

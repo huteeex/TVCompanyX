@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import { db } from '../../../lib/database'
+import pool from '../../../lib/database'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -32,6 +33,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const user = await db.getUserById(userId)
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
+    }
+
+    // Check if user is active
+    if (!user.is_active) {
+      return res.status(401).json({ error: 'Account deactivated' })
+    }
+
+    // If role in DB differs from role in token, issue a new token
+    if (user.role !== decoded.role) {
+      const newToken = jwt.sign(
+        { 
+          userId: user.id, 
+          email: user.email,
+          role: user.role 
+        },
+        secret,
+        { expiresIn: '7d' }
+      )
+
+      // Set new HttpOnly cookie
+      const maxAge = 7 * 24 * 60 * 60 // 7 days
+      const isProd = process.env.NODE_ENV === 'production'
+      const cookieOptions = `HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Lax${isProd ? '; Secure' : ''}`
+      res.setHeader('Set-Cookie', `token=${newToken}; ${cookieOptions}`)
+    }
+
+    // Update last_activity in active_sessions
+    try {
+      await pool.query(
+        'UPDATE active_sessions SET last_activity = NOW() WHERE session_token = $1',
+        [token]
+      );
+    } catch (sessionError) {
+      console.error('Error updating session activity:', sessionError);
+      // Don't fail the request if session update fails
     }
 
   // return public user fields (include phone, bank_details and split name fields)
