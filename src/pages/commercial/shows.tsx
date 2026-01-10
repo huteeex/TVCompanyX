@@ -5,13 +5,15 @@ import Layout from '../../components/layout/Layout'
 import toast from 'react-hot-toast'
 import { IMaskInput } from 'react-imask'
 import { 
-  PlusIcon, 
-  PencilIcon, 
-  TrashIcon, 
-  TvIcon,
-  ClockIcon,
-  CurrencyDollarIcon
-} from '@heroicons/react/24/outline'
+  Plus,
+  Edit2,
+  Trash2,
+  Tv,
+  Clock,
+  DollarSign,
+  Save,
+  X as XIcon
+} from 'lucide-react'
 
 interface Show {
   id: string
@@ -236,131 +238,145 @@ const ShowsManagementPage: React.FC = () => {
 
   const getShowTypeColor = (type: string) => {
     const colors: Record<string, string> = {
-      series: 'bg-purple-100 text-purple-800',
-      morning: 'bg-yellow-100 text-yellow-800',
-      day: 'bg-blue-100 text-blue-800',
-      evening: 'bg-indigo-100 text-indigo-800',
-      news: 'bg-red-100 text-red-800',
-      entertainment: 'bg-pink-100 text-pink-800',
-      sport: 'bg-green-100 text-green-800',
-      documentary: 'bg-gray-100 text-gray-800',
-      children: 'bg-orange-100 text-orange-800',
-      movie: 'bg-teal-100 text-teal-800',
-      program: 'bg-blue-100 text-blue-800'
+      series: 'bg-primary-100 text-primary-800',
+      morning: 'bg-primary-50 text-primary-700',
+      day: 'bg-primary-100 text-primary-800',
+      evening: 'bg-primary-200 text-primary-900',
+      news: 'bg-neutral-100 text-neutral-800',
+      entertainment: 'bg-primary-100 text-primary-800',
+      sport: 'bg-primary-100 text-primary-800',
+      documentary: 'bg-neutral-100 text-neutral-800',
+      children: 'bg-primary-50 text-primary-700',
+      movie: 'bg-primary-100 text-primary-800',
+      program: 'bg-primary-100 text-primary-800'
     }
-    return colors[type] || 'bg-gray-100 text-gray-800'
+    return colors[type] || 'bg-neutral-100 text-neutral-800'
   }
 
   return (
     <Layout role="commercial">
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <TvIcon className="h-8 w-8 text-primary-600" />
-            <div>
-              <h1 className="text-2xl font-bold text-neutral-900">
-                Управление шоу
-              </h1>
-              <p className="text-neutral-600">
-                Создание и редактирование телевизионных программ
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={openCreateModal}
-            className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-          >
-            <PlusIcon className="h-5 w-5" />
-            <span>Создать шоу</span>
-          </button>
-        </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <div className="flex items-center">
-              <TvIcon className="h-8 w-8 text-blue-500" />
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Всего шоу</p>
-                <p className="text-2xl font-bold text-gray-900">{shows.length}</p>
+        <div className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 rounded-2xl shadow-lg p-8 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+                <Tv className="h-8 w-8 text-white" />
               </div>
-            </div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <div className="flex items-center">
-              <ClockIcon className="h-8 w-8 text-green-500" />
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Активных</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {shows.filter(s => s.is_active).length}
+              <div>
+                <h1 className="text-3xl font-bold mb-2">
+                  Управление шоу
+                </h1>
+                <p className="text-primary-100">
+                  Создание и редактирование телевизионных программ
                 </p>
               </div>
             </div>
+            <button
+              onClick={openCreateModal}
+              className="flex items-center space-x-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 hover:scale-105"
+            >
+              <Plus className="h-5 w-5" />
+              <span className="font-medium">Создать шоу</span>
+            </button>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <div className="flex items-center">
-              <CurrencyDollarIcon className="h-8 w-8 text-purple-500" />
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Ср. цена/мин</p>
-                <p className="text-2xl font-bold text-gray-900">
+        </div>
+
+        {/* Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="group bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-lg hover:border-primary-300 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-neutral-600">Всего шоу</p>
+                <p className="text-3xl font-bold text-neutral-900 mt-2 group-hover:text-primary-600 transition-colors">{shows.length}</p>
+              </div>
+              <div className="p-3 rounded-xl bg-gradient-to-br from-primary-100 to-primary-50 group-hover:from-primary-200 group-hover:to-primary-100 transition-all duration-300">
+                <Tv className="h-8 w-8 text-primary-600" />
+              </div>
+            </div>
+          </div>
+          <div className="group bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-lg hover:border-primary-300 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-neutral-600">Активных</p>
+                <p className="text-3xl font-bold text-primary-600 mt-2 group-hover:scale-110 transition-transform">
+                  {shows.filter(s => s.is_active).length}
+                </p>
+              </div>
+              <div className="p-3 rounded-xl bg-gradient-to-br from-primary-100 to-primary-50 group-hover:from-primary-200 group-hover:to-primary-100 transition-all duration-300">
+                <Clock className="h-8 w-8 text-primary-600" />
+              </div>
+            </div>
+          </div>
+          <div className="group bg-gradient-to-br from-primary-600 to-primary-500 rounded-xl shadow-md p-6 hover:shadow-xl hover:scale-105 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-primary-100">Ср. цена/мин</p>
+                <p className="text-2xl font-bold text-white mt-2">
                   {shows.length > 0 
                     ? Math.round(shows.reduce((sum, s) => sum + (Number(s.base_price_per_min) || 0), 0) / shows.length).toLocaleString('ru-RU')
                     : 0} ₽
                 </p>
+              </div>
+              <div className="p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+                <DollarSign className="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Shows Table */}
-        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
           {loading ? (
-            <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Загрузка шоу...</p>
+            <div className="p-12 text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+              <p className="text-neutral-600 font-medium">Загрузка шоу...</p>
             </div>
           ) : shows.length === 0 ? (
-            <div className="p-8 text-center">
-              <TvIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">Нет созданных шоу</p>
+            <div className="p-12 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-50 mb-4">
+                <Tv className="h-8 w-8 text-primary-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-2">Нет созданных шоу</h3>
+              <p className="text-neutral-600 mb-4">Создайте первое шоу для управления расписанием</p>
               <button
                 onClick={openCreateModal}
-                className="mt-4 text-primary-600 hover:text-primary-700"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all duration-300 hover:scale-105 shadow-sm"
               >
+                <Plus className="h-5 w-5 mr-2" />
                 Создать первое шоу
               </button>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-neutral-200">
+                <thead className="bg-gradient-to-r from-neutral-50 to-neutral-100/50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Название
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Тип
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Время
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Длительность
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Цена/мин
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Статус
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
                       Действия
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-neutral-200">
                   {shows.map((show) => (
-                    <tr key={show.id} className="hover:bg-gray-50">
+                    <tr key={show.id} className="hover:bg-primary-50/30 transition-colors duration-150">
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">{show.name}</div>
                         {show.description && (
@@ -384,8 +400,8 @@ const ShowsManagementPage: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                           show.is_active 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-primary-100 text-primary-700' 
+                            : 'bg-neutral-100 text-neutral-700'
                         }`}>
                           {show.is_active ? 'Активно' : 'Неактивно'}
                         </span>
@@ -394,17 +410,17 @@ const ShowsManagementPage: React.FC = () => {
                         <div className="flex items-center space-x-2">
                           <button
                             onClick={() => openEditModal(show)}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200"
                             title="Редактировать"
                           >
-                            <PencilIcon className="h-5 w-5" />
+                            <Edit2 className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(show.id)}
-                            className="text-red-600 hover:text-red-900"
+                            className="p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg transition-colors duration-200"
                             title="Удалить"
                           >
-                            <TrashIcon className="h-5 w-5" />
+                            <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </td>
@@ -419,11 +435,19 @@ const ShowsManagementPage: React.FC = () => {
 
       {/* Create/Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto p-4">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full my-8">
-            <h3 className="text-lg font-semibold mb-4">
-              {editingShow ? 'Редактировать шоу' : 'Создать новое шоу'}
-            </h3>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 overflow-y-auto p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-2xl w-full my-8 shadow-2xl">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-neutral-900">
+                {editingShow ? 'Редактировать шоу' : 'Создать новое шоу'}
+              </h3>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+              >
+                <XIcon className="h-5 w-5 text-neutral-500" />
+              </button>
+            </div>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -573,18 +597,20 @@ const ShowsManagementPage: React.FC = () => {
                 </label>
               </div>
 
-              <div className="flex justify-end space-x-2 mt-6">
+              <div className="flex justify-end space-x-3 mt-8 pt-6 border-t border-neutral-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="flex items-center px-6 py-2.5 border border-neutral-300 rounded-lg text-neutral-700 hover:bg-neutral-50 transition-all duration-200"
                 >
+                  <XIcon className="h-4 w-4 mr-2" />
                   Отмена
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+                  className="flex items-center px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-lg hover:from-primary-700 hover:to-primary-600 transition-all duration-300 hover:scale-105 shadow-sm"
                 >
+                  <Save className="h-4 w-4 mr-2" />
                   {editingShow ? 'Сохранить' : 'Создать'}
                 </button>
               </div>
