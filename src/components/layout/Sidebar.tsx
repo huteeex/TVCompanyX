@@ -20,8 +20,8 @@ import {
   Bell,
   Users,
   Server,
-  PresentationChart,
-  Building,
+  Tv,
+  Building2,
   Play
 } from 'lucide-react'
 
@@ -114,7 +114,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Управление шоу',
             href: `/${userRole}/shows`,
-            icon: PresentationChart,
+            icon: Tv,
           },
           {
             name: 'Расписание рекламы',
@@ -189,7 +189,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Статистика сотрудников',
             href: `/${userRole}/staff-stats`,
-            icon: PresentationChart,
+            icon: Tv,
           },
           {
             name: 'Комиссии агентов',
@@ -204,7 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Статистика компании',
             href: `/${userRole}/company-stats`,
-            icon: Building,
+            icon: Building2,
           },
         ]
 
@@ -228,7 +228,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Компания',
             href: `/${userRole}/dashboard`,
-            icon: Building,
+            icon: Building2,
           },
         ]
 

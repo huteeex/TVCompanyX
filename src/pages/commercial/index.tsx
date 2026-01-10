@@ -5,11 +5,12 @@ import { adAPI } from '../../utils/api'
 import Layout from '../../components/layout/Layout'
 import toast from 'react-hot-toast'
 import { 
-  ClipboardDocumentListIcon,
-  CheckIcon,
-  XMarkIcon,
-  ArrowPathIcon
-} from '@heroicons/react/24/outline'
+  ClipboardList,
+  CheckCircle,
+  XCircle,
+  RefreshCw,
+  DollarSign
+} from 'lucide-react'
 import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -133,11 +134,11 @@ const CommercialDashboard: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<string, { color: string; text: string }> = {
-      pending: { color: 'bg-blue-100 text-blue-800', text: 'Ожидает агента' },
-      in_progress: { color: 'bg-yellow-100 text-yellow-800', text: 'В работе' },
-      sent_to_commercial: { color: 'bg-orange-100 text-orange-800', text: 'На рассмотрении' },
-      approved: { color: 'bg-green-100 text-green-800', text: 'Одобрено' },
-      rejected: { color: 'bg-red-100 text-red-800', text: 'Отклонено' },
+      pending: { color: 'bg-neutral-100 text-neutral-700', text: 'Ожидает агента' },
+      in_progress: { color: 'bg-primary-100 text-primary-700', text: 'В работе' },
+      sent_to_commercial: { color: 'bg-primary-200 text-primary-800', text: 'На рассмотрении' },
+      approved: { color: 'bg-primary-100 text-primary-700', text: 'Одобрено' },
+      rejected: { color: 'bg-neutral-200 text-neutral-700', text: 'Отклонено' },
     }
 
     const config = statusConfig[status] || { color: 'bg-gray-100 text-gray-800', text: status }
@@ -254,7 +255,7 @@ const CommercialDashboard: React.FC = () => {
             onClick={loadAllApplications}
             className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
           >
-            <ArrowPathIcon className="h-5 w-5" />
+            <RefreshCw className="h-5 w-5" />
             <span>Обновить</span>
           </button>
         </div>
@@ -307,8 +308,8 @@ const CommercialDashboard: React.FC = () => {
                 <p className="text-3xl font-bold text-neutral-900 mt-2">{stats.pending}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-yellow-100">
-                <ClipboardDocumentListIcon className="h-8 w-8 text-yellow-600" />
+              <div className="p-3 rounded-lg bg-primary-100">
+                <ClipboardList className="h-8 w-8 text-primary-600" />
               </div>
             </div>
           </div>
@@ -317,11 +318,11 @@ const CommercialDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-neutral-600">Одобрено</p>
-                <p className="text-3xl font-bold text-green-600 mt-2">{stats.approved}</p>
+                <p className="text-3xl font-bold text-primary-600 mt-2">{stats.approved}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-green-100">
-                <CheckIcon className="h-8 w-8 text-green-600" />
+              <div className="p-3 rounded-lg bg-primary-100">
+                <CheckCircle className="h-8 w-8 text-primary-600" />
               </div>
             </div>
           </div>
@@ -330,11 +331,11 @@ const CommercialDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-neutral-600">Отклонено</p>
-                <p className="text-3xl font-bold text-red-600 mt-2">{stats.rejected}</p>
+                <p className="text-3xl font-bold text-neutral-900 mt-2">{stats.rejected}</p>
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
-              <div className="p-3 rounded-lg bg-red-100">
-                <XMarkIcon className="h-8 w-8 text-red-600" />
+              <div className="p-3 rounded-lg bg-neutral-100">
+                <XCircle className="h-8 w-8 text-neutral-500" />
               </div>
             </div>
           </div>
@@ -349,7 +350,7 @@ const CommercialDashboard: React.FC = () => {
                 <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
               <div className="p-3 rounded-lg bg-primary-100">
-                <span className="text-2xl">💰</span>
+                <DollarSign className="h-8 w-8 text-primary-600" />
               </div>
             </div>
           </div>
@@ -373,7 +374,7 @@ const CommercialDashboard: React.FC = () => {
           <div className="p-6">
             {pendingApplications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <ClipboardList className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
@@ -433,18 +434,18 @@ const CommercialDashboard: React.FC = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                           <button
                             onClick={() => handleApproveApplication(application.id)}
-                            className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-md hover:bg-green-200 transition-colors"
+                            className="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-700 rounded-md hover:bg-primary-200 transition-colors"
                             title="Одобрить"
                           >
-                            <CheckIcon className="h-4 w-4 mr-1" />
+                            <CheckCircle className="h-4 w-4 mr-1" />
                             Одобрить
                           </button>
                           <button
                             onClick={() => handleRejectApplication(application.id)}
-                            className="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors"
+                            className="inline-flex items-center px-3 py-1 bg-neutral-100 text-neutral-700 rounded-md hover:bg-neutral-200 transition-colors"
                             title="Отклонить"
                           >
-                            <XMarkIcon className="h-4 w-4 mr-1" />
+                            <XCircle className="h-4 w-4 mr-1" />
                             Отклонить
                           </button>
                         </td>

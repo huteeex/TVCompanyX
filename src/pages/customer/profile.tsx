@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../components/layout/Layout'
 import toast from 'react-hot-toast'
+import { IMaskInput } from 'react-imask'
 import { formatPhoneRu, formatCardNumber, normalizePhoneForServer } from '../../utils/format'
 import { UserCircleIcon, EnvelopeIcon, PhoneIcon, CreditCardIcon, LockClosedIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 
@@ -24,7 +25,7 @@ const CustomerProfilePage: React.FC = () => {
           middle_name: body.middle_name || '',
           last_name: body.last_name || '',
           email: body.email || '',
-          phone: formatPhoneRu(body.phone || ''),
+          phone: body.phone || '',
           bank_details: {
             card_number: formatCardNumber(body.bank_details?.card_number || ''),
             holder_name: body.bank_details?.holder_name || ''
@@ -63,7 +64,7 @@ const CustomerProfilePage: React.FC = () => {
         last_name: form.last_name,
         name: form.name,
         email: form.email,
-        phone: normalizePhoneForServer(form.phone),
+        phone: form.phone,
         bank_details: { ...form.bank_details, card_number: form.bank_details.card_number.replace(/\s/g, '') }
       }
       if (form.oldPassword || form.newPassword) {
@@ -161,15 +162,16 @@ const CustomerProfilePage: React.FC = () => {
               <div>
                 <label className="block text-xs font-medium text-neutral-700 mb-1.5">Номер телефона</label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
                     <PhoneIcon className="h-4 w-4 text-neutral-400" />
                   </div>
-                  <input 
-                    name="phone" 
-                    value={form.phone} 
-                    onChange={handleChange} 
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
-                    placeholder="+7 (999) 999-99-99"
+                  <IMaskInput
+                    mask="+{7} (000) 000 00-00"
+                    value={form.phone}
+                    unmask={false}
+                    onAccept={(value) => setForm((p: any) => ({ ...p, phone: value }))}
+                    placeholder="+7 (900) 000 00-00"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
