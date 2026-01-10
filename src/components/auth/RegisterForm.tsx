@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
+import { IMaskInput } from 'react-imask'
 import { AppDispatch, RootState } from '../../redux/store'
 import { registerUser, clearError } from '../../redux/slices/authSlice'
 import { useRouter } from 'next/router'
-import { EyeIcon, EyeSlashIcon, UserIcon } from '@heroicons/react/24/outline'
+import { Eye, EyeOff, User, Mail, Lock, Phone as PhoneIcon, Loader2, UserPlus } from 'lucide-react'
 
 interface RegisterFormData {
   first_name: string
@@ -27,6 +29,7 @@ const RegisterForm: React.FC = () => {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<RegisterFormData>()
 
@@ -69,34 +72,62 @@ const RegisterForm: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6" onKeyPress={handleKeyPress}>
+    <motion.form 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      onSubmit={handleSubmit(onSubmit)} 
+      className="space-y-5" 
+      onKeyPress={handleKeyPress}
+    >
+      {error && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 bg-red-50 border border-red-200 rounded-xl"
+        >
+          <p className="text-sm text-red-700">{error}</p>
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label htmlFor="first_name" className="block text-sm font-medium text-neutral-700 mb-2">
             Имя
           </label>
-          <input
-            {...register('first_name', {
-              required: 'Имя обязательно',
-              minLength: { value: 1, message: 'Введите имя' },
-            })}
-            type="text"
-            id="first_name"
-            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-            placeholder="Иван"
-          />
-          {errors.first_name && <p className="mt-1 text-sm text-red-600">{errors.first_name.message}</p>}
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+            <input
+              {...register('first_name', {
+                required: 'Имя обязательно',
+                minLength: { value: 1, message: 'Введите имя' },
+              })}
+              type="text"
+              id="first_name"
+              className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+              placeholder="Иван"
+            />
+          </div>
+          {errors.first_name && (
+            <motion.p 
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-1.5 text-xs text-red-600"
+            >
+              {errors.first_name.message}
+            </motion.p>
+          )}
         </div>
 
         <div>
           <label htmlFor="middle_name" className="block text-sm font-medium text-neutral-700 mb-2">
-            Отчество (опционально)
+            Отчество
           </label>
           <input
             {...register('middle_name')}
             type="text"
             id="middle_name"
-            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
             placeholder="Петрович"
           />
         </div>
@@ -105,54 +136,99 @@ const RegisterForm: React.FC = () => {
           <label htmlFor="last_name" className="block text-sm font-medium text-neutral-700 mb-2">
             Фамилия
           </label>
-          <input
-            {...register('last_name', {
-              required: 'Фамилия обязательна',
-              minLength: { value: 1, message: 'Введите фамилию' },
-            })}
-            type="text"
-            id="last_name"
-            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-            placeholder="Иванов"
-          />
-          {errors.last_name && <p className="mt-1 text-sm text-red-600">{errors.last_name.message}</p>}
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+            <input
+              {...register('last_name', {
+                required: 'Фамилия обязательна',
+                minLength: { value: 1, message: 'Введите фамилию' },
+              })}
+              type="text"
+              id="last_name"
+              className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+              placeholder="Иванов"
+            />
+          </div>
+          {errors.last_name && (
+            <motion.p 
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-1.5 text-xs text-red-600"
+            >
+              {errors.last_name.message}
+            </motion.p>
+          )}
         </div>
       </div>
 
-      <div className="mt-4">
-        <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-2">Телефон</label>
-        <input
-          {...register('phone', {
-            required: 'Телефон обязателен',
-            pattern: { value: /^[+0-9\-()\s]{6,20}$/, message: 'Неверный формат телефона' }
-          })}
-          type="tel"
-          id="phone"
-          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-          placeholder="+7 (900) 000-00-00"
-        />
-        {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-2">
+          Телефон
+        </label>
+        <div className="relative">
+          <PhoneIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400 z-10" />
+          <Controller
+            name="phone"
+            control={control}
+            rules={{
+              required: 'Телефон обязателен',
+              validate: (value) => {
+                const cleaned = value?.replace(/\D/g, '');
+                return (cleaned && cleaned.length === 11) || 'Введите полный номер телефона';
+              }
+            }}
+            render={({ field: { onChange, value, ref } }) => (
+              <IMaskInput
+                mask="+{7} (000) 000 00-00"
+                value={value}
+                unmask={false}
+                onAccept={(value) => onChange(value)}
+                placeholder="+7 (900) 000 00-00"
+                inputRef={ref}
+                className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+              />
+            )}
+          />
+        </div>
+        {errors.phone && (
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.phone.message}
+          </motion.p>
+        )}
       </div>
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
           Email адрес
         </label>
-        <input
-          {...register('email', {
-            required: 'Email обязателен',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Неверный формат email',
-            },
-          })}
-          type="email"
-          id="email"
-          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-          placeholder="example@company.com"
-        />
+        <div className="relative">
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+          <input
+            {...register('email', {
+              required: 'Email обязателен',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Неверный формат email',
+              },
+            })}
+            type="email"
+            id="email"
+            className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+            placeholder="example@company.com"
+          />
+        </div>
         {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.email.message}
+          </motion.p>
         )}
       </div>
 
@@ -161,6 +237,7 @@ const RegisterForm: React.FC = () => {
           Пароль
         </label>
         <div className="relative">
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
           <input
             {...register('password', {
               required: 'Пароль обязателен',
@@ -171,23 +248,30 @@ const RegisterForm: React.FC = () => {
             })}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full pl-10 pr-12 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
             placeholder="Минимум 6 символов"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors p-1"
+            aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
           >
             {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
+              <EyeOff className="h-5 w-5" />
             ) : (
-              <EyeIcon className="h-5 w-5" />
+              <Eye className="h-5 w-5" />
             )}
           </button>
         </div>
         {errors.password && (
-          <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.password.message}
+          </motion.p>
         )}
       </div>
 
@@ -196,6 +280,7 @@ const RegisterForm: React.FC = () => {
           Подтвердите пароль
         </label>
         <div className="relative">
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
           <input
             {...register('confirmPassword', {
               required: 'Подтверждение пароля обязательно',
@@ -204,75 +289,79 @@ const RegisterForm: React.FC = () => {
             })}
             type={showConfirmPassword ? 'text' : 'password'}
             id="confirmPassword"
-            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full pl-10 pr-12 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
             placeholder="Повторите пароль"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors p-1"
+            aria-label={showConfirmPassword ? 'Скрыть пароль' : 'Показать пароль'}
           >
             {showConfirmPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
+              <EyeOff className="h-5 w-5" />
             ) : (
-              <EyeIcon className="h-5 w-5" />
+              <Eye className="h-5 w-5" />
             )}
           </button>
         </div>
         {errors.confirmPassword && (
-          <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.confirmPassword.message}
+          </motion.p>
         )}
       </div>
 
-      <div className="flex items-start">
-        <div className="flex items-center h-5">
-          <input
-            id="terms"
-            name="terms"
-            type="checkbox"
-            required
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
-          />
-        </div>
-        <div className="ml-3 text-sm">
-          <label htmlFor="terms" className="text-neutral-700">
-            Я согласен с{' '}
-            <a href="#" className="text-primary-600 hover:text-primary-700">
-              условиями использования
-            </a>{' '}
-            и{' '}
-            <a href="#" className="text-primary-600 hover:text-primary-700">
-              политикой конфиденциальности
-            </a>
-          </label>
-        </div>
-      </div>
+      <label className="flex items-start gap-3 cursor-pointer group">
+        <input
+          id="terms"
+          name="terms"
+          type="checkbox"
+          required
+          className="mt-0.5 h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded cursor-pointer"
+        />
+        <span className="text-sm text-neutral-700 group-hover:text-neutral-900 transition-colors">
+          Я согласен с{' '}
+          <a href="#" className="text-primary-600 hover:text-primary-700 font-medium transition-colors">
+            условиями использования
+          </a>{' '}
+          и{' '}
+          <a href="#" className="text-primary-600 hover:text-primary-700 font-medium transition-colors">
+            политикой конфиденциальности
+          </a>
+        </span>
+      </label>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-          {error}
-        </div>
-      )}
-
-      <button
-        type="button"
-        onClick={handleSubmit(onSubmit)}
-        disabled={loading}
-        className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+      <motion.div
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
-        {loading ? (
-          <>
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-            Регистрация...
-          </>
-        ) : (
-          <>
-            <UserIcon className="h-4 w-4 mr-2" />
-            Создать аккаунт
-          </>
-        )}
-      </button>
-    </div>
+        <button
+          type="button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={loading}
+          className="w-full group relative overflow-hidden bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3.5 rounded-xl font-medium shadow-soft hover:shadow-soft-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span className="flex items-center justify-center gap-2">
+            {loading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Регистрация...
+              </>
+            ) : (
+              <>
+                <UserPlus className="h-5 w-5" />
+                Создать аккаунт
+              </>
+            )}
+          </span>
+        </button>
+      </motion.div>
+    </motion.form>
   )
 }
 

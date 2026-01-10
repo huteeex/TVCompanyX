@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
 import { AppDispatch, RootState } from '../../redux/store'
 import { loginUser, clearError } from '../../redux/slices/authSlice'
 import { useRouter } from 'next/router'
-import { EyeIcon, EyeSlashIcon, KeyIcon } from '@heroicons/react/24/outline'
+import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight } from 'lucide-react'
+import { Input, Button } from '../ui/FormElements'
 
 interface LoginFormData {
   email: string
@@ -27,8 +29,6 @@ const LoginForm: React.FC = () => {
     dispatch(clearError())
     try {
       const resultAction = await dispatch(loginUser(data))
-      // If using unwrap: const payload = await dispatch(loginUser(data)).unwrap()
-      // Redirect after successful login (AuthPage also redirects, but we do it here immediately)
       const payload: any = (resultAction as any).payload
       if (payload?.user?.role) {
         const roleRoutes: { [key: string]: string } = {
@@ -44,7 +44,7 @@ const LoginForm: React.FC = () => {
         router.push(roleRoutes[payload.user.role] || '/customer')
       }
     } catch (err) {
-      // error handled in slice; no-op here
+      // error handled in slice
     }
   }
 
@@ -55,26 +55,52 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6" onKeyPress={handleKeyPress}>
+    <motion.form 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      onSubmit={handleSubmit(onSubmit)} 
+      className="space-y-5" 
+      onKeyPress={handleKeyPress}
+    >
+      {error && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 bg-red-50 border border-red-200 rounded-xl"
+        >
+          <p className="text-sm text-red-700">{error}</p>
+        </motion.div>
+      )}
+
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
           Email адрес
         </label>
-        <input
-          {...register('email', {
-            required: 'Email обязателен',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Неверный формат email',
-            },
-          })}
-          type="email"
-          id="email"
-          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-          placeholder="example@company.com"
-        />
+        <div className="relative">
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+          <input
+            {...register('email', {
+              required: 'Email обязателен',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Неверный формат email',
+              },
+            })}
+            type="email"
+            id="email"
+            className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+            placeholder="example@company.com"
+          />
+        </div>
         {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.email.message}
+          </motion.p>
         )}
       </div>
 
@@ -83,6 +109,7 @@ const LoginForm: React.FC = () => {
           Пароль
         </label>
         <div className="relative">
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
           <input
             {...register('password', {
               required: 'Пароль обязателен',
@@ -93,71 +120,77 @@ const LoginForm: React.FC = () => {
             })}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full pl-10 pr-12 py-3 border border-neutral-300 rounded-xl bg-white text-neutral-950 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
             placeholder="Введите ваш пароль"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors p-1"
+            aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
           >
             {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
+              <EyeOff className="h-5 w-5" />
             ) : (
-              <EyeIcon className="h-5 w-5" />
+              <Eye className="h-5 w-5" />
             )}
           </button>
         </div>
         {errors.password && (
-          <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+          <motion.p 
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-1.5 text-xs text-red-600"
+          >
+            {errors.password.message}
+          </motion.p>
         )}
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
+      <div className="flex items-center justify-between text-sm">
+        <label className="flex items-center gap-2 cursor-pointer group">
           <input
             id="remember-me"
             name="remember-me"
             type="checkbox"
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
+            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded cursor-pointer"
           />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
+          <span className="text-neutral-700 group-hover:text-neutral-900 transition-colors">
             Запомнить меня
-          </label>
-        </div>
+          </span>
+        </label>
 
-        <div className="text-sm">
-          <a href="#" className="font-medium text-primary-600 hover:text-primary-700">
-            Забыли пароль?
-          </a>
-        </div>
+        <a href="#" className="font-medium text-primary-600 hover:text-primary-700 transition-colors">
+          Забыли пароль?
+        </a>
       </div>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-          {error}
-        </div>
-      )}
-
-      <button
-        type="button"
-        onClick={handleSubmit(onSubmit)}
-        disabled={loading}
-        className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+      <motion.div
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
-        {loading ? (
-          <>
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-            Вход...
-          </>
-        ) : (
-          <>
-            <KeyIcon className="h-4 w-4 mr-2" />
-            Войти в систему
-          </>
-        )}
-      </button>
-    </div>
+        <button
+          type="button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={loading}
+          className="w-full group relative overflow-hidden bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3.5 rounded-xl font-medium shadow-soft hover:shadow-soft-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span className="flex items-center justify-center gap-2">
+            {loading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Вход...
+              </>
+            ) : (
+              <>
+                Войти в систему
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </>
+            )}
+          </span>
+        </button>
+      </motion.div>
+    </motion.form>
   )
 }
 
