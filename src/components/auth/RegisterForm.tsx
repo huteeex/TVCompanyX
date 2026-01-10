@@ -72,7 +72,7 @@ const RegisterForm: React.FC = () => {
     <div className="space-y-6" onKeyPress={handleKeyPress}>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label htmlFor="first_name" className="block text-sm font-medium text-secondary-700 mb-2">
+          <label htmlFor="first_name" className="block text-sm font-medium text-neutral-700 mb-2">
             Имя
           </label>
           <input
@@ -82,27 +82,27 @@ const RegisterForm: React.FC = () => {
             })}
             type="text"
             id="first_name"
-            className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Иван"
           />
           {errors.first_name && <p className="mt-1 text-sm text-red-600">{errors.first_name.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="middle_name" className="block text-sm font-medium text-secondary-700 mb-2">
+          <label htmlFor="middle_name" className="block text-sm font-medium text-neutral-700 mb-2">
             Отчество (опционально)
           </label>
           <input
             {...register('middle_name')}
             type="text"
             id="middle_name"
-            className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Петрович"
           />
         </div>
 
         <div>
-          <label htmlFor="last_name" className="block text-sm font-medium text-secondary-700 mb-2">
+          <label htmlFor="last_name" className="block text-sm font-medium text-neutral-700 mb-2">
             Фамилия
           </label>
           <input
@@ -112,7 +112,7 @@ const RegisterForm: React.FC = () => {
             })}
             type="text"
             id="last_name"
-            className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Иванов"
           />
           {errors.last_name && <p className="mt-1 text-sm text-red-600">{errors.last_name.message}</p>}
@@ -120,7 +120,7 @@ const RegisterForm: React.FC = () => {
       </div>
 
       <div className="mt-4">
-        <label htmlFor="phone" className="block text-sm font-medium text-secondary-700 mb-2">Телефон</label>
+        <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-2">Телефон</label>
         <input
           {...register('phone', {
             required: 'Телефон обязателен',
@@ -128,14 +128,14 @@ const RegisterForm: React.FC = () => {
           })}
           type="tel"
           id="phone"
-          className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
           placeholder="+7 (900) 000-00-00"
         />
         {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+        <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
           Email адрес
         </label>
         <input
@@ -148,7 +148,7 @@ const RegisterForm: React.FC = () => {
           })}
           type="email"
           id="email"
-          className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
           placeholder="example@company.com"
         />
         {errors.email && (
@@ -157,7 +157,7 @@ const RegisterForm: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-secondary-700 mb-2">
+        <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-2">
           Пароль
         </label>
         <div className="relative">
@@ -171,12 +171,12 @@ const RegisterForm: React.FC = () => {
             })}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="w-full px-4 py-3 pr-12 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Минимум 6 символов"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-secondary-400 hover:text-secondary-600 transition-colors"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -192,7 +192,7 @@ const RegisterForm: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="confirmPassword" className="block text-sm font-medium text-secondary-700 mb-2">
+        <label htmlFor="confirmPassword" className="block text-sm font-medium text-neutral-700 mb-2">
           Подтвердите пароль
         </label>
         <div className="relative">
@@ -204,12 +204,12 @@ const RegisterForm: React.FC = () => {
             })}
             type={showConfirmPassword ? 'text' : 'password'}
             id="confirmPassword"
-            className="w-full px-4 py-3 pr-12 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Повторите пароль"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-secondary-400 hover:text-secondary-600 transition-colors"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? (
@@ -231,11 +231,11 @@ const RegisterForm: React.FC = () => {
             name="terms"
             type="checkbox"
             required
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
           />
         </div>
         <div className="ml-3 text-sm">
-          <label htmlFor="terms" className="text-secondary-700">
+          <label htmlFor="terms" className="text-neutral-700">
             Я согласен с{' '}
             <a href="#" className="text-primary-600 hover:text-primary-700">
               условиями использования

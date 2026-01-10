@@ -157,10 +157,10 @@ const CustomerDashboard: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления заказчика рекламы
             </p>
           </div>
@@ -172,17 +172,17 @@ const CustomerDashboard: React.FC = () => {
             <a
               key={index}
               href={action.href}
-              className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+              className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
             >
               <div className="flex items-center space-x-4">
                 <div className={`p-3 rounded-lg ${action.color}`}>
                   <action.icon className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-secondary-900">
+                  <h3 className="text-lg font-semibold text-neutral-900">
                     {action.title}
                   </h3>
-                  <p className="text-sm text-secondary-600">
+                  <p className="text-sm text-neutral-600">
                     {action.description}
                   </p>
                 </div>
@@ -195,9 +195,9 @@ const CustomerDashboard: React.FC = () => {
         <Dashboard title="Статистика" charts={charts} stats={stats} />
 
         {/* Recent Applications */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200 flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200 flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Последние заявки
             </h3>
             {recentApplications.length > 0 && (
@@ -215,36 +215,36 @@ const CustomerDashboard: React.FC = () => {
             ) : (
               <>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-secondary-200">
-                    <thead className="bg-secondary-50">
+                  <table className="min-w-full divide-y divide-neutral-200">
+                    <thead className="bg-neutral-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Шоу
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Дата
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Длительность
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Статус
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Стоимость
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-secondary-200">
+                    <tbody className="bg-white divide-y divide-neutral-200">
                       {paginatedApplications.map((application: any, index: number) => (
                         <tr key={index}>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                             {application.show}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {new Date(application.date).toLocaleDateString('ru-RU')}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {application.duration} сек
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -252,7 +252,7 @@ const CustomerDashboard: React.FC = () => {
                               {getStatusText(application.status)}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {application.cost} ₽
                           </td>
                         </tr>

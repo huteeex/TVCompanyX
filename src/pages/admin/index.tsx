@@ -208,10 +208,10 @@ const AdminDashboard: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления ИТ-администратора
             </p>
           </div>
@@ -221,10 +221,10 @@ const AdminDashboard: React.FC = () => {
         <Dashboard title="Системная статистика" charts={charts} stats={stats} />
 
         {/* Users Management */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-secondary-900">
+              <h3 className="text-lg font-semibold text-neutral-900">
                 Управление пользователями
               </h3>
               <button
@@ -244,51 +244,51 @@ const AdminDashboard: React.FC = () => {
               </div>
             ) : users.length === 0 ? (
               <div className="text-center py-8">
-                <UsersIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <UsersIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Пользователи не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Добавьте первого пользователя
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Пользователь
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Роль
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Статус
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Последний вход
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Создан
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {users.map((user) => (
-                      <tr key={user.id} className="hover:bg-secondary-50">
+                      <tr key={user.id} className="hover:bg-neutral-50">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-secondary-900">
+                          <div className="text-sm font-medium text-neutral-900">
                             {user.name}
                           </div>
-                          <div className="text-sm text-secondary-500">
+                          <div className="text-sm text-neutral-500">
                             {user.email}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {getRoleDisplayName(user.role)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -300,13 +300,13 @@ const AdminDashboard: React.FC = () => {
                             {user.isActive ? 'Активен' : 'Неактивен'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {user.lastLogin 
                             ? new Date(user.lastLogin).toLocaleString('ru-RU')
                             : 'Никогда'
                           }
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {new Date(user.createdAt).toLocaleDateString('ru-RU')}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
@@ -342,10 +342,10 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* System Logs */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-secondary-900">
+              <h3 className="text-lg font-semibold text-neutral-900">
                 Системные логи
               </h3>
               <button
@@ -364,46 +364,46 @@ const AdminDashboard: React.FC = () => {
               </div>
             ) : logs.length === 0 ? (
               <div className="text-center py-8">
-                <ServerIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <ServerIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Логи не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Нет системных логов
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Уровень
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Сообщение
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Источник
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Время
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {logs.map((log) => (
-                      <tr key={log.id} className="hover:bg-secondary-50">
+                      <tr key={log.id} className="hover:bg-neutral-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getLogLevelBadge(log.level)}
                         </td>
-                        <td className="px-6 py-4 text-sm text-secondary-900">
+                        <td className="px-6 py-4 text-sm text-neutral-900">
                           {log.message}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {log.source}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {new Date(log.timestamp).toLocaleString('ru-RU')}
                         </td>
                       </tr>
@@ -419,17 +419,17 @@ const AdminDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <a
             href="/admin/stats"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-500">
                 <ChartBarIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Статистика системы
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Подробная статистика работы системы
                 </p>
               </div>
@@ -438,17 +438,17 @@ const AdminDashboard: React.FC = () => {
 
           <a
             href="/admin/logs"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-red-500">
                 <ServerIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Логи сервера
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Просмотр системных логов и ошибок
                 </p>
               </div>
@@ -457,17 +457,17 @@ const AdminDashboard: React.FC = () => {
 
           <a
             href="/admin/settings"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-gray-500">
                 <CogIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Настройки системы
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Конфигурация системы и параметры
                 </p>
               </div>

@@ -138,7 +138,7 @@ const CommercialApplicationsPage: React.FC = () => {
       pending: { color: 'bg-blue-100 text-blue-800', text: 'В ожидании' },
     }
 
-    const config = statusConfig[status as keyof typeof statusConfig] || { color: 'bg-secondary-100 text-secondary-800', text: status }
+    const config = statusConfig[status as keyof typeof statusConfig] || { color: 'bg-neutral-100 text-neutral-800', text: status }
     return (
       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${config.color}`}>
         {config.text}
@@ -151,10 +151,10 @@ const CommercialApplicationsPage: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Заявки от агентов
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Рассмотрение и одобрение заявок на размещение рекламы
             </p>
           </div>
@@ -167,8 +167,8 @@ const CommercialApplicationsPage: React.FC = () => {
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="border-b border-neutral-200">
             <nav className="flex space-x-8 px-6">
               {[
                 { key: 'sent_to_commercial', label: 'На рассмотрении', count: applications.filter(a => a.status === 'sent_to_commercial').length },
@@ -181,11 +181,11 @@ const CommercialApplicationsPage: React.FC = () => {
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     filter === tab.key
                       ? 'border-primary-500 text-primary-600'
-                      : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-secondary-300'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'
                   }`}
                 >
                   {tab.label}
-                  <span className="ml-2 bg-secondary-100 text-secondary-600 py-0.5 px-2 rounded-full text-xs">
+                  <span className="ml-2 bg-neutral-100 text-neutral-600 py-0.5 px-2 rounded-full text-xs">
                     {tab.count}
                   </span>
                 </button>
@@ -200,11 +200,11 @@ const CommercialApplicationsPage: React.FC = () => {
               </div>
             ) : applications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   {filter === 'sent_to_commercial' 
                     ? 'Нет заявок на рассмотрение' 
                     : `Нет заявок со статусом "${filter}"`
@@ -213,62 +213,62 @@ const CommercialApplicationsPage: React.FC = () => {
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Клиент
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Агент
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Шоу
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Дата
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Длительность
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Статус
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Стоимость
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {applications.map((application) => (
-                      <tr key={application.id} className="hover:bg-secondary-50">
+                      <tr key={application.id} className="hover:bg-neutral-50">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-secondary-900">
+                          <div className="text-sm font-medium text-neutral-900">
                             {application.clientName}
                           </div>
-                          <div className="text-sm text-secondary-500">
+                          <div className="text-sm text-neutral-500">
                             {application.clientEmail}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.agentName}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.show}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {new Date(application.date).toLocaleDateString('ru-RU')}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.duration} сек
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getStatusBadge(application.status)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {application.cost.toLocaleString('ru-RU')} ₽
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -310,7 +310,7 @@ const CommercialApplicationsPage: React.FC = () => {
                             </button>
                             <button
                               onClick={() => openChat(application)}
-                              className="text-secondary-600 hover:text-secondary-900"
+                              className="text-neutral-600 hover:text-neutral-900"
                               title="Чат с агентом"
                             >
                               <ChatBubbleLeftRightIcon className="h-5 w-5" />
@@ -333,83 +333,83 @@ const CommercialApplicationsPage: React.FC = () => {
           <div className="bg-white rounded-lg p-6 max-w-3xl w-full m-8">
             <div className="flex justify-between items-start mb-4">
               <h3 className="text-xl font-semibold">Детали заявки #{selectedApp.id.slice(-8)}</h3>
-              <button onClick={() => setSelectedApp(null)} className="text-secondary-400 hover:text-secondary-600">
+              <button onClick={() => setSelectedApp(null)} className="text-neutral-400 hover:text-neutral-600">
                 <XMarkIcon className="h-6 w-6" />
               </button>
             </div>
             
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-secondary-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-semibold text-secondary-600 mb-2">Информация о клиенте</h4>
+                <div className="bg-neutral-50 p-4 rounded-lg">
+                  <h4 className="text-sm font-semibold text-neutral-600 mb-2">Информация о клиенте</h4>
                   <div className="space-y-2">
                     <div>
-                      <span className="text-xs text-secondary-500">Имя:</span>
+                      <span className="text-xs text-neutral-500">Имя:</span>
                       <p className="font-medium">{selectedApp.clientName || selectedApp.customerName}</p>
                     </div>
                     <div>
-                      <span className="text-xs text-secondary-500">Email:</span>
+                      <span className="text-xs text-neutral-500">Email:</span>
                       <p className="font-medium">{selectedApp.clientEmail || selectedApp.customerEmail}</p>
                     </div>
                     <div>
-                      <span className="text-xs text-secondary-500">Телефон:</span>
+                      <span className="text-xs text-neutral-500">Телефон:</span>
                       <p className="font-medium">{selectedApp.contactPhone || selectedApp.contact_phone || 'Не указан'}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-secondary-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-semibold text-secondary-600 mb-2">Информация об агенте</h4>
+                <div className="bg-neutral-50 p-4 rounded-lg">
+                  <h4 className="text-sm font-semibold text-neutral-600 mb-2">Информация об агенте</h4>
                   <div className="space-y-2">
                     <div>
-                      <span className="text-xs text-secondary-500">Имя:</span>
+                      <span className="text-xs text-neutral-500">Имя:</span>
                       <p className="font-medium">{selectedApp.agentName || 'Не назначен'}</p>
                     </div>
                     <div>
-                      <span className="text-xs text-secondary-500">ID агента:</span>
+                      <span className="text-xs text-neutral-500">ID агента:</span>
                       <p className="font-mono text-sm">{selectedApp.agentId?.slice(-8) || '—'}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-secondary-50 p-4 rounded-lg">
-                <h4 className="text-sm font-semibold text-secondary-600 mb-2">Детали заявки</h4>
+              <div className="bg-neutral-50 p-4 rounded-lg">
+                <h4 className="text-sm font-semibold text-neutral-600 mb-2">Детали заявки</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <span className="text-xs text-secondary-500">Шоу:</span>
+                    <span className="text-xs text-neutral-500">Шоу:</span>
                     <p className="font-medium">{selectedApp.show}</p>
                   </div>
                   <div>
-                    <span className="text-xs text-secondary-500">Дата и время:</span>
+                    <span className="text-xs text-neutral-500">Дата и время:</span>
                     <p className="font-medium">{new Date(selectedApp.date || selectedApp.scheduled_at).toLocaleString('ru-RU')}</p>
                   </div>
                   <div>
-                    <span className="text-xs text-secondary-500">Длительность:</span>
+                    <span className="text-xs text-neutral-500">Длительность:</span>
                     <p className="font-medium">{selectedApp.duration || selectedApp.duration_seconds} секунд</p>
                   </div>
                   <div>
-                    <span className="text-xs text-secondary-500">Стоимость:</span>
+                    <span className="text-xs text-neutral-500">Стоимость:</span>
                     <p className="font-medium text-lg">{(selectedApp.cost || 0).toLocaleString('ru-RU')} ₽</p>
                   </div>
                   <div className="col-span-2">
-                    <span className="text-xs text-secondary-500">Статус:</span>
+                    <span className="text-xs text-neutral-500">Статус:</span>
                     <div className="mt-1">{getStatusBadge(selectedApp.status)}</div>
                   </div>
                 </div>
               </div>
 
               {selectedApp.description && (
-                <div className="bg-secondary-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-semibold text-secondary-600 mb-2">Описание</h4>
-                  <p className="text-sm text-secondary-700">{selectedApp.description}</p>
+                <div className="bg-neutral-50 p-4 rounded-lg">
+                  <h4 className="text-sm font-semibold text-neutral-600 mb-2">Описание</h4>
+                  <p className="text-sm text-neutral-700">{selectedApp.description}</p>
                 </div>
               )}
 
               <div className="flex justify-end space-x-2 mt-6">
                 <button
                   onClick={() => openChat(selectedApp)}
-                  className="px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 flex items-center space-x-2"
+                  className="px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-700 flex items-center space-x-2"
                 >
                   <ChatBubbleLeftRightIcon className="h-5 w-5" />
                   <span>Открыть чат с агентом</span>

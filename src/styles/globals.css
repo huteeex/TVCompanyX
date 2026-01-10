@@ -8,7 +8,7 @@
   }
   
   body {
-    @apply bg-secondary-50 text-secondary-900;
+    @apply bg-neutral-50 text-neutral-900;
   }
 }
 
@@ -18,19 +18,19 @@
   }
   
   .btn-secondary {
-    @apply px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 transition-colors duration-200;
+    @apply px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500 transition-colors duration-200;
   }
   
   .btn-outline {
-    @apply px-4 py-2 border border-secondary-300 text-secondary-700 rounded-md hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    @apply px-4 py-2 border border-neutral-300 text-neutral-700 rounded-md hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
   }
   
   .input-field {
-    @apply w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500;
+    @apply w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500;
   }
   
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-secondary-200;
+    @apply bg-white rounded-lg shadow-sm border border-neutral-200;
   }
   
   .badge {
@@ -145,7 +145,7 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .card {
-    @apply border-2 border-secondary-400;
+    @apply border-2 border-neutral-400;
   }
   
   .btn-primary {
@@ -169,12 +169,12 @@
   }
   
   .card {
-    @apply shadow-none border border-secondary-300;
+    @apply shadow-none border border-neutral-300;
   }
   
   .btn-primary,
   .btn-secondary,
   .btn-outline {
-    @apply border border-secondary-400 bg-transparent text-secondary-900;
+    @apply border border-neutral-400 bg-transparent text-neutral-900;
   }
 }

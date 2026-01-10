@@ -35,14 +35,14 @@ const AuthPage: React.FC = () => {
   }, [isAuthenticated, user, router])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-100">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-neutral-100">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <button
               onClick={() => router.push('/')}
-              className="flex items-center text-secondary-600 hover:text-secondary-900 transition-colors"
+              className="flex items-center text-neutral-600 hover:text-neutral-900 transition-colors"
             >
               <ArrowLeftIcon className="h-5 w-5 mr-2" />
               На главную
@@ -50,7 +50,7 @@ const AuthPage: React.FC = () => {
             <div className="flex items-center">
               <PlayIcon className="h-8 w-8 text-primary-600 mr-3" />
               <div>
-                <h1 className="text-xl font-bold text-secondary-900">
+                <h1 className="text-xl font-bold text-neutral-900">
                   TV Company Ad System
                 </h1>
               </div>
@@ -64,10 +64,10 @@ const AuthPage: React.FC = () => {
           {/* Auth Mode Toggle */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-secondary-900 mb-2">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-2">
                 {authMode === 'login' ? 'Добро пожаловать!' : 'Создать аккаунт'}
               </h2>
-              <p className="text-secondary-600">
+              <p className="text-neutral-600">
                 {authMode === 'login' 
                   ? 'Войдите в свой аккаунт для доступа к системе'
                   : 'Зарегистрируйтесь для начала работы с системой'
@@ -108,7 +108,7 @@ const AuthPage: React.FC = () => {
 
             {/* Switch Mode */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-secondary-600">
+              <p className="text-sm text-neutral-600">
                 {authMode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
                 <button
                   onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')}
@@ -122,7 +122,7 @@ const AuthPage: React.FC = () => {
 
           {/* Additional Info */}
           <div className="text-center">
-            <p className="text-sm text-secondary-500">
+            <p className="text-sm text-neutral-500">
               Нужна помощь? Обратитесь к{' '}
               <a href="mailto:support@tvcompany.com" className="text-primary-600 hover:text-primary-700">
                 службе поддержки

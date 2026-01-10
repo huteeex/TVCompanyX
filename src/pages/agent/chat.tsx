@@ -533,7 +533,7 @@ const AgentChatPage: React.FC = () => {
 
           <div className="space-y-1.5 flex-1 overflow-y-auto mb-3" style={{maxHeight: 'calc(100% - 150px)'}}>
             {filteredRooms.length === 0 ? (
-              <div className="text-center py-8 text-secondary-500">
+              <div className="text-center py-8 text-neutral-500">
                 <p className="text-sm">Нет заявок</p>
                 {statusFilter !== 'all' && (
                   <p className="text-xs mt-2">Попробуйте другой фильтр</p>
@@ -550,7 +550,7 @@ const AgentChatPage: React.FC = () => {
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <div className="text-xs font-medium">{title}</div>
-                          <div className="text-xs text-secondary-500 mt-0.5">{r.subtitle}</div>
+                          <div className="text-xs text-neutral-500 mt-0.5">{r.subtitle}</div>
                           {r.status && (
                             <span className={`inline-block mt-1 px-1.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(r.status)}`}>
                               {getStatusText(r.status)}
@@ -573,7 +573,7 @@ const AgentChatPage: React.FC = () => {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex flex-col gap-1.5 flex-shrink-0 border-t pt-2">
-              <div className="text-xs text-secondary-600 text-center">
+              <div className="text-xs text-neutral-600 text-center">
                 {startIndex + 1}-{Math.min(endIndex, filteredRooms.length)} из {filteredRooms.length}
               </div>
               
@@ -581,7 +581,7 @@ const AgentChatPage: React.FC = () => {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="px-2 py-1 text-xs rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-xs rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   ←
                 </button>
@@ -594,7 +594,7 @@ const AgentChatPage: React.FC = () => {
                       className={`px-2 py-1 text-xs rounded-md ${
                         currentPage === page
                           ? 'bg-primary-600 text-white'
-                          : 'bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50'
+                          : 'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
                       }`}
                     >
                       {page}
@@ -609,16 +609,16 @@ const AgentChatPage: React.FC = () => {
                       value={pageInput}
                       onChange={(e) => setPageInput(e.target.value)}
                       placeholder={currentPage.toString()}
-                      className="w-12 px-1 py-1 border border-secondary-300 rounded-md text-center text-xs"
+                      className="w-12 px-1 py-1 border border-neutral-300 rounded-md text-center text-xs"
                     />
-                    <span className="text-xs text-secondary-600">/{totalPages}</span>
+                    <span className="text-xs text-neutral-600">/{totalPages}</span>
                   </form>
                 )}
                 
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="px-2 py-1 text-xs rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-xs rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   →
                 </button>

@@ -163,18 +163,18 @@ const DirectorDashboard: React.FC = () => {
     <Layout role="director">
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-secondary-900">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Добро пожаловать, {user?.name}!
           </h1>
-          <p className="text-secondary-600">
+          <p className="text-neutral-600">
             Панель управления директора
           </p>
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-secondary-900">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Фильтры
             </h3>
             <button
@@ -188,37 +188,37 @@ const DirectorDashboard: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 Дата от
               </label>
               <input
                 type="date"
                 value={filters.startDate}
                 onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
-                className="w-full px-3 py-2 border border-secondary-300 rounded-md"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 Дата до
               </label>
               <input
                 type="date"
                 value={filters.endDate}
                 onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
-                className="w-full px-3 py-2 border border-secondary-300 rounded-md"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 Роль
               </label>
               <select
                 value={filters.roleFilter}
                 onChange={(e) => setFilters({ ...filters, roleFilter: e.target.value })}
-                className="w-full px-3 py-2 border border-secondary-300 rounded-md"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md"
               >
                 <option value="all">Все сотрудники</option>
                 <option value="agent">Агенты</option>
@@ -232,41 +232,41 @@ const DirectorDashboard: React.FC = () => {
         <Dashboard title="Статистика компании" charts={charts} stats={stats} />
 
         {/* Staff KPI Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="px-6 py-4 border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="px-6 py-4 border-b border-neutral-200">
             <div className="flex items-center space-x-2">
               <UserGroupIcon className="h-6 w-6 text-primary-600" />
-              <h3 className="text-lg font-semibold text-secondary-900">
+              <h3 className="text-lg font-semibold text-neutral-900">
                 KPI Сотрудников
               </h3>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-secondary-200">
-              <thead className="bg-secondary-50">
+            <table className="min-w-full divide-y divide-neutral-200">
+              <thead className="bg-neutral-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Сотрудник</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Роль</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Заявок</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Одобрено</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">KPI</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Доход</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Комиссия</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase">Передачи</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Сотрудник</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Роль</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Заявок</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Одобрено</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">KPI</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Доход</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Комиссия</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Передачи</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-secondary-200">
+              <tbody className="bg-white divide-y divide-neutral-200">
                 {staffKPI.map((staff) => (
-                  <tr key={staff.id} className="hover:bg-secondary-50">
+                  <tr key={staff.id} className="hover:bg-neutral-50">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-secondary-900">{staff.name}</div>
-                      <div className="text-sm text-secondary-500">{staff.email}</div>
+                      <div className="text-sm font-medium text-neutral-900">{staff.name}</div>
+                      <div className="text-sm text-neutral-500">{staff.email}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                       {staff.role_display}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
                       {staff.total_applications}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">
@@ -275,13 +275,13 @@ const DirectorDashboard: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getKpiBadge(staff.kpi)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                       {staff.revenue.toLocaleString('ru-RU')} ₽
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                       {staff.commission.toLocaleString('ru-RU')} ₽
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                       {staff.unique_shows} уник.
                     </td>
                   </tr>

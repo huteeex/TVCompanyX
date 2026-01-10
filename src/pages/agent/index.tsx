@@ -227,10 +227,10 @@ const AgentDashboard: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления рекламного агента
             </p>
           </div>
@@ -240,10 +240,10 @@ const AgentDashboard: React.FC = () => {
         <Dashboard title="Статистика" charts={charts} stats={stats} />
 
         {/* Applications Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-secondary-900">
+              <h3 className="text-lg font-semibold text-neutral-900">
                 Заявки клиентов
               </h3>
               <button
@@ -261,7 +261,7 @@ const AgentDashboard: React.FC = () => {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'all'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 Все заявки ({getStatusCount('all')})
@@ -326,11 +326,11 @@ const AgentDashboard: React.FC = () => {
               </div>
             ) : filteredApplications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   {statusFilter === 'all' ? 'Заявки не найдены' : 'Заявки с этим статусом не найдены'}
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   {statusFilter === 'all' 
                     ? 'У вас пока нет заявок от клиентов'
                     : 'Попробуйте выбрать другой фильтр'
@@ -340,56 +340,56 @@ const AgentDashboard: React.FC = () => {
             ) : (
               <>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-secondary-200">
-                    <thead className="bg-secondary-50">
+                  <table className="min-w-full divide-y divide-neutral-200">
+                    <thead className="bg-neutral-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           ID
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Клиент
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Шоу
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Дата
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Статус
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Стоимость
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                           Действия
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-secondary-200">
+                    <tbody className="bg-white divide-y divide-neutral-200">
                       {currentApplications.map((application) => (
-                        <tr key={application.id} className="hover:bg-secondary-50">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                        <tr key={application.id} className="hover:bg-neutral-50">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                             #{application.id.slice(-8)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-secondary-900">
+                            <div className="text-sm font-medium text-neutral-900">
                               {application.clientName}
                             </div>
-                            <div className="text-sm text-secondary-500">
+                            <div className="text-sm text-neutral-500">
                               {application.clientEmail}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {application.show}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {new Date(application.date).toLocaleDateString('ru-RU')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             {getStatusBadge(application.status)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                             {application.cost.toLocaleString('ru-RU')} ₽
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
@@ -422,7 +422,7 @@ const AgentDashboard: React.FC = () => {
                 {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div className="text-sm text-secondary-600">
+                    <div className="text-sm text-neutral-600">
                       Показано {startIndex + 1}-{Math.min(endIndex, filteredApplications.length)} из {filteredApplications.length} заявок
                     </div>
                     
@@ -430,7 +430,7 @@ const AgentDashboard: React.FC = () => {
                       <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         ←
                       </button>
@@ -443,7 +443,7 @@ const AgentDashboard: React.FC = () => {
                             className={`px-3 py-1 rounded-md ${
                               currentPage === page
                                 ? 'bg-primary-600 text-white'
-                                : 'bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50'
+                                : 'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
                             }`}
                           >
                             {page}
@@ -451,7 +451,7 @@ const AgentDashboard: React.FC = () => {
                         ))
                       ) : (
                         <form onSubmit={handleQuickJump} className="flex items-center gap-2">
-                          <span className="text-sm text-secondary-600">Страница</span>
+                          <span className="text-sm text-neutral-600">Страница</span>
                           <input
                             type="number"
                             min="1"
@@ -459,9 +459,9 @@ const AgentDashboard: React.FC = () => {
                             value={pageInput}
                             onChange={(e) => setPageInput(e.target.value)}
                             placeholder={currentPage.toString()}
-                            className="w-16 px-2 py-1 border border-secondary-300 rounded-md text-center text-sm"
+                            className="w-16 px-2 py-1 border border-neutral-300 rounded-md text-center text-sm"
                           />
-                          <span className="text-sm text-secondary-600">из {totalPages}</span>
+                          <span className="text-sm text-neutral-600">из {totalPages}</span>
                           <button
                             type="submit"
                             className="px-3 py-1 bg-primary-600 text-white rounded-md hover:bg-primary-700 text-sm"
@@ -474,7 +474,7 @@ const AgentDashboard: React.FC = () => {
                       <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         →
                       </button>
@@ -490,17 +490,17 @@ const AgentDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <a
             href="/agent/commissions"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-green-500">
                 <ChartBarIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Комиссии
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Просмотр комиссий и статистики
                 </p>
               </div>
@@ -509,17 +509,17 @@ const AgentDashboard: React.FC = () => {
 
           <a
             href="/agent/reports"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-500">
                 <DocumentArrowDownIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Отчеты
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Генерация отчетов для клиентов
                 </p>
               </div>
@@ -528,17 +528,17 @@ const AgentDashboard: React.FC = () => {
 
           <a
             href="/agent/chat"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-purple-500">
                 <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Чат
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Общение с клиентами и отделом
                 </p>
               </div>

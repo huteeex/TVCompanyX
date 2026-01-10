@@ -345,8 +345,8 @@ const CommercialSchedulePage: React.FC = () => {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">Расписание шоу</h1>
-            <p className="text-secondary-600">Управление расписанием телепередач и рекламными слотами</p>
+            <h1 className="text-2xl font-bold text-neutral-900">Расписание шоу</h1>
+            <p className="text-neutral-600">Управление расписанием телепередач и рекламными слотами</p>
           </div>
           <div className="flex items-center gap-3">
             {/* View Mode Switcher */}

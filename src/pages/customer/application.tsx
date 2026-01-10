@@ -263,10 +263,10 @@ const ApplicationPage: React.FC = () => {
         <div className="flex items-center space-x-3">
           <DocumentTextIcon className="h-8 w-8 text-primary-600" />
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Подача заявки на рекламу
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Пошаговая подача заявки на размещение рекламы
             </p>
           </div>
@@ -297,7 +297,7 @@ const ApplicationPage: React.FC = () => {
         )}
 
         {/* Progress Steps */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
           <div className="flex items-center justify-between">
             {[
               { step: 1, title: 'Выбор даты', icon: CalendarIcon },
@@ -331,16 +331,16 @@ const ApplicationPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
               <form onSubmit={handleSubmit}>
                 {/* Step 1: Date Selection */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
-                    <h2 className="text-lg font-semibold text-secondary-900">
+                    <h2 className="text-lg font-semibold text-neutral-900">
                       Шаг 1: Выберите дату показа
                     </h2>
                     <div>
-                      <label htmlFor="selectedDate" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label htmlFor="selectedDate" className="block text-sm font-medium text-neutral-700 mb-2">
                         Дата показа рекламы *
                       </label>
                       <input
@@ -351,9 +351,9 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleDateChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       />
-                      <p className="mt-1 text-sm text-secondary-500">
+                      <p className="mt-1 text-sm text-neutral-500">
                         Выберите дату, чтобы увидеть доступные шоу
                       </p>
                     </div>
@@ -373,7 +373,7 @@ const ApplicationPage: React.FC = () => {
                 {currentStep === 2 && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-secondary-900">
+                      <h2 className="text-lg font-semibold text-neutral-900">
                         Шаг 2: Выберите шоу
                       </h2>
                       <button
@@ -386,7 +386,7 @@ const ApplicationPage: React.FC = () => {
                     </div>
                     
                     <div>
-                      <p className="text-sm text-secondary-600 mb-4">
+                      <p className="text-sm text-neutral-600 mb-4">
                         Доступные шоу на {formData.selectedDate 
                           ? new Date(formData.selectedDate).toLocaleDateString('ru-RU')
                           : 'выбранную дату'}:
@@ -395,7 +395,7 @@ const ApplicationPage: React.FC = () => {
                       {showsLoading ? (
                         <div className="text-center py-8">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                          <p className="text-secondary-600">Загрузка шоу...</p>
+                          <p className="text-neutral-600">Загрузка шоу...</p>
                         </div>
                       ) : shows.length === 0 ? (
                         <div className="text-center py-8">
@@ -455,7 +455,7 @@ const ApplicationPage: React.FC = () => {
                 {currentStep === 3 && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-secondary-900">
+                      <h2 className="text-lg font-semibold text-neutral-900">
                         Шаг 3: Параметры рекламы
                       </h2>
                       <button
@@ -478,7 +478,7 @@ const ApplicationPage: React.FC = () => {
                     )}
 
                     <div>
-                      <label htmlFor="durationSeconds" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label htmlFor="durationSeconds" className="block text-sm font-medium text-neutral-700 mb-2">
                         Длительность рекламы (секунды) *
                       </label>
                       <input
@@ -490,15 +490,15 @@ const ApplicationPage: React.FC = () => {
                         required
                         min="5"
                         max="300"
-                        className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       />
-                      <p className="mt-1 text-sm text-secondary-500">
+                      <p className="mt-1 text-sm text-neutral-500">
                         Минимум 5 секунд, максимум 300 секунд (5 минут)
                       </p>
                     </div>
 
                     <div>
-                      <label htmlFor="contactPhone" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label htmlFor="contactPhone" className="block text-sm font-medium text-neutral-700 mb-2">
                         Контактный телефон *
                       </label>
                       <div className="flex items-center space-x-3 mb-2">
@@ -510,7 +510,7 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleInputChange}
                         required
                         placeholder="+7 (999) 123-45-67"
-                        className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       />
                         <div className="flex items-center">
                           <input id="useProfilePhone" type="checkbox" checked={useProfilePhone} onChange={(e) => {
@@ -520,13 +520,13 @@ const ApplicationPage: React.FC = () => {
                               setFormData(prev => ({ ...prev, contactPhone: profilePhone }))
                             }
                           }} className="h-4 w-4" />
-                          <label htmlFor="useProfilePhone" className="ml-2 text-sm text-secondary-600">Использовать номер из профиля</label>
+                          <label htmlFor="useProfilePhone" className="ml-2 text-sm text-neutral-600">Использовать номер из профиля</label>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="description" className="block text-sm font-medium text-secondary-700 mb-2">
+                      <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-2">
                         Описание рекламы
                       </label>
                       <textarea
@@ -536,7 +536,7 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleInputChange}
                         rows={4}
                         placeholder="Опишите содержание рекламы, целевую аудиторию и другие важные детали..."
-                        className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       />
                     </div>
 
@@ -554,7 +554,7 @@ const ApplicationPage: React.FC = () => {
                 {currentStep === 4 && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-secondary-900">
+                      <h2 className="text-lg font-semibold text-neutral-900">
                         Шаг 4: Подтверждение заявки
                       </h2>
                       <button
@@ -636,8 +636,8 @@ const ApplicationPage: React.FC = () => {
 
           {/* Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 sticky top-6">
-              <h3 className="text-lg font-semibold text-secondary-900 mb-4">
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 sticky top-6">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
                 📋 Сводка заявки
               </h3>
 

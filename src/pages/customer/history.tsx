@@ -96,18 +96,18 @@ const ApplicationHistory: React.FC = () => {
         <div className="flex items-center space-x-3">
           <ClockIcon className="h-8 w-8 text-primary-600" />
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               История заявок
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Все ваши заявки на размещение рекламы
             </p>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="border-b border-secondary-200">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="border-b border-neutral-200">
             <nav className="flex space-x-8 px-6">
               {[
                 { key: 'all', label: 'Все заявки', count: applications.length },
@@ -121,11 +121,11 @@ const ApplicationHistory: React.FC = () => {
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     filter === tab.key
                       ? 'border-primary-500 text-primary-600'
-                      : 'border-transparent text-secondary-500 hover:text-secondary-700 hover:border-secondary-300'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'
                   }`}
                 >
                   {tab.label}
-                  <span className="ml-2 bg-secondary-100 text-secondary-600 py-0.5 px-2 rounded-full text-xs">
+                  <span className="ml-2 bg-neutral-100 text-neutral-600 py-0.5 px-2 rounded-full text-xs">
                     {tab.count}
                   </span>
                 </button>
@@ -136,11 +136,11 @@ const ApplicationHistory: React.FC = () => {
           <div className="p-6">
             {filteredApplications.length === 0 ? (
               <div className="text-center py-8">
-                <DocumentTextIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <DocumentTextIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   {filter === 'all' 
                     ? 'У вас пока нет заявок' 
                     : `Нет заявок со статусом "${filter === 'pending' ? 'На рассмотрении' : filter === 'approved' ? 'Одобренные' : 'Отклоненные'}"`
@@ -149,53 +149,53 @@ const ApplicationHistory: React.FC = () => {
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Шоу
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Дата показа
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Длительность
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Статус
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Стоимость
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Создано
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {filteredApplications.map((application) => (
-                      <tr key={application.id} className="hover:bg-secondary-50">
+                      <tr key={application.id} className="hover:bg-neutral-50">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-secondary-900">
+                          <div className="text-sm font-medium text-neutral-900">
                             {application.show}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {formatDate(application.date)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.duration} сек
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getStatusBadge(application.status)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.cost.toLocaleString('ru-RU')} ₽
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {formatDateTime(application.createdAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -221,12 +221,12 @@ const ApplicationHistory: React.FC = () => {
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-secondary-900">
+                  <h3 className="text-lg font-semibold text-neutral-900">
                     Детали заявки
                   </h3>
                   <button
                     onClick={() => setSelectedApplication(null)}
-                    className="text-secondary-400 hover:text-secondary-600"
+                    className="text-neutral-400 hover:text-neutral-600"
                   >
                     <span className="sr-only">Закрыть</span>
                     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -238,48 +238,48 @@ const ApplicationHistory: React.FC = () => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Шоу</label>
-                      <p className="text-sm text-secondary-900">{selectedApplication.show}</p>
+                      <label className="text-sm font-medium text-neutral-600">Шоу</label>
+                      <p className="text-sm text-neutral-900">{selectedApplication.show}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Статус</label>
+                      <label className="text-sm font-medium text-neutral-600">Статус</label>
                       <div className="mt-1">{getStatusBadge(selectedApplication.status)}</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Дата показа</label>
-                      <p className="text-sm text-secondary-900">{formatDate(selectedApplication.date)}</p>
+                      <label className="text-sm font-medium text-neutral-600">Дата показа</label>
+                      <p className="text-sm text-neutral-900">{formatDate(selectedApplication.date)}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Длительность</label>
-                      <p className="text-sm text-secondary-900">{selectedApplication.duration} секунд</p>
+                      <label className="text-sm font-medium text-neutral-600">Длительность</label>
+                      <p className="text-sm text-neutral-900">{selectedApplication.duration} секунд</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Стоимость</label>
-                      <p className="text-sm text-secondary-900">{selectedApplication.cost.toLocaleString('ru-RU')} ₽</p>
+                      <label className="text-sm font-medium text-neutral-600">Стоимость</label>
+                      <p className="text-sm text-neutral-900">{selectedApplication.cost.toLocaleString('ru-RU')} ₽</p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Создано</label>
-                      <p className="text-sm text-secondary-900">{formatDateTime(selectedApplication.createdAt)}</p>
+                      <label className="text-sm font-medium text-neutral-600">Создано</label>
+                      <p className="text-sm text-neutral-900">{formatDateTime(selectedApplication.createdAt)}</p>
                     </div>
                   </div>
 
                   {selectedApplication.contactPhone && (
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Контактный телефон</label>
-                      <p className="text-sm text-secondary-900">{selectedApplication.contactPhone}</p>
+                      <label className="text-sm font-medium text-neutral-600">Контактный телефон</label>
+                      <p className="text-sm text-neutral-900">{selectedApplication.contactPhone}</p>
                     </div>
                   )}
 
                   {selectedApplication.description && (
                     <div>
-                      <label className="text-sm font-medium text-secondary-600">Описание</label>
-                      <p className="text-sm text-secondary-900 mt-1">{selectedApplication.description}</p>
+                      <label className="text-sm font-medium text-neutral-600">Описание</label>
+                      <p className="text-sm text-neutral-900 mt-1">{selectedApplication.description}</p>
                     </div>
                   )}
                 </div>

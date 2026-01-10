@@ -5,8 +5,8 @@ const DirectorCompanyStatsPage: React.FC = () => {
   return (
     <Layout role="director">
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-secondary-900">Статистика компании</h1>
-        <p className="text-secondary-600">Страница-заглушка. Здесь будут ключевые графики по компании.</p>
+        <h1 className="text-2xl font-bold text-neutral-900">Статистика компании</h1>
+        <p className="text-neutral-600">Страница-заглушка. Здесь будут ключевые графики по компании.</p>
       </div>
     </Layout>
   )

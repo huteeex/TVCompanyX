@@ -126,7 +126,7 @@ const AgentApplicationsPage: React.FC = () => {
       approved: 'bg-green-100 text-green-800',
       rejected: 'bg-red-100 text-red-800'
     }
-    return colors[status] || 'bg-secondary-100 text-secondary-800'
+    return colors[status] || 'bg-neutral-100 text-neutral-800'
   }
 
   // Pagination helpers
@@ -154,7 +154,7 @@ const AgentApplicationsPage: React.FC = () => {
     <Layout role="agent">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-secondary-900">Заявки клиентов</h1>
+          <h1 className="text-2xl font-bold text-neutral-900">Заявки клиентов</h1>
           <div className="flex space-x-2">
             {/* Items per page selector */}
             <select
@@ -217,24 +217,24 @@ const AgentApplicationsPage: React.FC = () => {
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-secondary-200">
-                <thead className="bg-secondary-50">
+              <table className="min-w-full divide-y divide-neutral-200">
+                <thead className="bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Клиент</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Шоу</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Дата</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Статус</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Действия</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Клиент</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Шоу</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Дата</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Статус</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Действия</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-secondary-200">
+                <tbody className="bg-white divide-y divide-neutral-200">
                   {currentApplications.map(app => (
-                    <tr key={app.id} className="hover:bg-secondary-50">
+                    <tr key={app.id} className="hover:bg-neutral-50">
                       <td className="px-6 py-4">#{app.id.slice(-8)}</td>
                       <td className="px-6 py-4">
                         <div className="font-medium">{app.customer_name || app.customerName || '—'}</div>
-                        <div className="text-sm text-secondary-500">{app.customer_email || app.customerEmail || ''}</div>
+                        <div className="text-sm text-neutral-500">{app.customer_email || app.customerEmail || ''}</div>
                       </td>
                       <td className="px-6 py-4">{app.show || app.show_name}</td>
                       <td className="px-6 py-4">{new Date(app.date || app.scheduled_at || app.created_at).toLocaleDateString('ru-RU')}</td>
@@ -262,7 +262,7 @@ const AgentApplicationsPage: React.FC = () => {
                               )}
                               {/* Show 'Edit' if assigned to this agent */}
                               {( (app.agentId === user?.id || app.agent_id === user?.id) ) && (
-                                <button onClick={() => openEditModal(app)} className="text-secondary-600 hover:text-secondary-900" title="Редактировать">
+                                <button onClick={() => openEditModal(app)} className="text-neutral-600 hover:text-neutral-900" title="Редактировать">
                                   <PencilIcon className="h-5 w-5" />
                                 </button>
                               )}
@@ -276,8 +276,8 @@ const AgentApplicationsPage: React.FC = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-lg p-4 border border-secondary-200">
-                <div className="text-sm text-secondary-600">
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-lg p-4 border border-neutral-200">
+                <div className="text-sm text-neutral-600">
                   Показано {startIndex + 1}-{Math.min(endIndex, filteredApplications.length)} из {filteredApplications.length} заявок
                 </div>
                 
@@ -285,7 +285,7 @@ const AgentApplicationsPage: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     ←
                   </button>
@@ -298,7 +298,7 @@ const AgentApplicationsPage: React.FC = () => {
                         className={`px-3 py-1 rounded-md ${
                           currentPage === page
                             ? 'bg-primary-600 text-white'
-                            : 'bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50'
+                            : 'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
                         }`}
                       >
                         {page}
@@ -306,7 +306,7 @@ const AgentApplicationsPage: React.FC = () => {
                     ))
                   ) : (
                     <form onSubmit={handleQuickJump} className="flex items-center gap-2">
-                      <span className="text-sm text-secondary-600">Страница</span>
+                      <span className="text-sm text-neutral-600">Страница</span>
                       <input
                         type="number"
                         min="1"
@@ -314,9 +314,9 @@ const AgentApplicationsPage: React.FC = () => {
                         value={pageInput}
                         onChange={(e) => setPageInput(e.target.value)}
                         placeholder={currentPage.toString()}
-                        className="w-16 px-2 py-1 border border-secondary-300 rounded-md text-center text-sm"
+                        className="w-16 px-2 py-1 border border-neutral-300 rounded-md text-center text-sm"
                       />
-                      <span className="text-sm text-secondary-600">из {totalPages}</span>
+                      <span className="text-sm text-neutral-600">из {totalPages}</span>
                       <button
                         type="submit"
                         className="px-3 py-1 bg-primary-600 text-white rounded-md hover:bg-primary-700 text-sm"
@@ -329,7 +329,7 @@ const AgentApplicationsPage: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-1 rounded-md bg-white border border-secondary-300 text-secondary-700 hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-1 rounded-md bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     →
                   </button>
@@ -419,7 +419,7 @@ const AgentApplicationsPage: React.FC = () => {
             <div className="flex justify-end space-x-2 mt-6">
               <button
                 onClick={() => setEditingApp(null)}
-                className="px-4 py-2 border rounded-md hover:bg-secondary-50"
+                className="px-4 py-2 border rounded-md hover:bg-neutral-50"
               >
                 Отмена
               </button>

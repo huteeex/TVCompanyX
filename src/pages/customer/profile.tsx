@@ -86,47 +86,47 @@ const CustomerProfilePage: React.FC = () => {
     <Layout role="customer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-secondary-900">Мой профиль</h1>
-          <p className="mt-1 text-sm text-secondary-600">Управляйте своими персональными данными и настройками безопасности</p>
+          <h1 className="text-2xl font-bold text-neutral-900">Мой профиль</h1>
+          <p className="mt-1 text-sm text-neutral-600">Управляйте своими персональными данными и настройками безопасности</p>
         </div>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Personal Information Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
             <div className="bg-gradient-to-r from-primary-50 to-primary-100 px-4 py-3 border-b border-primary-200">
               <div className="flex items-center">
                 <UserCircleIcon className="h-5 w-5 text-primary-600 mr-2" />
-                <h2 className="text-base font-semibold text-secondary-900">Личная информация</h2>
+                <h2 className="text-base font-semibold text-neutral-900">Личная информация</h2>
               </div>
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Имя</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Имя</label>
                 <input 
                   name="first_name" 
                   value={form.first_name} 
                   onChange={handleChange} 
-                  className="w-full px-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+                  className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
                   placeholder="Введите имя"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Отчество</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Отчество</label>
                 <input 
                   name="middle_name" 
                   value={form.middle_name} 
                   onChange={handleChange} 
-                  className="w-full px-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+                  className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
                   placeholder="Введите отчество"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Фамилия</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Фамилия</label>
                 <input 
                   name="last_name" 
                   value={form.last_name} 
                   onChange={handleChange} 
-                  className="w-full px-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
+                  className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all" 
                   placeholder="Введите фамилию"
                 />
               </div>
@@ -134,41 +134,41 @@ const CustomerProfilePage: React.FC = () => {
           </div>
 
           {/* Contact Information Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
             <div className="bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-3 border-b border-blue-200">
               <div className="flex items-center">
                 <EnvelopeIcon className="h-5 w-5 text-blue-600 mr-2" />
-                <h2 className="text-base font-semibold text-secondary-900">Контактные данные</h2>
+                <h2 className="text-base font-semibold text-neutral-900">Контактные данные</h2>
               </div>
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Email адрес</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Email адрес</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <EnvelopeIcon className="h-4 w-4 text-secondary-400" />
+                    <EnvelopeIcon className="h-4 w-4 text-neutral-400" />
                   </div>
                   <input 
                     name="email" 
                     value={form.email} 
                     onChange={handleChange} 
                     type="email"
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
                     placeholder="email@example.com"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Номер телефона</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Номер телефона</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <PhoneIcon className="h-4 w-4 text-secondary-400" />
+                    <PhoneIcon className="h-4 w-4 text-neutral-400" />
                   </div>
                   <input 
                     name="phone" 
                     value={form.phone} 
                     onChange={handleChange} 
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
                     placeholder="+7 (999) 999-99-99"
                   />
                 </div>
@@ -177,37 +177,37 @@ const CustomerProfilePage: React.FC = () => {
           </div>
 
           {/* Bank Details Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
             <div className="bg-gradient-to-r from-green-50 to-green-100 px-4 py-3 border-b border-green-200">
               <div className="flex items-center">
                 <CreditCardIcon className="h-5 w-5 text-green-600 mr-2" />
-                <h2 className="text-base font-semibold text-secondary-900">Банковские реквизиты</h2>
+                <h2 className="text-base font-semibold text-neutral-900">Банковские реквизиты</h2>
               </div>
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Номер карты</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Номер карты</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <CreditCardIcon className="h-4 w-4 text-secondary-400" />
+                    <CreditCardIcon className="h-4 w-4 text-neutral-400" />
                   </div>
                   <input 
                     name="card_number" 
                     value={form.bank_details.card_number} 
                     onChange={handleBankChange} 
                     placeholder="0000 0000 0000 0000" 
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all font-mono" 
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all font-mono" 
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-secondary-700 mb-1.5">Владелец карты</label>
+                <label className="block text-xs font-medium text-neutral-700 mb-1.5">Владелец карты</label>
                 <input 
                   name="holder_name" 
                   value={form.bank_details.holder_name} 
                   onChange={handleBankChange} 
                   placeholder="IVAN IVANOV" 
-                  className="w-full px-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all uppercase" 
+                  className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all uppercase" 
                 />
               </div>
               {bankMissing && (
@@ -228,21 +228,21 @@ const CustomerProfilePage: React.FC = () => {
           </div>
 
           {/* Security Section - spans 2 columns */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-secondary-200 overflow-hidden">
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
             <div className="bg-gradient-to-r from-purple-50 to-purple-100 px-4 py-3 border-b border-purple-200">
               <div className="flex items-center">
                 <LockClosedIcon className="h-5 w-5 text-purple-600 mr-2" />
-                <h2 className="text-base font-semibold text-secondary-900">Безопасность</h2>
+                <h2 className="text-base font-semibold text-neutral-900">Безопасность</h2>
               </div>
             </div>
             <div className="p-4">
-              <p className="text-xs text-secondary-600 mb-4">Для изменения пароля введите текущий пароль и новый пароль</p>
+              <p className="text-xs text-neutral-600 mb-4">Для изменения пароля введите текущий пароль и новый пароль</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-secondary-700 mb-1.5">Текущий пароль</label>
+                  <label className="block text-xs font-medium text-neutral-700 mb-1.5">Текущий пароль</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <LockClosedIcon className="h-4 w-4 text-secondary-400" />
+                      <LockClosedIcon className="h-4 w-4 text-neutral-400" />
                     </div>
                     <input 
                       name="oldPassword" 
@@ -250,15 +250,15 @@ const CustomerProfilePage: React.FC = () => {
                       onChange={handleChange} 
                       type="password" 
                       placeholder="Введите текущий пароль" 
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" 
+                      className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" 
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-secondary-700 mb-1.5">Новый пароль</label>
+                  <label className="block text-xs font-medium text-neutral-700 mb-1.5">Новый пароль</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <LockClosedIcon className="h-4 w-4 text-secondary-400" />
+                      <LockClosedIcon className="h-4 w-4 text-neutral-400" />
                     </div>
                     <input 
                       name="newPassword" 
@@ -266,12 +266,12 @@ const CustomerProfilePage: React.FC = () => {
                       onChange={handleChange} 
                       type="password" 
                       placeholder="Введите новый пароль" 
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-secondary-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" 
+                      className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" 
                     />
                   </div>
                 </div>
               </div>
-              <p className="mt-3 text-xs text-secondary-500">Оставьте поля пустыми, если не хотите менять пароль</p>
+              <p className="mt-3 text-xs text-neutral-500">Оставьте поля пустыми, если не хотите менять пароль</p>
             </div>
           </div>
 
@@ -301,7 +301,7 @@ const CustomerProfilePage: React.FC = () => {
               <button 
                 type="button"
                 onClick={() => window.location.reload()}
-                className="w-full px-4 py-2.5 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors font-medium text-sm"
+                className="w-full px-4 py-2.5 border border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-50 transition-colors font-medium text-sm"
               >
                 Отменить
               </button>

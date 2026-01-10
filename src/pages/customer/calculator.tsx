@@ -152,10 +152,10 @@ const CostCalculator: React.FC = () => {
         <div className="flex items-center space-x-3">
           <CalculatorIcon className="h-8 w-8 text-primary-600" />
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Калькулятор стоимости рекламы
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Рассчитайте стоимость размещения рекламы в наших шоу
             </p>
           </div>
@@ -163,14 +163,14 @@ const CostCalculator: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Calculator Form */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
-            <h2 className="text-lg font-semibold text-secondary-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+            <h2 className="text-lg font-semibold text-neutral-900 mb-4">
               Параметры рекламы
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <label htmlFor="selectedDate" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="selectedDate" className="block text-sm font-medium text-neutral-700 mb-1">
                   Дата показа рекламы <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -178,39 +178,39 @@ const CostCalculator: React.FC = () => {
                   type="date"
                   id="selectedDate"
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 />
                 {errors.selectedDate && (
                   <p className="mt-1 text-sm text-red-600">{errors.selectedDate.message}</p>
                 )}
-                <p className="mt-1 text-xs text-secondary-500">
+                <p className="mt-1 text-xs text-neutral-500">
                   Выберите дату, когда вы хотите показать рекламу
                 </p>
               </div>
 
               <div>
-                <label htmlFor="selectedTime" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="selectedTime" className="block text-sm font-medium text-neutral-700 mb-1">
                   Время показа (опционально)
                 </label>
                 <input
                   {...register('selectedTime')}
                   type="time"
                   id="selectedTime"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 />
-                <p className="mt-1 text-xs text-secondary-500">
+                <p className="mt-1 text-xs text-neutral-500">
                   Укажите желаемое время показа (если важно)
                 </p>
               </div>
 
               <div>
-                <label htmlFor="showId" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="showId" className="block text-sm font-medium text-neutral-700 mb-1">
                   Выберите шоу <span className="text-red-500">*</span>
                 </label>
                 <select
                   {...register('showId', { required: 'Выберите шоу' })}
                   id="showId"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   disabled={!watchedDate || showsLoading}
                 >
                   <option value="">
@@ -234,7 +234,7 @@ const CostCalculator: React.FC = () => {
               </div>
 
               <div>
-                <label htmlFor="seconds" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="seconds" className="block text-sm font-medium text-neutral-700 mb-1">
                   Длительность рекламы (секунды)
                 </label>
                 <input
@@ -247,7 +247,7 @@ const CostCalculator: React.FC = () => {
                   id="seconds"
                   min="5"
                   max="300"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   placeholder="Введите длительность в секундах"
                 />
                 {errors.seconds && (
@@ -266,8 +266,8 @@ const CostCalculator: React.FC = () => {
           </div>
 
           {/* Cost Display */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
-            <h2 className="text-lg font-semibold text-secondary-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+            <h2 className="text-lg font-semibold text-neutral-900 mb-4">
               Результат расчета
             </h2>
 
@@ -278,17 +278,17 @@ const CostCalculator: React.FC = () => {
                   <div className="text-3xl font-bold text-primary-600">
                     {calculatedCost.toLocaleString('ru-RU')} ₽
                   </div>
-                  <p className="text-sm text-secondary-600 mt-2">
+                  <p className="text-sm text-neutral-600 mt-2">
                     Стоимость рекламы
                   </p>
                 </div>
 
                 {selectedShow && (
-                  <div className="bg-secondary-50 rounded-lg p-4 text-left">
-                    <h3 className="font-medium text-secondary-900 mb-2">
+                  <div className="bg-neutral-50 rounded-lg p-4 text-left">
+                    <h3 className="font-medium text-neutral-900 mb-2">
                       Детали расчета:
                     </h3>
-                    <div className="space-y-1 text-sm text-secondary-600">
+                    <div className="space-y-1 text-sm text-neutral-600">
                       <div className="flex justify-between">
                         <span>Шоу:</span>
                         <span className="font-medium">{selectedShow.name}</span>
@@ -345,7 +345,7 @@ const CostCalculator: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="text-center text-secondary-500 py-8">
+              <div className="text-center text-neutral-500 py-8">
                 <CalculatorIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
                 <p>Выберите параметры для расчета стоимости</p>
               </div>

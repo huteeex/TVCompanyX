@@ -264,10 +264,10 @@ const ApplicationsPage: React.FC = () => {
         <div className="flex items-center space-x-3">
           <DocumentTextIcon className="h-8 w-8 text-primary-600" />
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Мои заявки
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               История всех ваших заявок на размещение рекламы
             </p>
           </div>

@@ -156,10 +156,10 @@ const ReportsPage: React.FC = () => {
         <div className="flex items-center space-x-3">
           <DocumentArrowDownIcon className="h-8 w-8 text-primary-600" />
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Отчеты для клиентов
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Генерация и управление отчетами
             </p>
           </div>
@@ -167,15 +167,15 @@ const ReportsPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Report Generation Form */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
-            <h2 className="text-lg font-semibold text-secondary-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+            <h2 className="text-lg font-semibold text-neutral-900 mb-4">
               Создать отчет
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Client Email */}
               <div>
-                <label htmlFor="clientEmail" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="clientEmail" className="block text-sm font-medium text-neutral-700 mb-1">
                   Email клиента
                 </label>
                 <input
@@ -188,7 +188,7 @@ const ReportsPage: React.FC = () => {
                   })}
                   type="email"
                   id="clientEmail"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   placeholder="client@example.com"
                 />
                 {errors.clientEmail && (
@@ -198,13 +198,13 @@ const ReportsPage: React.FC = () => {
 
               {/* Period Type */}
               <div>
-                <label htmlFor="periodType" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="periodType" className="block text-sm font-medium text-neutral-700 mb-1">
                   Тип периода
                 </label>
                 <select
                   {...register('periodType', { required: 'Выберите тип периода' })}
                   id="periodType"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 >
                   <option value="month">Месяц</option>
                   <option value="quarter">Квартал</option>
@@ -215,13 +215,13 @@ const ReportsPage: React.FC = () => {
 
               {/* Year selector (shown for all types) */}
               <div>
-                <label htmlFor="year" className="block text-sm font-medium text-secondary-700 mb-1">
+                <label htmlFor="year" className="block text-sm font-medium text-neutral-700 mb-1">
                   Год
                 </label>
                 <select
                   {...register('year', { required: 'Выберите год' })}
                   id="year"
-                  className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 >
                   {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
                     <option key={year} value={year}>{year}</option>
@@ -232,13 +232,13 @@ const ReportsPage: React.FC = () => {
               {/* Month selector (shown only for month type) */}
               {watchedPeriodType === 'month' && (
                 <div>
-                  <label htmlFor="month" className="block text-sm font-medium text-secondary-700 mb-1">
+                  <label htmlFor="month" className="block text-sm font-medium text-neutral-700 mb-1">
                     Месяц
                   </label>
                   <select
                     {...register('month', { required: 'Выберите месяц' })}
                     id="month"
-                    className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   >
                     <option value={1}>Январь</option>
                     <option value={2}>Февраль</option>
@@ -259,13 +259,13 @@ const ReportsPage: React.FC = () => {
               {/* Quarter selector (shown only for quarter type) */}
               {watchedPeriodType === 'quarter' && (
                 <div>
-                  <label htmlFor="quarter" className="block text-sm font-medium text-secondary-700 mb-1">
+                  <label htmlFor="quarter" className="block text-sm font-medium text-neutral-700 mb-1">
                     Квартал
                   </label>
                   <select
                     {...register('quarter', { required: 'Выберите квартал' })}
                     id="quarter"
-                    className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   >
                     <option value={1}>1 квартал (Январь - Март)</option>
                     <option value={2}>2 квартал (Апрель - Июнь)</option>
@@ -279,27 +279,27 @@ const ReportsPage: React.FC = () => {
               {watchedPeriodType === 'custom' && (
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="startDate" className="block text-sm font-medium text-secondary-700 mb-1">
+                    <label htmlFor="startDate" className="block text-sm font-medium text-neutral-700 mb-1">
                       Дата начала
                     </label>
                     <DatePicker
                       selected={watch('startDate')}
                       onChange={(date) => setValue('startDate', date || undefined)}
                       dateFormat="dd.MM.yyyy"
-                      className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       placeholderText="Выберите дату"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="endDate" className="block text-sm font-medium text-secondary-700 mb-1">
+                    <label htmlFor="endDate" className="block text-sm font-medium text-neutral-700 mb-1">
                       Дата окончания
                     </label>
                     <DatePicker
                       selected={watch('endDate')}
                       onChange={(date) => setValue('endDate', date || undefined)}
                       dateFormat="dd.MM.yyyy"
-                      className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                       placeholderText="Выберите дату"
                     />
                   </div>
@@ -307,11 +307,11 @@ const ReportsPage: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-secondary-700 mb-1">
+                <label className="block text-sm font-medium text-neutral-700 mb-1">
                   Формат отчета
                 </label>
                 <div className="flex items-center space-x-2">
-                  <div className="px-3 py-2 bg-secondary-100 border border-secondary-300 rounded-md text-secondary-700">
+                  <div className="px-3 py-2 bg-neutral-100 border border-neutral-300 rounded-md text-neutral-700">
                     PDF (откроется для печати)
                   </div>
                   <input type="hidden" {...register('format')} value="pdf" />
@@ -329,8 +329,8 @@ const ReportsPage: React.FC = () => {
           </div>
 
           {/* Report Templates */}
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
-            <h2 className="text-lg font-semibold text-secondary-900 mb-4">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+            <h2 className="text-lg font-semibold text-neutral-900 mb-4">
               Шаблоны отчетов
             </h2>
 
@@ -374,14 +374,14 @@ const ReportsPage: React.FC = () => {
                 <button
                   key={index}
                   onClick={template.action}
-                  className="w-full flex items-center space-x-3 p-3 text-left border border-secondary-200 rounded-lg hover:bg-secondary-50 transition-colors duration-200"
+                  className="w-full flex items-center space-x-3 p-3 text-left border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors duration-200"
                 >
                   <template.icon className="h-5 w-5 text-primary-600" />
                   <div>
-                    <div className="text-sm font-medium text-secondary-900">
+                    <div className="text-sm font-medium text-neutral-900">
                       {template.name}
                     </div>
-                    <div className="text-xs text-secondary-600">
+                    <div className="text-xs text-neutral-600">
                       {template.description}
                     </div>
                   </div>
@@ -392,9 +392,9 @@ const ReportsPage: React.FC = () => {
         </div>
 
         {/* Generated Reports */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Сгенерированные отчеты
             </h3>
           </div>
@@ -402,49 +402,49 @@ const ReportsPage: React.FC = () => {
           <div className="p-6">
             {reports.length === 0 ? (
               <div className="text-center py-8">
-                <DocumentArrowDownIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <DocumentArrowDownIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Отчеты не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Создайте первый отчет для клиента
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Название
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Тип
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Статус
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Создан
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {reports.map((report) => (
-                      <tr key={report.id} className="hover:bg-secondary-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                      <tr key={report.id} className="hover:bg-neutral-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {report.name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           Отчет для клиента
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getStatusBadge(report.status)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {new Date(report.createdAt).toLocaleString('ru-RU')}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -457,7 +457,7 @@ const ReportsPage: React.FC = () => {
                             </button>
                           )}
                           {report.status === 'generating' && (
-                            <span className="text-secondary-500">Генерируется...</span>
+                            <span className="text-neutral-500">Генерируется...</span>
                           )}
                           {report.status === 'error' && (
                             <span className="text-red-600">Ошибка</span>

@@ -57,7 +57,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="space-y-6" onKeyPress={handleKeyPress}>
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-secondary-700 mb-2">
+        <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
           Email адрес
         </label>
         <input
@@ -70,7 +70,7 @@ const LoginForm: React.FC = () => {
           })}
           type="email"
           id="email"
-          className="w-full px-4 py-3 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+          className="w-full px-4 py-3 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
           placeholder="example@company.com"
         />
         {errors.email && (
@@ -79,7 +79,7 @@ const LoginForm: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-secondary-700 mb-2">
+        <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-2">
           Пароль
         </label>
         <div className="relative">
@@ -93,12 +93,12 @@ const LoginForm: React.FC = () => {
             })}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="w-full px-4 py-3 pr-12 border border-secondary-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+            className="w-full px-4 py-3 pr-12 border border-neutral-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
             placeholder="Введите ваш пароль"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-secondary-400 hover:text-secondary-600 transition-colors"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -119,9 +119,9 @@ const LoginForm: React.FC = () => {
             id="remember-me"
             name="remember-me"
             type="checkbox"
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
           />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-secondary-700">
+          <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
             Запомнить меня
           </label>
         </div>

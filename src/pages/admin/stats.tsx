@@ -5,8 +5,8 @@ const AdminStatsPage: React.FC = () => {
   return (
     <Layout role="admin">
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-secondary-900">Системная статистика</h1>
-        <p className="text-secondary-600">Страница-заглушка. Здесь будут графики метрик системы.</p>
+        <h1 className="text-2xl font-bold text-neutral-900">Системная статистика</h1>
+        <p className="text-neutral-600">Страница-заглушка. Здесь будут графики метрик системы.</p>
       </div>
     </Layout>
   )

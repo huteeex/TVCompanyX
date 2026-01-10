@@ -84,17 +84,17 @@ const AccountantReportsPage: React.FC = () => {
   return (
     <Layout role="accountant">
       <div className="space-y-6">
-        <div><h1 className="text-2xl font-bold text-secondary-900">Отчеты</h1><p className="text-secondary-600">Генерация PDF отчетов по клиентам и за различные периоды</p></div>
+        <div><h1 className="text-2xl font-bold text-neutral-900">Отчеты</h1><p className="text-neutral-600">Генерация PDF отчетов по клиентам и за различные периоды</p></div>
         
         {/* Client Report Section */}
         <div className="bg-white shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-secondary-200">
-            <h2 className="text-lg font-semibold text-secondary-900">Отчет по клиенту</h2>
-            <p className="text-sm text-secondary-600">Введите email, телефон (8/7 формат) или имя клиента для генерации персонального отчета</p>
+          <div className="px-6 py-4 border-b border-neutral-200">
+            <h2 className="text-lg font-semibold text-neutral-900">Отчет по клиенту</h2>
+            <p className="text-sm text-neutral-600">Введите email, телефон (8/7 формат) или имя клиента для генерации персонального отчета</p>
           </div>
           <div className="p-6 space-y-4">
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-2">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
                 Email, телефон или имя клиента
               </label>
               <input
@@ -102,10 +102,10 @@ const AccountantReportsPage: React.FC = () => {
                 value={clientSearch}
                 onChange={(e) => setClientSearch(e.target.value)}
                 placeholder="example@mail.com или 89123456789 или Иван Иванов"
-                className="w-full px-4 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onKeyPress={(e) => e.key === 'Enter' && handleGenerateClientReport()}
               />
-              <p className="mt-1 text-xs text-secondary-500">
+              <p className="mt-1 text-xs text-neutral-500">
                 Телефон можно вводить в формате 8XXXXXXXXXX или 7XXXXXXXXXX
               </p>
             </div>
@@ -124,16 +124,16 @@ const AccountantReportsPage: React.FC = () => {
 
         {/* Period Report Section */}
         <div className="bg-white shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-secondary-200"><h2 className="text-lg font-semibold text-secondary-900">Отчет за период</h2><p className="text-sm text-secondary-600">Выберите период и сгенерируйте сводный отчет по всем одобренным заявкам</p></div>
+          <div className="px-6 py-4 border-b border-neutral-200"><h2 className="text-lg font-semibold text-neutral-900">Отчет за период</h2><p className="text-sm text-neutral-600">Выберите период и сгенерируйте сводный отчет по всем одобренным заявкам</p></div>
           <div className="p-6 space-y-6">
-            <div><label className="block text-sm font-medium text-secondary-700 mb-3">Выберите период</label>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">{periodOptions.map((option) => { const Icon = option.icon; return (<button key={option.value} onClick={() => setSelectedPeriod(option.value as PeriodType)} className={`flex items-center p-4 border-2 rounded-lg transition-all ${selectedPeriod === option.value ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-secondary-200 hover:border-secondary-300 text-secondary-700'}`}><Icon className="h-5 w-5 mr-3" /><span className="font-medium">{option.label}</span></button>); })}</div>
+            <div><label className="block text-sm font-medium text-neutral-700 mb-3">Выберите период</label>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">{periodOptions.map((option) => { const Icon = option.icon; return (<button key={option.value} onClick={() => setSelectedPeriod(option.value as PeriodType)} className={`flex items-center p-4 border-2 rounded-lg transition-all ${selectedPeriod === option.value ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-neutral-200 hover:border-neutral-300 text-neutral-700'}`}><Icon className="h-5 w-5 mr-3" /><span className="font-medium">{option.label}</span></button>); })}</div>
             </div>
             {selectedPeriod === 'custom' && (
-              <div className="bg-secondary-50 p-4 rounded-lg"><h3 className="text-sm font-medium text-secondary-900 mb-3">Укажите даты</h3>
+              <div className="bg-neutral-50 p-4 rounded-lg"><h3 className="text-sm font-medium text-neutral-900 mb-3">Укажите даты</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div><label className="block text-sm font-medium text-secondary-700 mb-2">Начальная дата</label><input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
-                  <div><label className="block text-sm font-medium text-secondary-700 mb-2">Конечная дата</label><input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="w-full px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
+                  <div><label className="block text-sm font-medium text-neutral-700 mb-2">Начальная дата</label><input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
+                  <div><label className="block text-sm font-medium text-neutral-700 mb-2">Конечная дата</label><input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
                 </div>
               </div>
             )}

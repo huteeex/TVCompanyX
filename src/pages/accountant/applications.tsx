@@ -71,7 +71,7 @@ const AccountantApplicationsPage: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Одобренные заявки</h1>
-          <div className="text-sm text-secondary-600">
+          <div className="text-sm text-neutral-600">
             Всего заявок: {applications.length}
           </div>
         </div>
@@ -82,11 +82,11 @@ const AccountantApplicationsPage: React.FC = () => {
         ) : applications.length === 0 ? (
           <div className="bg-white shadow rounded-lg p-6">
             <div className="text-center py-8">
-              <ClipboardDocumentListIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-secondary-900 mb-2">
+              <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-neutral-900 mb-2">
                 Заявки не найдены
               </h3>
-              <p className="text-secondary-600">
+              <p className="text-neutral-600">
                 Нет одобренных заявок
               </p>
             </div>
@@ -94,24 +94,24 @@ const AccountantApplicationsPage: React.FC = () => {
         ) : (
           <div className="bg-white shadow rounded-lg overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-secondary-200">
-                <thead className="bg-secondary-50">
+              <table className="min-w-full divide-y divide-neutral-200">
+                <thead className="bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Клиент</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Шоу</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Дата</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Стоимость</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Клиент</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Шоу</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Дата</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Стоимость</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-secondary-200">
+                <tbody className="bg-white divide-y divide-neutral-200">
                   {currentApplications.map(app => (
-                    <tr key={app.id} className="hover:bg-secondary-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">{app.customer_name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">{app.customer_email}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">{app.show_name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">{new Date(app.scheduled_at).toLocaleDateString('ru-RU')}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">{app.cost.toLocaleString('ru-RU')} ₽</td>
+                    <tr key={app.id} className="hover:bg-neutral-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">{app.customer_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">{app.customer_email}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">{app.show_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">{new Date(app.scheduled_at).toLocaleDateString('ru-RU')}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">{app.cost.toLocaleString('ru-RU')} ₽</td>
                     </tr>
                   ))}
                 </tbody>
@@ -120,8 +120,8 @@ const AccountantApplicationsPage: React.FC = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="px-6 py-4 flex items-center justify-between border-t border-secondary-200">
-                <div className="text-sm text-secondary-600">
+              <div className="px-6 py-4 flex items-center justify-between border-t border-neutral-200">
+                <div className="text-sm text-neutral-600">
                   Показаны {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, applications.length)} из {applications.length} заявок
                 </div>
                 <div className="flex space-x-2">
@@ -130,8 +130,8 @@ const AccountantApplicationsPage: React.FC = () => {
                     disabled={currentPage === 1}
                     className={`px-3 py-1 rounded-md text-sm font-medium ${
                       currentPage === 1
-                        ? 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-                        : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                        ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                        : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                     }`}
                   >
                     Назад
@@ -143,7 +143,7 @@ const AccountantApplicationsPage: React.FC = () => {
                       className={`px-3 py-1 rounded-md text-sm font-medium ${
                         currentPage === page
                           ? 'bg-primary-600 text-white'
-                          : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                          : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                       }`}
                     >
                       {page}
@@ -154,8 +154,8 @@ const AccountantApplicationsPage: React.FC = () => {
                     disabled={currentPage === totalPages}
                     className={`px-3 py-1 rounded-md text-sm font-medium ${
                       currentPage === totalPages
-                        ? 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-                        : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                        ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                        : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                     }`}
                   >
                     Вперед

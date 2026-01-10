@@ -138,10 +138,10 @@ const AccountantDashboard: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления бухгалтера
             </p>
           </div>
@@ -155,9 +155,9 @@ const AccountantDashboard: React.FC = () => {
 
       <div className="space-y-6">
         {/* Applications Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Одобренные заявки ({applications.length})
             </h3>
           </div>
@@ -169,52 +169,52 @@ const AccountantDashboard: React.FC = () => {
               </div>
             ) : applications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Нет заявок, соответствующих фильтрам
                 </p>
               </div>
             ) : (
               <>
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                  <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Клиент
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Шоу
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Дата
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Стоимость
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {currentApplications.map((application) => (
-                      <tr key={application.id} className="hover:bg-secondary-50">
+                      <tr key={application.id} className="hover:bg-neutral-50">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-secondary-900">
+                          <div className="text-sm font-medium text-neutral-900">
                             {application.clientName}
                           </div>
-                          <div className="text-sm text-secondary-500">
+                          <div className="text-sm text-neutral-500">
                             {application.clientEmail}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.show}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {new Date(application.date).toLocaleDateString('ru-RU')}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {application.cost.toLocaleString('ru-RU')} ₽
                         </td>
                       </tr>
@@ -225,8 +225,8 @@ const AccountantDashboard: React.FC = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="mt-6 flex items-center justify-between border-t border-secondary-200 pt-4">
-                  <div className="text-sm text-secondary-600">
+                <div className="mt-6 flex items-center justify-between border-t border-neutral-200 pt-4">
+                  <div className="text-sm text-neutral-600">
                     Показаны {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, applications.length)} из {applications.length} заявок
                   </div>
                   <div className="flex space-x-2">
@@ -235,8 +235,8 @@ const AccountantDashboard: React.FC = () => {
                       disabled={currentPage === 1}
                       className={`px-3 py-1 rounded-md text-sm font-medium ${
                         currentPage === 1
-                          ? 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-                          : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                          ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                          : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                       }`}
                     >
                       Назад
@@ -248,7 +248,7 @@ const AccountantDashboard: React.FC = () => {
                         className={`px-3 py-1 rounded-md text-sm font-medium ${
                           currentPage === page
                             ? 'bg-primary-600 text-white'
-                            : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                            : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                         }`}
                       >
                         {page}
@@ -259,8 +259,8 @@ const AccountantDashboard: React.FC = () => {
                       disabled={currentPage === totalPages}
                       className={`px-3 py-1 rounded-md text-sm font-medium ${
                         currentPage === totalPages
-                          ? 'bg-secondary-100 text-secondary-400 cursor-not-allowed'
-                          : 'bg-white text-secondary-700 border border-secondary-300 hover:bg-secondary-50'
+                          ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                          : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                       }`}
                     >
                       Вперед

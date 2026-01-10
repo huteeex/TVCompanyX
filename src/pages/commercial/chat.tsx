@@ -358,7 +358,7 @@ const CommercialChatPage = () => {
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <div className="text-sm font-medium">{title}</div>
-                          <div className="text-xs text-secondary-500 mt-1">{r.subtitle}</div>
+                          <div className="text-xs text-neutral-500 mt-1">{r.subtitle}</div>
                           {r.status && (
                             <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(r.status)}`}>
                               {getStatusText(r.status)}

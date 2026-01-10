@@ -261,7 +261,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
     return (
       <div className="flex items-center justify-center h-full">
         <div className="text-center">
-          <div className="text-secondary-500 mb-2">Загрузка чата...</div>
+          <div className="text-neutral-500 mb-2">Загрузка чата...</div>
         </div>
       </div>
     )
@@ -272,13 +272,13 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
   return (
     <div className="flex flex-col h-full bg-white max-h-full overflow-hidden">
       {/* Chat Header */}
-      <div className="flex items-center justify-between px-3 py-2 border-b border-secondary-200 flex-shrink-0">
+      <div className="flex items-center justify-between px-3 py-2 border-b border-neutral-200 flex-shrink-0">
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-secondary-900 truncate">{roomName}</h3>
+          <h3 className="text-sm font-semibold text-neutral-900 truncate">{roomName}</h3>
           {subtitle ? (
-            <p className="text-xs text-secondary-600 truncate">{subtitle}</p>
+            <p className="text-xs text-neutral-600 truncate">{subtitle}</p>
           ) : (
-            <p className="text-xs text-secondary-600">
+            <p className="text-xs text-neutral-600">
               {currentRoom.participants.length} участников
             </p>
           )}
@@ -290,7 +290,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
         {Object.entries(messageGroups).map(([date, messages]) => (
           <div key={date}>
             <div className="flex items-center justify-center my-2">
-              <div className="bg-secondary-100 px-2 py-0.5 rounded-full text-xs text-secondary-600">
+              <div className="bg-neutral-100 px-2 py-0.5 rounded-full text-xs text-neutral-600">
                 {date}
               </div>
             </div>
@@ -304,7 +304,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
                   className={`max-w-xs lg:max-w-md px-3 py-2 rounded-lg ${
                     msg.senderId === user?.id
                       ? 'bg-primary-600 text-white'
-                      : 'bg-secondary-100 text-secondary-900'
+                      : 'bg-neutral-100 text-neutral-900'
                   }`}
                 >
                   {msg.senderId !== user?.id && (
@@ -384,7 +384,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
                   
                   <div
                     className={`text-xs mt-1 ${
-                      msg.senderId === user?.id ? 'text-primary-100' : 'text-secondary-500'
+                      msg.senderId === user?.id ? 'text-primary-100' : 'text-neutral-500'
                     }`}
                   >
                     {formatTime(msg.timestamp)}
@@ -398,8 +398,8 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
         {/* Typing Indicator */}
         {currentTyping.length > 0 && (
           <div className="flex justify-start">
-            <div className="bg-secondary-100 px-4 py-2 rounded-lg">
-              <div className="text-sm text-secondary-600">
+            <div className="bg-neutral-100 px-4 py-2 rounded-lg">
+              <div className="text-sm text-neutral-600">
                 {currentTyping.length === 1
                   ? `${currentTyping[0]} печатает...`
                   : `${currentTyping.length} участников печатают...`}
@@ -412,7 +412,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
       </div>
 
       {/* Message Input */}
-      <div className="border-t border-secondary-200 p-3 flex-shrink-0">
+      <div className="border-t border-neutral-200 p-3 flex-shrink-0">
         {/* Attached File Preview */}
         {selectedFile && (
           <div className="mb-2 flex items-center justify-between bg-blue-50 border border-blue-200 rounded-md p-2">
@@ -448,11 +448,11 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
             type="button"
             onClick={handleFileAttach}
             disabled={uploadingFile}
-            className="p-2 text-secondary-600 hover:text-secondary-900 hover:bg-secondary-100 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             title={uploadingFile ? "Загрузка..." : "Прикрепить файл"}
           >
             {uploadingFile ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-secondary-600"></div>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-neutral-600"></div>
             ) : (
               <PaperClipIcon className="h-5 w-5" />
             )}
@@ -462,7 +462,7 @@ const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
             value={message}
             onChange={handleTyping}
             placeholder={selectedFile ? "Добавьте описание к файлу (необязательно)..." : "Введите сообщение..."}
-            className="flex-1 px-3 py-2 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="flex-1 px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
           <button
             type="submit"

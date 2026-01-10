@@ -198,10 +198,10 @@ const DirectorDashboard: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления директора
             </p>
           </div>
@@ -211,9 +211,9 @@ const DirectorDashboard: React.FC = () => {
         <Dashboard title="Статистика компании" charts={charts} stats={stats} />
 
         {/* Staff Statistics */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Статистика сотрудников
             </h3>
           </div>
@@ -225,52 +225,52 @@ const DirectorDashboard: React.FC = () => {
               </div>
             ) : staffStats.length === 0 ? (
               <div className="text-center py-8">
-                <UsersIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <UsersIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Данные не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Нет данных о сотрудниках
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Сотрудник
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Роль
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Закрытые сделки
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Доход
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         KPI
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Комиссия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {staffStats.map((staff) => (
-                      <tr key={staff.id} className="hover:bg-secondary-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                      <tr key={staff.id} className="hover:bg-neutral-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {staff.name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {getRoleDisplayName(staff.role)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {staff.closedDeals}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {staff.revenue.toLocaleString('ru-RU')} ₽
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -289,14 +289,14 @@ const DirectorDashboard: React.FC = () => {
         </div>
 
         {/* Commission Settings */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
-          <h3 className="text-lg font-semibold text-secondary-900 mb-4">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <h3 className="text-lg font-semibold text-neutral-900 mb-4">
             Настройки комиссий и цен
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 Комиссия агентов (%)
               </label>
               <input
@@ -306,7 +306,7 @@ const DirectorDashboard: React.FC = () => {
                   ...commissionSettings,
                   agentCommission: Number(e.target.value)
                 })}
-                className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 min="0"
                 max="100"
                 step="0.1"
@@ -314,7 +314,7 @@ const DirectorDashboard: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-secondary-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 Стоимость минуты рекламы (₽)
               </label>
               <input
@@ -324,7 +324,7 @@ const DirectorDashboard: React.FC = () => {
                   ...commissionSettings,
                   minutePrice: Number(e.target.value)
                 })}
-                className="w-full px-3 py-2 border border-secondary-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 min="0"
                 step="100"
               />
@@ -345,17 +345,17 @@ const DirectorDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <a
             href="/director/staff-stats"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-500">
                 <PresentationChartBarIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Статистика сотрудников
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Подробная статистика по сотрудникам
                 </p>
               </div>
@@ -364,17 +364,17 @@ const DirectorDashboard: React.FC = () => {
 
           <a
             href="/director/commissions"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-green-500">
                 <CurrencyDollarIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Комиссии агентов
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Управление комиссиями
                 </p>
               </div>
@@ -383,17 +383,17 @@ const DirectorDashboard: React.FC = () => {
 
           <a
             href="/director/client-reports"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-purple-500">
                 <DocumentArrowDownIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Отчеты по клиентам
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Анализ клиентской базы
                 </p>
               </div>
@@ -402,17 +402,17 @@ const DirectorDashboard: React.FC = () => {
 
           <a
             href="/director/company-stats"
-            className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-orange-500">
                 <BuildingOfficeIcon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-secondary-900">
+                <h3 className="text-lg font-semibold text-neutral-900">
                   Статистика компании
                 </h3>
-                <p className="text-sm text-secondary-600">
+                <p className="text-sm text-neutral-600">
                   Общие показатели компании
                 </p>
               </div>

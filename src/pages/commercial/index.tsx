@@ -243,10 +243,10 @@ const CommercialDashboard: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Панель управления коммерческого отдела
             </p>
           </div>
@@ -260,16 +260,16 @@ const CommercialDashboard: React.FC = () => {
         </div>
 
         {/* Period Selector */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4">
           <div className="flex items-center space-x-4">
-            <span className="text-sm font-medium text-secondary-700">Период статистики:</span>
+            <span className="text-sm font-medium text-neutral-700">Период статистики:</span>
             <div className="flex space-x-2">
               <button
                 onClick={() => setPeriod('day')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   period === 'day'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 День
@@ -279,7 +279,7 @@ const CommercialDashboard: React.FC = () => {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   period === 'week'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 Неделя
@@ -289,7 +289,7 @@ const CommercialDashboard: React.FC = () => {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   period === 'month'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 Месяц
@@ -300,12 +300,12 @@ const CommercialDashboard: React.FC = () => {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-600">Заявок на рассмотрении</p>
-                <p className="text-3xl font-bold text-secondary-900 mt-2">{stats.pending}</p>
-                <p className="text-xs text-secondary-500 mt-1">{getPeriodLabel()}</p>
+                <p className="text-sm font-medium text-neutral-600">Заявок на рассмотрении</p>
+                <p className="text-3xl font-bold text-neutral-900 mt-2">{stats.pending}</p>
+                <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
               <div className="p-3 rounded-lg bg-yellow-100">
                 <ClipboardDocumentListIcon className="h-8 w-8 text-yellow-600" />
@@ -313,12 +313,12 @@ const CommercialDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-600">Одобрено</p>
+                <p className="text-sm font-medium text-neutral-600">Одобрено</p>
                 <p className="text-3xl font-bold text-green-600 mt-2">{stats.approved}</p>
-                <p className="text-xs text-secondary-500 mt-1">{getPeriodLabel()}</p>
+                <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
               <div className="p-3 rounded-lg bg-green-100">
                 <CheckIcon className="h-8 w-8 text-green-600" />
@@ -326,12 +326,12 @@ const CommercialDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-600">Отклонено</p>
+                <p className="text-sm font-medium text-neutral-600">Отклонено</p>
                 <p className="text-3xl font-bold text-red-600 mt-2">{stats.rejected}</p>
-                <p className="text-xs text-secondary-500 mt-1">{getPeriodLabel()}</p>
+                <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
               <div className="p-3 rounded-lg bg-red-100">
                 <XMarkIcon className="h-8 w-8 text-red-600" />
@@ -339,14 +339,14 @@ const CommercialDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-600">Общий доход</p>
+                <p className="text-sm font-medium text-neutral-600">Общий доход</p>
                 <p className="text-2xl font-bold text-primary-600 mt-2">
                   {stats.totalRevenue.toLocaleString('ru-RU')} ₽
                 </p>
-                <p className="text-xs text-secondary-500 mt-1">{getPeriodLabel()}</p>
+                <p className="text-xs text-neutral-500 mt-1">{getPeriodLabel()}</p>
               </div>
               <div className="p-3 rounded-lg bg-primary-100">
                 <span className="text-2xl">💰</span>
@@ -356,16 +356,16 @@ const CommercialDashboard: React.FC = () => {
         </div>
 
         {/* Chart */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200 p-6">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
           <div className="max-w-3xl mx-auto">
             <Bar data={chartData} options={chartOptions} />
           </div>
         </div>
 
         {/* Pending Applications Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Заявки на рассмотрении ({pendingApplications.length})
             </h3>
           </div>
@@ -373,61 +373,61 @@ const CommercialDashboard: React.FC = () => {
           <div className="p-6">
             {pendingApplications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   Заявки не найдены
                 </h3>
-                <p className="text-secondary-600">
+                <p className="text-neutral-600">
                   Нет заявок на рассмотрение
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-secondary-200">
-                  <thead className="bg-secondary-50">
+                <table className="min-w-full divide-y divide-neutral-200">
+                  <thead className="bg-neutral-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Клиент
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Шоу
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Дата размещения
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Длительность
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Стоимость
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                         Действия
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-secondary-200">
+                  <tbody className="bg-white divide-y divide-neutral-200">
                     {pendingApplications.map((application) => (
-                      <tr key={application.id} className="hover:bg-secondary-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                      <tr key={application.id} className="hover:bg-neutral-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {application.customer_name || 
                            `${application.customer_first_name || ''} ${application.customer_last_name || ''}`.trim() ||
                            application.customer_email}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.show_name || '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.scheduled_at 
                             ? new Date(application.scheduled_at).toLocaleDateString('ru-RU')
                             : '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                           {application.duration_seconds 
                             ? `${Math.floor(application.duration_seconds / 60)} мин ${application.duration_seconds % 60} сек`
                             : '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                           {(parseFloat(application.cost) || 0).toLocaleString('ru-RU')} ₽
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">

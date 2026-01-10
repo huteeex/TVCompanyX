@@ -146,10 +146,10 @@ const CommissionsPage: React.FC = () => {
           <div className="flex items-center space-x-3">
             <ChartBarIcon className="h-8 w-8 text-primary-600" />
             <div>
-              <h1 className="text-2xl font-bold text-secondary-900">
+              <h1 className="text-2xl font-bold text-neutral-900">
                 Комиссии
               </h1>
-              <p className="text-secondary-600">
+              <p className="text-neutral-600">
                 Статистика ваших комиссий и доходов
               </p>
             </div>
@@ -167,7 +167,7 @@ const CommissionsPage: React.FC = () => {
                 className={`px-4 py-2 text-sm font-medium rounded-md ${
                   selectedPeriod === period.key
                     ? 'bg-primary-600 text-white'
-                    : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 {period.label}
@@ -180,51 +180,51 @@ const CommissionsPage: React.FC = () => {
         <Dashboard title="Статистика комиссий" charts={charts} stats={stats} />
 
         {/* Commission Details Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-secondary-200">
-          <div className="p-6 border-b border-secondary-200">
-            <h3 className="text-lg font-semibold text-secondary-900">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h3 className="text-lg font-semibold text-neutral-900">
               Детализация комиссий
             </h3>
           </div>
 
           <div className="p-6">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-secondary-200">
-                <thead className="bg-secondary-50">
+              <table className="min-w-full divide-y divide-neutral-200">
+                <thead className="bg-neutral-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                       Период
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                       Количество заявок
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                       Процент комиссии
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                       Сумма комиссии
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                       Средняя заявка
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-secondary-200">
+                <tbody className="bg-white divide-y divide-neutral-200">
                   {commissionData.map((item, index) => (
-                    <tr key={index} className="hover:bg-secondary-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary-900">
+                    <tr key={index} className="hover:bg-neutral-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                         {item.month}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                         {item.applications}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                         {item.percentage}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
                         {item.amount.toLocaleString('ru-RU')} ₽
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500">
                         {item.applications > 0 
                           ? (item.amount / item.applications).toLocaleString('ru-RU') + ' ₽'
                           : '0 ₽'
