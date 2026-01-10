@@ -104,16 +104,6 @@ const HomePage: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
               className="text-center max-w-4xl mx-auto"
             >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-200/50 mb-8"
-              >
-                <Sparkles className="h-4 w-4 text-primary-600" />
-                <span className="text-sm font-medium text-primary-700">Premium Advertising Platform 2026</span>
-              </motion.div>
-
               <motion.h1
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -254,7 +244,7 @@ const HomePage: React.FC = () => {
         </section>
 
 
-        {/* Roles Section */}
+        {/* Customer Info Section */}
         <section className="py-24 bg-gradient-to-b from-neutral-50 to-neutral-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -265,97 +255,52 @@ const HomePage: React.FC = () => {
               className="text-center mb-16"
             >
               <h3 className="text-section text-neutral-950 mb-4">
-                Для каждой роли — свой функционал
+                Функционал для заказчика
               </h3>
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                Персонализированные дашборды и инструменты для эффективной работы
+                Всё необходимое для размещения рекламы и контроля заявок
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: Users,
-                  role: 'Заказчик рекламы',
-                  features: ['Расчет стоимости рекламы', 'Подача заявок', 'Отслеживание статуса'],
-                  gradient: 'from-primary-500 to-primary-600',
-                  bg: 'bg-primary-50',
-                  border: 'border-primary-200/50',
-                  textColor: 'text-primary-700',
-                },
-                {
-                  icon: TrendingUp,
-                  role: 'Рекламный агент',
-                  features: ['Управление заявками', 'Расчет комиссий', 'Генерация отчетов'],
-                  gradient: 'from-teal-500 to-teal-600',
-                  bg: 'bg-teal-50',
-                  border: 'border-teal-200/50',
-                  textColor: 'text-teal-700',
-                },
-                {
-                  icon: FileText,
-                  role: 'Коммерческий отдел',
-                  features: ['Составление расписания', 'Управление заявками', 'Планирование эфира'],
-                  gradient: 'from-accent-400 to-accent-500',
-                  bg: 'bg-accent-50',
-                  border: 'border-accent-200/50',
-                  textColor: 'text-accent-700',
-                },
-                {
-                  icon: DollarSign,
-                  role: 'Бухгалтер',
-                  features: ['Финансовые отчеты', 'Управление платежами', 'Контроль доходов'],
-                  gradient: 'from-amber-400 to-amber-500',
-                  bg: 'bg-amber-50',
-                  border: 'border-amber-200/50',
-                  textColor: 'text-amber-700',
-                },
-                {
-                  icon: Settings,
-                  role: 'ИТ-администратор',
-                  features: ['Управление пользователями', 'Мониторинг системы', 'Техническая поддержка'],
-                  gradient: 'from-rose-400 to-rose-500',
-                  bg: 'bg-rose-50',
-                  border: 'border-rose-200/50',
-                  textColor: 'text-rose-700',
-                },
-                {
-                  icon: Building,
-                  role: 'Директор',
-                  features: ['Аналитика компании', 'Стратегические отчеты', 'Управление KPI'],
-                  gradient: 'from-violet-500 to-violet-600',
-                  bg: 'bg-violet-50',
-                  border: 'border-violet-200/50',
-                  textColor: 'text-violet-700',
-                },
-              ].map((roleData, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ y: 30, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                  className={`group relative ${roleData.bg} rounded-2xl p-6 border ${roleData.border} hover:shadow-soft-lg transition-all duration-300`}
-                >
-                  <div className="flex items-center mb-5">
-                    <div className={`flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br ${roleData.gradient} shadow-soft mr-3`}>
-                      <roleData.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <h4 className={`text-base font-semibold ${roleData.textColor.replace('700', '900')}`}>
-                      {roleData.role}
-                    </h4>
+            <div className="max-w-2xl mx-auto">
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                className="group relative bg-primary-50 rounded-2xl p-8 border border-primary-200/50 hover:shadow-soft-lg transition-all duration-300"
+              >
+                <div className="flex items-center mb-6">
+                  <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-soft mr-4">
+                    <Users className="h-7 w-7 text-white" />
                   </div>
-                  <ul className={`${roleData.textColor} text-sm space-y-2.5`}>
-                    {roleData.features.map((feature, j) => (
-                      <li key={j} className="flex items-start">
-                        <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
+                  <h4 className="text-xl font-semibold text-primary-900">
+                    Заказчик рекламы
+                  </h4>
+                </div>
+                <p className="text-neutral-700 mb-6 leading-relaxed">
+                  Для компаний и рекламодателей, которые хотят разместить рекламу на телеканале. Простой процесс подачи заявок с автоматическим расчётом стоимости.
+                </p>
+                <ul className="text-primary-700 space-y-3">
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Расчет стоимости рекламы с учётом всех параметров</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Подача заявок онлайн без посредников</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Отслеживание статуса заявок в реальном времени</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle2 className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Доступ к истории всех размещений</span>
+                  </li>
+                </ul>
+              </motion.div>
             </div>
           </div>
         </section>
