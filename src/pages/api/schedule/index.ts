@@ -21,15 +21,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const newScheduleItem = await db.createScheduleItem({
-          show_id,
-          scheduled_date,
-          duration_minutes: parseInt(duration_minutes),
-          ad_minutes: parseInt(ad_minutes),
-          available_slots: parseInt(available_slots)
-        });
-        
-        res.status(201).json(newScheduleItem);
+        try {
+          const newScheduleItem = await db.createScheduleItem({
+            show_id,
+            scheduled_date,
+            duration_minutes: parseInt(duration_minutes),
+            ad_minutes: parseInt(ad_minutes),
+            available_slots: parseInt(available_slots)
+          });
+          
+          res.status(201).json(newScheduleItem);
+        } catch (err: any) {
+          // Проверяем ошибку дублирования
+          if (err.code === '23505' && err.constraint === 'show_schedule_show_id_scheduled_date_key') {
+            return res.status(409).json({ 
+              error: 'Это шоу уже добавлено в расписание на эту дату',
+              message: 'Шоу не может быть добавлено дважды на один день'
+            });
+          }
+          throw err; // Прокидываем другие ошибки дальше
+        }
         break;
 
       default:

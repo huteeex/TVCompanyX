@@ -277,9 +277,12 @@ export const db = {
     ad_minutes: number;
     available_slots: number;
   }) {
+    // Извлекаем только дату из datetime (формат: "2026-01-14T13:00" -> "2026-01-14")
+    const dateOnly = scheduleData.scheduled_date.split('T')[0];
+    
     const result = await pool.query(
       'INSERT INTO show_schedule (show_id, scheduled_date, duration_minutes, ad_minutes, available_slots) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [scheduleData.show_id, scheduleData.scheduled_date, scheduleData.duration_minutes, scheduleData.ad_minutes, scheduleData.available_slots]
+      [scheduleData.show_id, dateOnly, scheduleData.duration_minutes, scheduleData.ad_minutes, scheduleData.available_slots]
     )
     return result.rows[0]
   },

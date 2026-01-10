@@ -165,7 +165,13 @@ const CommercialSchedulePage: React.FC = () => {
           setSchedule(prev => [...prev, fullNewItem])
           toast.success('Шоу добавлено в расписание')
         } else {
-          toast.error('Ошибка при добавлении в расписание')
+          const errorData = await response.json().catch(() => ({}));
+          if (response.status === 409) {
+            toast.error(errorData.error || 'Это шоу уже добавлено в расписание на эту дату');
+          } else {
+            toast.error(errorData.error || 'Ошибка при добавлении в расписание');
+          }
+          return; // Не закрываем форму при ошибке
         }
       }
 
