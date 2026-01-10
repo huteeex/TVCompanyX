@@ -798,7 +798,25 @@ const CommercialSchedulePage: React.FC = () => {
                   <input
                     type="datetime-local"
                     value={formData.scheduledDate}
-                    onChange={(e) => setFormData(prev => ({ ...prev, scheduledDate: e.target.value }))}
+                    onChange={(e) => {
+                      let newDateTime = e.target.value;
+                      
+                      // Если выбрано шоу и в новой дате нет времени (или время 00:00), подставляем время из шоу
+                      if (formData.showId && newDateTime) {
+                        const selectedShow = shows.find(s => s.id === formData.showId);
+                        if (selectedShow) {
+                          const [startTime] = selectedShow.time_slot.split('-');
+                          // Если время не указано или равно 00:00, подставляем время шоу
+                          const timePart = newDateTime.split('T')[1];
+                          if (!timePart || timePart === '00:00') {
+                            const datePart = newDateTime.split('T')[0];
+                            newDateTime = `${datePart}T${startTime}`;
+                          }
+                        }
+                      }
+                      
+                      setFormData(prev => ({ ...prev, scheduledDate: newDateTime }));
+                    }}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
