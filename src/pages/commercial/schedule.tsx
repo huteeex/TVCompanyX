@@ -31,6 +31,7 @@ interface Show {
   name: string
   time_slot: string
   base_price_per_min: number
+  duration_minutes?: number
 }
 
 interface ScheduleItem {
@@ -756,13 +757,39 @@ const CommercialSchedulePage: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Шоу</label>
                   <select
                     value={formData.showId}
-                    onChange={(e) => setFormData(prev => ({ ...prev, showId: e.target.value }))}
+                    onChange={(e) => {
+                      const selectedShowId = e.target.value;
+                      const selectedShow = shows.find(s => s.id === selectedShowId);
+                      
+                      if (selectedShow) {
+                        // Автоматически подставляем время из time_slot шоу
+                        const timeSlot = selectedShow.time_slot; // например "09:00-10:00"
+                        const [startTime] = timeSlot.split('-');
+                        
+                        // Если уже выбрана дата, добавляем время
+                        let newScheduledDate = formData.scheduledDate;
+                        if (newScheduledDate) {
+                          // Заменяем время в существующей дате
+                          const datePart = newScheduledDate.split('T')[0];
+                          newScheduledDate = `${datePart}T${startTime}`;
+                        }
+                        
+                        setFormData(prev => ({ 
+                          ...prev, 
+                          showId: selectedShowId,
+                          scheduledDate: newScheduledDate,
+                          durationMinutes: selectedShow.duration_minutes || prev.durationMinutes,
+                        }));
+                      } else {
+                        setFormData(prev => ({ ...prev, showId: selectedShowId }));
+                      }
+                    }}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="">Выберите шоу</option>
                     {shows.map(show => (
-                      <option key={show.id} value={show.id}>{show.name}</option>
+                      <option key={show.id} value={show.id}>{show.name} ({show.time_slot})</option>
                     ))}
                   </select>
                 </div>
