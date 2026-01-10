@@ -5,7 +5,7 @@ import Layout from '../../components/layout/Layout'
 import { adAPI } from '../../utils/api'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
-import { ChatBubbleLeftRightIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { MessageSquare, Edit2 } from 'lucide-react'
 
 const AgentApplicationsPage: React.FC = () => {
   const router = useRouter()
@@ -120,11 +120,11 @@ const AgentApplicationsPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     const colors: { [key: string]: string } = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      in_progress: 'bg-blue-100 text-blue-800',
-      sent_to_commercial: 'bg-purple-100 text-purple-800',
-      approved: 'bg-green-100 text-green-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-neutral-200 text-neutral-700',
+      in_progress: 'bg-primary-100 text-primary-700',
+      sent_to_commercial: 'bg-primary-200 text-primary-800',
+      approved: 'bg-primary-100 text-primary-700',
+      rejected: 'bg-neutral-200 text-neutral-700'
     }
     return colors[status] || 'bg-neutral-100 text-neutral-800'
   }
@@ -246,13 +246,13 @@ const AgentApplicationsPage: React.FC = () => {
                           <td className="px-6 py-4">
                             <div className="flex items-center space-x-2">
                               <button onClick={() => openChat(app.id)} className="text-primary-600 hover:text-primary-900" title="Чат с клиентом">
-                                <ChatBubbleLeftRightIcon className="h-5 w-5" />
+                                <MessageSquare className="h-5 w-5" />
                               </button>
                               {/* Show 'Take in work' if unassigned */}
                               {( (app.status === 'pending') && (!app.agentId && !app.agent_id) ) && (
                                 <button 
                                   onClick={() => takeInWork(app.id)} 
-                                  className="text-yellow-600 hover:text-yellow-900" 
+                                  className="text-primary-600 hover:text-primary-900" 
                                   title="Взять в работу"
                                 >
                                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -263,7 +263,7 @@ const AgentApplicationsPage: React.FC = () => {
                               {/* Show 'Edit' if assigned to this agent */}
                               {( (app.agentId === user?.id || app.agent_id === user?.id) ) && (
                                 <button onClick={() => openEditModal(app)} className="text-neutral-600 hover:text-neutral-900" title="Редактировать">
-                                  <PencilIcon className="h-5 w-5" />
+                                  <Edit2 className="h-5 w-5" />
                                 </button>
                               )}
                             </div>
