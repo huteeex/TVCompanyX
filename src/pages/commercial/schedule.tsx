@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../components/layout/Layout'
-import { PlusIcon, CalendarIcon, ClockIcon, EyeIcon, PencilIcon, TrashIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { Plus, Calendar, Clock, Eye, Edit2, Trash2, ChevronLeft, ChevronRight, Save, X as XIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Line, Bar } from 'react-chartjs-2'
 import {
@@ -314,15 +314,15 @@ const CommercialSchedulePage: React.FC = () => {
       {
         label: 'Доступные слоты',
         data: schedule.map(item => item.available_slots),
-        borderColor: 'rgb(59, 130, 246)',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderColor: 'rgb(99, 102, 241)',
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
         tension: 0.1,
       },
       {
         label: 'Минуты рекламы',
         data: schedule.map(item => item.ad_minutes),
-        borderColor: 'rgb(16, 185, 129)',
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        borderColor: 'rgb(99, 102, 241)',
+        backgroundColor: 'rgba(99, 102, 241, 0.2)',
         tension: 0.1,
       },
     ],
@@ -350,67 +350,74 @@ const CommercialSchedulePage: React.FC = () => {
     <Layout role="commercial">
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-neutral-900">Расписание шоу</h1>
-            <p className="text-neutral-600">Управление расписанием телепередач и рекламными слотами</p>
-          </div>
-          <div className="flex items-center gap-3">
-            {/* View Mode Switcher */}
-            <div className="bg-white rounded-lg shadow-sm border flex">
+        <div className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 rounded-2xl shadow-lg p-8 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+                <Calendar className="h-8 w-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold mb-2">Расписание шоу</h1>
+                <p className="text-primary-100">Управление расписанием телепередач и рекламными слотами</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              {/* View Mode Switcher */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 flex">
+                <button
+                  onClick={() => setViewMode('day')}
+                  className={`px-5 py-2.5 text-sm font-medium rounded-l-xl transition-all duration-300 ${
+                    viewMode === 'day' 
+                      ? 'bg-white text-primary-600 shadow-md' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  День
+                </button>
+                <button
+                  onClick={() => setViewMode('week')}
+                  className={`px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+                    viewMode === 'week' 
+                      ? 'bg-white text-primary-600 shadow-md' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  Неделя
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`px-5 py-2.5 text-sm font-medium rounded-r-xl transition-all duration-300 ${
+                    viewMode === 'list' 
+                      ? 'bg-white text-primary-600 shadow-md' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  Список
+                </button>
+              </div>
               <button
-                onClick={() => setViewMode('day')}
-                className={`px-4 py-2 text-sm font-medium rounded-l-lg transition-colors ${
-                  viewMode === 'day' 
-                    ? 'bg-primary-600 text-white' 
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
+                onClick={() => setShowForm(true)}
+                className="flex items-center space-x-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 hover:scale-105"
               >
-                День
-              </button>
-              <button
-                onClick={() => setViewMode('week')}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  viewMode === 'week' 
-                    ? 'bg-primary-600 text-white' 
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Неделя
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`px-4 py-2 text-sm font-medium rounded-r-lg transition-colors ${
-                  viewMode === 'list' 
-                    ? 'bg-primary-600 text-white' 
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Список
+                <Plus className="h-5 w-5" />
+                <span className="font-medium">Добавить шоу</span>
               </button>
             </div>
-            <button
-              onClick={() => setShowForm(true)}
-              className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-            >
-              <PlusIcon className="h-5 w-5" />
-              <span>Добавить шоу</span>
-            </button>
           </div>
         </div>
 
         {/* Date Navigation */}
         {(viewMode === 'day' || viewMode === 'week') && (
-          <div className="bg-white rounded-lg shadow-sm border p-4">
+          <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
             <div className="flex items-center justify-between">
               <button
                 onClick={() => navigateDate('prev')}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-primary-50 rounded-lg transition-colors group"
               >
-                <ChevronLeftIcon className="h-5 w-5 text-gray-600" />
+                <ChevronLeft className="h-6 w-6 text-neutral-600 group-hover:text-primary-600" />
               </button>
               <div className="text-center">
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-bold text-neutral-900">
                   {viewMode === 'day' 
                     ? currentDate.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                     : `Неделя ${Math.ceil((currentDate.getDate()) / 7)}, ${currentDate.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })}`
@@ -418,16 +425,16 @@ const CommercialSchedulePage: React.FC = () => {
                 </h2>
                 <button
                   onClick={() => setCurrentDate(new Date())}
-                  className="text-sm text-primary-600 hover:text-primary-700"
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium mt-1 hover:underline"
                 >
                   Сегодня
                 </button>
               </div>
               <button
                 onClick={() => navigateDate('next')}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-primary-50 rounded-lg transition-colors group"
               >
-                <ChevronRightIcon className="h-5 w-5 text-gray-600" />
+                <ChevronRight className="h-6 w-6 text-neutral-600 group-hover:text-primary-600" />
               </button>
             </div>
           </div>
@@ -469,25 +476,26 @@ const CommercialSchedulePage: React.FC = () => {
                               {items.map((item, itemIndex) => (
                                 <div
                                   key={itemIndex}
-                                  className="bg-blue-50 border border-blue-200 rounded p-2 text-xs cursor-pointer hover:bg-blue-100 transition-colors"
+                                  className="bg-gradient-to-br from-primary-50 to-primary-100/50 border border-primary-200 rounded-lg p-2 text-xs cursor-pointer hover:from-primary-100 hover:to-primary-200/50 hover:shadow-sm transition-all duration-200"
                                   onClick={() => handleEdit(item)}
                                 >
-                                  <div className="font-semibold text-blue-900 truncate">
+                                  <div className="font-semibold text-primary-900 truncate">
                                     {item.show_name}
                                   </div>
-                                  <div className="text-blue-700 mt-1">
+                                  <div className="text-primary-700 mt-1 flex items-center">
+                                    <Clock className="h-3 w-3 mr-1" />
                                     {item.duration_minutes} мин
                                   </div>
-                                  <div className="flex items-center justify-between mt-1">
-                                    <span className="text-green-600 font-medium">
+                                  <div className="flex items-center justify-between mt-1.5">
+                                    <span className="text-primary-600 font-semibold text-xs">
                                       {item.booked_ads || 0}/{item.available_slots}
                                     </span>
-                                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
                                       (item.booked_ads || 0) >= item.available_slots 
-                                        ? 'bg-red-100 text-red-700'
+                                        ? 'bg-neutral-200 text-neutral-700'
                                         : (item.booked_ads || 0) > item.available_slots / 2
-                                        ? 'bg-yellow-100 text-yellow-700'
-                                        : 'bg-green-100 text-green-700'
+                                        ? 'bg-primary-200 text-primary-800'
+                                        : 'bg-primary-100 text-primary-700'
                                     }`}>
                                       {Math.round(((item.booked_ads || 0) / item.available_slots) * 100)}%
                                     </span>
