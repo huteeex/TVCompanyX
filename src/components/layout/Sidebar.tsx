@@ -2,26 +2,28 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 import { RootState } from '../../redux/store'
 import {
-  HomeIcon,
-  CalculatorIcon,
-  DocumentTextIcon,
-  ClockIcon,
-  UserIcon,
-  ChatBubbleLeftRightIcon,
-  ChartBarIcon,
-  DocumentArrowDownIcon,
-  CalendarIcon,
-  ClipboardDocumentListIcon,
-  CurrencyDollarIcon,
-  CogIcon,
-  BellIcon,
-  UsersIcon,
-  ServerIcon,
-  PresentationChartBarIcon,
-  BuildingOfficeIcon,
-} from '@heroicons/react/24/outline'
+  Home,
+  Calculator,
+  FileText,
+  Clock,
+  User,
+  MessageSquare,
+  BarChart3,
+  FileDown,
+  Calendar,
+  ClipboardList,
+  DollarSign,
+  Settings,
+  Bell,
+  Users,
+  Server,
+  PresentationChart,
+  Building,
+  Play
+} from 'lucide-react'
 
 interface SidebarProps {
   role: string
@@ -40,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
       {
         name: 'Главная',
         href: `/${userRole}`,
-        icon: HomeIcon,
+        icon: Home,
       },
     ]
 
@@ -51,32 +53,32 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Калькулятор стоимости',
             href: `/${userRole}/calculator`,
-            icon: CalculatorIcon,
+            icon: Calculator,
           },
           {
             name: 'Подать заявку',
             href: `/${userRole}/application`,
-            icon: DocumentTextIcon,
+            icon: FileText,
           },
           {
             name: 'Мои заявки',
             href: `/${userRole}/applications`,
-            icon: ClockIcon,
+            icon: Clock,
           },
           {
             name: 'Документы',
             href: `/${userRole}/documents`,
-            icon: DocumentTextIcon,
+            icon: FileText,
           },
           {
             name: 'Профиль',
             href: `/${userRole}/profile`,
-            icon: UserIcon,
+            icon: User,
           },
           {
             name: 'Чат с агентом',
             href: `/${userRole}/chat`,
-            icon: ChatBubbleLeftRightIcon,
+            icon: MessageSquare,
           },
         ]
 
@@ -86,22 +88,22 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Заявки клиентов',
             href: `/${userRole}/applications`,
-            icon: ClipboardDocumentListIcon,
+            icon: ClipboardList,
           },
           {
             name: 'Комиссии',
             href: `/${userRole}/commissions`,
-            icon: ChartBarIcon,
+            icon: BarChart3,
           },
           {
             name: 'Отчеты',
             href: `/${userRole}/reports`,
-            icon: DocumentArrowDownIcon,
+            icon: FileDown,
           },
           {
             name: 'Чат с клиентами',
             href: `/${userRole}/chat`,
-            icon: ChatBubbleLeftRightIcon,
+            icon: MessageSquare,
             badge: totalUnread > 0 ? totalUnread : undefined,
           },
         ]
@@ -112,27 +114,27 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Управление шоу',
             href: `/${userRole}/shows`,
-            icon: PresentationChartBarIcon,
+            icon: PresentationChart,
           },
           {
             name: 'Расписание рекламы',
             href: `/${userRole}/ad-schedule`,
-            icon: CalendarIcon,
+            icon: Calendar,
           },
           {
             name: 'Расписание шоу',
             href: `/${userRole}/schedule`,
-            icon: ClockIcon,
+            icon: Clock,
           },
           {
             name: 'Заявки от агентов',
             href: `/${userRole}/applications`,
-            icon: ClipboardDocumentListIcon,
+            icon: ClipboardList,
           },
           {
             name: 'Чат с агентами',
             href: `/${userRole}/chat`,
-            icon: ChatBubbleLeftRightIcon,
+            icon: MessageSquare,
           },
         ]
 
@@ -142,22 +144,17 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Одобренные заявки',
             href: `/${userRole}/applications`,
-            icon: ClipboardDocumentListIcon,
+            icon: ClipboardList,
           },
           {
             name: 'Отчеты',
             href: `/${userRole}/reports`,
-            icon: DocumentArrowDownIcon,
+            icon: FileDown,
           },
           {
             name: 'Доходы',
             href: `/${userRole}/revenue`,
-            icon: CurrencyDollarIcon,
-          },
-          {
-            name: 'Уведомления',
-            href: `/${userRole}/notifications`,
-            icon: BellIcon,
+            icon: DollarSign,
           },
         ]
 
@@ -167,22 +164,22 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Учетные записи',
             href: `/${userRole}/users`,
-            icon: UsersIcon,
+            icon: Users,
           },
           {
             name: 'Статистика',
             href: `/${userRole}/stats`,
-            icon: ChartBarIcon,
+            icon: BarChart3,
           },
           {
             name: 'Логи сервера',
             href: `/${userRole}/logs`,
-            icon: ServerIcon,
+            icon: Server,
           },
           {
             name: 'Настройки системы',
             href: `/${userRole}/settings`,
-            icon: CogIcon,
+            icon: Settings,
           },
         ]
 
@@ -192,22 +189,46 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           {
             name: 'Статистика сотрудников',
             href: `/${userRole}/staff-stats`,
-            icon: PresentationChartBarIcon,
+            icon: PresentationChart,
           },
           {
             name: 'Комиссии агентов',
             href: `/${userRole}/commissions`,
-            icon: CurrencyDollarIcon,
+            icon: DollarSign,
           },
           {
             name: 'Отчеты по клиентам',
             href: `/${userRole}/client-reports`,
-            icon: DocumentArrowDownIcon,
+            icon: FileDown,
           },
           {
             name: 'Статистика компании',
             href: `/${userRole}/company-stats`,
-            icon: BuildingOfficeIcon,
+            icon: Building,
+          },
+        ]
+
+      case 'it_admin':
+        return [
+          {
+            name: 'Главная',
+            href: `/it-admin/dashboard`,
+            icon: BarChart3,
+          },
+          {
+            name: 'Управление сотрудниками',
+            href: `/it-admin/staff`,
+            icon: Users,
+          },
+        ]
+
+      case 'company':
+        return [
+          ...baseItems,
+          {
+            name: 'Компания',
+            href: `/${userRole}/dashboard`,
+            icon: Building,
           },
         ]
 
@@ -219,14 +240,21 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   const navigationItems = getNavigationItems(role)
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg lg:static lg:inset-0">
+    <aside className="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-neutral-200/50 lg:static lg:inset-0">
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-center h-16 px-4 bg-primary-600">
-          <h2 className="text-xl font-bold text-white">Меню</h2>
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 h-16 border-b border-neutral-200/50">
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700">
+              <Play className="h-4 w-4 text-white" fill="white" />
+            </div>
+            <span className="text-sm font-semibold text-neutral-950">Меню</span>
+          </div>
         </div>
 
-        <nav className="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-          {navigationItems.map((item) => {
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          {navigationItems.map((item, index) => {
             const isActive = router.pathname === item.href
             const isChatLink = item.href.includes('/chat')
             const showBadge = isChatLink && totalUnread > 0
@@ -235,29 +263,54 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center justify-between px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                  isActive
-                    ? 'bg-primary-100 text-primary-700 border-r-2 border-primary-500'
-                    : 'text-secondary-600 hover:bg-secondary-100 hover:text-secondary-900'
-                }`}
               >
-                <div className="flex items-center">
-                  <item.icon className="h-5 w-5 mr-3" />
-                  {item.name}
-                </div>
-                {showBadge && (
-                  <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
-                    {totalUnread}
-                  </span>
-                )}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ x: 4 }}
+                  className={`group relative flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-primary-50 to-primary-100/50 text-primary-700 shadow-soft'
+                      : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-950'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="sidebar-active"
+                      className="absolute left-0 w-1 h-8 bg-gradient-to-b from-primary-500 to-primary-600 rounded-r-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  
+                  <div className="flex items-center ml-2">
+                    <item.icon className={`h-5 w-5 mr-3 transition-colors ${
+                      isActive ? 'text-primary-600' : 'text-neutral-500 group-hover:text-neutral-700'
+                    }`} />
+                    <span>{item.name}</span>
+                  </div>
+                  
+                  {showBadge && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-soft"
+                    >
+                      {totalUnread}
+                    </motion.span>
+                  )}
+                </motion.div>
               </Link>
             )
           })}
         </nav>
 
-        <div className="p-4 border-t border-secondary-200">
-          <div className="text-xs text-secondary-500 text-center">
-            TV Company Ad System v1.0.0
+        {/* Footer */}
+        <div className="px-4 py-4 border-t border-neutral-200/50">
+          <div className="flex items-center justify-center space-x-1.5 text-xs text-neutral-400">
+            <span>v1.0.0</span>
+            <span>•</span>
+            <span className="font-medium">2026</span>
           </div>
         </div>
       </div>
