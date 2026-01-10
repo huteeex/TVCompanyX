@@ -528,11 +528,11 @@ const AgentChatPage: React.FC = () => {
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="w-full appearance-none px-3 py-2.5 bg-white border border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer shadow-sm"
               >
-                <option value="all">📋 Все заявки ({getStatusCount('all')})</option>
-                <option value="in_progress">⚙️ В работе ({getStatusCount('in_progress')})</option>
-                <option value="sent_to_commercial">📤 В ком. отделе ({getStatusCount('sent_to_commercial')})</option>
-                <option value="approved">✅ Одобрена ({getStatusCount('approved')})</option>
-                <option value="rejected">❌ Отклонена ({getStatusCount('rejected')})</option>
+                <option value="all">Все заявки ({getStatusCount('all')})</option>
+                <option value="in_progress">В работе ({getStatusCount('in_progress')})</option>
+                <option value="sent_to_commercial">В ком. отделе ({getStatusCount('sent_to_commercial')})</option>
+                <option value="approved">Одобрена ({getStatusCount('approved')})</option>
+                <option value="rejected">Отклонена ({getStatusCount('rejected')})</option>
               </select>
               <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
                 <svg className="h-4 w-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -979,10 +979,10 @@ const AgentChatPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="border-t px-6 py-4 bg-gray-50 flex justify-end gap-3">
+            <div className="border-t border-neutral-200 px-6 py-4 bg-gradient-to-r from-neutral-50 to-white flex justify-end gap-3">
               <button
                 onClick={() => setShowDetailsModal(false)}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                className="px-5 py-2.5 bg-white border-2 border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-50 hover:border-neutral-400 transition-all font-medium"
               >
                 Закрыть
               </button>
@@ -991,9 +991,9 @@ const AgentChatPage: React.FC = () => {
                   setShowDetailsModal(false)
                   handleEdit()
                 }}
-                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors flex items-center gap-2"
+                className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition-all flex items-center gap-2 font-medium"
               >
-                <PencilIcon className="h-4 w-4" />
+                <Edit2 className="h-4 w-4" />
                 Редактировать
               </button>
             </div>
@@ -1003,11 +1003,11 @@ const AgentChatPage: React.FC = () => {
 
       {/* Edit Modal */}
       {showEditModal && applicationData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 border-b px-6 py-4 flex items-center justify-between">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="sticky top-0 bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
+                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
                   <Edit2 className="h-6 w-6 text-white" />
                 </div>
                 <div>
@@ -1023,18 +1023,20 @@ const AgentChatPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-6">
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Выбор шоу */}
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">📺</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
                     <span>Шоу</span>
                   </label>
                   <select
                     value={editFormData.show_id || ''}
                     onChange={(e) => setEditFormData({ ...editFormData, show_id: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
                   >
                     <option value="">Выберите шоу</option>
                     {shows.map(show => (
@@ -1047,34 +1049,38 @@ const AgentChatPage: React.FC = () => {
 
                 {/* Дата показа */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">📅</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
                     <span>Дата и время показа</span>
                   </label>
                   <input
                     type="datetime-local"
                     value={editFormData.scheduled_at ? new Date(editFormData.scheduled_at).toISOString().slice(0, 16) : ''}
                     onChange={(e) => setEditFormData({ ...editFormData, scheduled_at: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
                   />
                 </div>
 
                 {/* Длительность */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">⏱️</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                     <span>Длительность (секунды)</span>
                   </label>
                   <input
                     type="number"
                     value={editFormData.duration_seconds || 0}
                     onChange={(e) => setEditFormData({ ...editFormData, duration_seconds: Number(e.target.value) })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
                     min="0"
                     step="1"
                   />
                   {editFormData.duration_seconds > 0 && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-neutral-500 mt-1.5 font-medium">
                       ≈ {Math.floor(editFormData.duration_seconds / 60)} мин {editFormData.duration_seconds % 60} сек
                     </p>
                   )}
@@ -1082,30 +1088,34 @@ const AgentChatPage: React.FC = () => {
 
                 {/* Контактный телефон */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">📞</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
                     <span>Контактный телефон</span>
                   </label>
                   <input
                     type="text"
                     value={editFormData.contact_phone || ''}
                     onChange={(e) => setEditFormData({ ...editFormData, contact_phone: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
                     placeholder="+7 (999) 999-99-99"
                   />
                 </div>
 
                 {/* Стоимость */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">💰</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                     <span>Стоимость (₽)</span>
                   </label>
                   <input
                     type="number"
                     value={editFormData.cost || 0}
                     onChange={(e) => setEditFormData({ ...editFormData, cost: Number(e.target.value) })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-medium text-neutral-900 hover:bg-white"
                     min="0"
                     step="100"
                   />
@@ -1113,36 +1123,41 @@ const AgentChatPage: React.FC = () => {
 
                 {/* Описание */}
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                    <span className="text-lg">📝</span>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                     <span>Описание</span>
                   </label>
                   <textarea
                     value={editFormData.description || ''}
                     onChange={(e) => setEditFormData({ ...editFormData, description: e.target.value })}
                     rows={5}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none font-medium text-neutral-900 hover:bg-white"
                     placeholder="Подробное описание заявки..."
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-neutral-600 mt-1.5 font-medium">
                     {editFormData.description?.length || 0} символов
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="border-t bg-gray-50 px-6 py-4 flex justify-end gap-3">
+            <div className="border-t border-neutral-200 bg-gradient-to-r from-neutral-50 to-white px-6 py-4 flex justify-end gap-3">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="px-6 py-2.5 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all font-medium"
+                className="px-6 py-2.5 bg-white border-2 border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-50 hover:border-neutral-400 transition-all font-medium"
               >
                 Отменить
               </button>
               <button
                 onClick={handleSaveEdit}
-                className="px-6 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all font-medium shadow-lg shadow-green-500/30"
+                className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg hover:from-primary-700 hover:to-primary-800 transition-all font-medium flex items-center gap-2"
               >
-                💾 Сохранить изменения
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                Сохранить изменения
               </button>
             </div>
           </div>
