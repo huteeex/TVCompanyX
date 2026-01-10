@@ -3,13 +3,16 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Layout from '../../components/layout/Layout'
 import { useRouter } from 'next/router'
+import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import {
-  UserGroupIcon,
-  ArrowPathIcon,
-  CheckCircleIcon,
-  XCircleIcon
-} from '@heroicons/react/24/outline'
+  Users,
+  RefreshCw,
+  CheckCircle,
+  XCircle,
+  TrendingUp,
+  BarChart3
+} from 'lucide-react'
 
 interface UserStats {
   total_users: number
@@ -77,170 +80,271 @@ const ITAdminDashboard: React.FC = () => {
 
   const getRoleColor = (role: string) => {
     const colors: { [key: string]: string } = {
-      customer: 'bg-blue-500',
-      agent: 'bg-green-500',
+      customer: 'bg-primary-500',
+      agent: 'bg-emerald-500',
       commercial: 'bg-purple-500',
-      director: 'bg-red-500',
-      accountant: 'bg-yellow-500',
+      director: 'bg-rose-500',
+      accountant: 'bg-amber-500',
       company: 'bg-indigo-500',
-      it_admin: 'bg-gray-500'
+      it_admin: 'bg-neutral-500'
     }
-    return colors[role] || 'bg-gray-500'
+    return colors[role] || 'bg-neutral-500'
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
   }
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-between items-center mb-8"
+        >
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Панель IT Администратора</h1>
-            <p className="mt-2 text-gray-600">Статистика зарегистрированных пользователей</p>
+            <h1 className="text-4xl font-bold text-neutral-900 tracking-tight">
+              Панель IT Администратора
+            </h1>
+            <p className="mt-2 text-neutral-600">Статистика зарегистрированных пользователей</p>
           </div>
           
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={loadStats}
             disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50"
+            className="px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:shadow-soft-lg flex items-center gap-2 disabled:opacity-50 transition-all duration-300 font-medium"
           >
-            <ArrowPathIcon className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
             Обновить
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-600">Загрузка статистики...</p>
-          </div>
-        ) : stats ? (
-          <>
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 uppercase">Всего пользователей</p>
-                    <p className="text-4xl font-bold text-gray-900 mt-2">{stats.total_users}</p>
-                  </div>
-                  <div className="p-3 bg-blue-100 rounded-full">
-                    <UserGroupIcon className="h-10 w-10 text-blue-600" />
-                  </div>
-                </div>
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center py-16"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
+                <RefreshCw className="h-8 w-8 text-primary-600 animate-spin" />
               </div>
-
-              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 uppercase">Активных</p>
-                    <p className="text-4xl font-bold text-gray-900 mt-2">{stats.active_users}</p>
-                  </div>
-                  <div className="p-3 bg-green-100 rounded-full">
-                    <CheckCircleIcon className="h-10 w-10 text-green-600" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-red-500">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 uppercase">Деактивированных</p>
-                    <p className="text-4xl font-bold text-gray-900 mt-2">{stats.inactive_users}</p>
-                  </div>
-                  <div className="p-3 bg-red-100 rounded-full">
-                    <XCircleIcon className="h-10 w-10 text-red-600" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* By Role Statistics */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Распределение по ролям</h2>
-              
-              <div className="space-y-4">
-                {stats.by_role
-                  .sort((a, b) => b.count - a.count)
-                  .map(({ role, count }) => {
-                    const percentage = stats.total_users > 0 ? ((count / stats.total_users) * 100).toFixed(1) : '0'
-                    return (
-                      <div key={role}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-medium text-gray-700">
-                            {getRoleName(role)}
-                          </span>
-                          <span className="text-sm font-semibold text-gray-900">
-                            {count} ({percentage}%)
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                          <div
-                            className={`h-3 rounded-full ${getRoleColor(role)} transition-all duration-300`}
-                            style={{ width: `${percentage}%` }}
-                          ></div>
-                        </div>
+              <p className="text-neutral-600 font-medium">Загрузка статистики...</p>
+            </motion.div>
+          ) : stats ? (
+            <motion.div
+              key="content"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Summary Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <motion.div variants={itemVariants} whileHover={{ y: -4 }} className="group">
+                  <div className="bg-white rounded-2xl shadow-soft hover:shadow-soft-lg p-6 border border-neutral-200/50 transition-all duration-300">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-neutral-600 uppercase tracking-wide">
+                          Всего пользователей
+                        </p>
+                        <p className="text-4xl font-bold text-neutral-900 mt-2 tracking-tight">
+                          {stats.total_users}
+                        </p>
                       </div>
-                    )
-                  })}
-              </div>
-            </div>
+                      <div className="p-4 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl shadow-soft">
+                        <Users className="h-8 w-8 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
 
-            {/* Table */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                <h2 className="text-xl font-bold text-gray-900">Детальная статистика</h2>
+                <motion.div variants={itemVariants} whileHover={{ y: -4 }} className="group">
+                  <div className="bg-white rounded-2xl shadow-soft hover:shadow-soft-lg p-6 border border-neutral-200/50 transition-all duration-300">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-neutral-600 uppercase tracking-wide">
+                          Активных
+                        </p>
+                        <p className="text-4xl font-bold text-neutral-900 mt-2 tracking-tight">
+                          {stats.active_users}
+                        </p>
+                      </div>
+                      <div className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-soft">
+                        <CheckCircle className="h-8 w-8 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div variants={itemVariants} whileHover={{ y: -4 }} className="group">
+                  <div className="bg-white rounded-2xl shadow-soft hover:shadow-soft-lg p-6 border border-neutral-200/50 transition-all duration-300">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-neutral-600 uppercase tracking-wide">
+                          Деактивированных
+                        </p>
+                        <p className="text-4xl font-bold text-neutral-900 mt-2 tracking-tight">
+                          {stats.inactive_users}
+                        </p>
+                      </div>
+                      <div className="p-4 bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl shadow-soft">
+                        <XCircle className="h-8 w-8 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Роль</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Количество</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Процент</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+
+              {/* By Role Statistics */}
+              <motion.div 
+                variants={itemVariants}
+                className="bg-white rounded-2xl shadow-soft p-8 border border-neutral-200/50 mb-8"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-primary-100 rounded-lg">
+                    <BarChart3 className="h-6 w-6 text-primary-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-neutral-900">Распределение по ролям</h2>
+                </div>
+                
+                <div className="space-y-5">
                   {stats.by_role
                     .sort((a, b) => b.count - a.count)
-                    .map(({ role, count }) => {
+                    .map(({ role, count }, index) => {
                       const percentage = stats.total_users > 0 ? ((count / stats.total_users) * 100).toFixed(1) : '0'
                       return (
-                        <tr key={role} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center gap-3">
-                              <div className={`w-4 h-4 rounded-full ${getRoleColor(role)}`}></div>
-                              <span className="text-sm font-medium text-gray-900">
-                                {getRoleName(role)}
-                              </span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                            {count}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center gap-2">
-                              <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-[100px]">
-                                <div
-                                  className={`h-2 rounded-full ${getRoleColor(role)}`}
-                                  style={{ width: `${percentage}%` }}
-                                ></div>
-                              </div>
-                              <span className="text-sm text-gray-600">{percentage}%</span>
-                            </div>
-                          </td>
-                        </tr>
+                        <motion.div 
+                          key={role}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium text-neutral-700">
+                              {getRoleName(role)}
+                            </span>
+                            <span className="text-sm font-semibold text-neutral-900 flex items-center gap-2">
+                              <TrendingUp className="h-4 w-4 text-primary-600" />
+                              {count} ({percentage}%)
+                            </span>
+                          </div>
+                          <div className="w-full bg-neutral-100 rounded-full h-3 overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${percentage}%` }}
+                              transition={{ duration: 0.8, delay: index * 0.05 }}
+                              className={`h-3 rounded-full ${getRoleColor(role)}`}
+                            />
+                          </div>
+                        </motion.div>
                       )
                     })}
-                </tbody>
-              </table>
-            </div>
-          </>
-        ) : (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <UserGroupIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Нет данных</h3>
-            <p className="text-gray-600">Не удалось загрузить статистику пользователей</p>
-          </div>
-        )}
+                </div>
+              </motion.div>
+
+              {/* Table */}
+              <motion.div 
+                variants={itemVariants}
+                className="bg-white rounded-2xl shadow-soft overflow-hidden border border-neutral-200/50"
+              >
+                <div className="px-8 py-6 bg-gradient-to-r from-neutral-50 to-neutral-100/50 border-b border-neutral-200">
+                  <h2 className="text-xl font-bold text-neutral-900">Детальная статистика</h2>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-neutral-200">
+                    <thead className="bg-neutral-50">
+                      <tr>
+                        <th className="px-8 py-4 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wider">
+                          Роль
+                        </th>
+                        <th className="px-8 py-4 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wider">
+                          Количество
+                        </th>
+                        <th className="px-8 py-4 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wider">
+                          Процент
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-neutral-100">
+                      {stats.by_role
+                        .sort((a, b) => b.count - a.count)
+                        .map(({ role, count }) => {
+                          const percentage = stats.total_users > 0 ? ((count / stats.total_users) * 100).toFixed(1) : '0'
+                          return (
+                            <motion.tr 
+                              key={role}
+                              whileHover={{ backgroundColor: 'rgb(249 250 251)' }}
+                              className="transition-colors"
+                            >
+                              <td className="px-8 py-4 whitespace-nowrap">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-3 h-3 rounded-full ${getRoleColor(role)}`} />
+                                  <span className="text-sm font-medium text-neutral-900">
+                                    {getRoleName(role)}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="px-8 py-4 whitespace-nowrap text-sm text-neutral-900 font-semibold">
+                                {count}
+                              </td>
+                              <td className="px-8 py-4 whitespace-nowrap">
+                                <div className="flex items-center gap-3">
+                                  <div className="flex-1 bg-neutral-100 rounded-full h-2 max-w-[120px]">
+                                    <div
+                                      className={`h-2 rounded-full ${getRoleColor(role)}`}
+                                      style={{ width: `${percentage}%` }}
+                                    />
+                                  </div>
+                                  <span className="text-sm font-medium text-neutral-600 min-w-[50px]">
+                                    {percentage}%
+                                  </span>
+                                </div>
+                              </td>
+                            </motion.tr>
+                          )
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white rounded-2xl shadow-soft p-12 text-center border border-neutral-200/50"
+            >
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-neutral-100 rounded-full mb-4">
+                <Users className="h-10 w-10 text-neutral-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-neutral-900 mb-2">Нет данных</h3>
+              <p className="text-neutral-600">Не удалось загрузить статистику пользователей</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
   )
