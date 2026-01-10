@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Layout from '../../components/layout/Layout'
 import toast from 'react-hot-toast'
+import { IMaskInput } from 'react-imask'
 import { 
   PlusIcon, 
   PencilIcon, 
@@ -472,12 +473,30 @@ const ShowsManagementPage: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Время показа *
                   </label>
-                  <input
-                    type="text"
-                    name="time_slot"
+                  <IMaskInput
+                    mask="HH:MM-HH:MM"
+                    blocks={{
+                      HH: {
+                        mask: IMask.MaskedRange,
+                        from: 0,
+                        to: 23,
+                        maxLength: 2
+                      },
+                      MM: {
+                        mask: IMask.MaskedRange,
+                        from: 0,
+                        to: 59,
+                        maxLength: 2
+                      }
+                    }}
+                    lazy={false}
+                    overwrite
                     value={formData.time_slot}
-                    onChange={handleInputChange}
-                    onBlur={(e) => checkTimeConflict(e.target.value)}
+                    unmask={false}
+                    onAccept={(value) => {
+                      handleInputChange({ target: { name: 'time_slot', value } } as any);
+                    }}
+                    onBlur={(e: any) => checkTimeConflict(e.target.value)}
                     required
                     className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
                       timeConflict 
