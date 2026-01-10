@@ -5,7 +5,7 @@ import Layout from '../../components/layout/Layout'
 import { adAPI } from '../../utils/api'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
-import { MessageSquare, Edit2 } from 'lucide-react'
+import { MessageSquare, Edit2, Search, RefreshCw, Filter, ChevronDown } from 'lucide-react'
 
 const AgentApplicationsPage: React.FC = () => {
   const router = useRouter()
@@ -129,6 +129,11 @@ const AgentApplicationsPage: React.FC = () => {
     return colors[status] || 'bg-neutral-100 text-neutral-800'
   }
 
+  const getStatusCount = (status: string) => {
+    if (status === 'all') return applications.length
+    return applications.filter(app => app.status === status).length
+  }
+
   // Pagination helpers
   const totalPages = Math.ceil(filteredApplications.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
@@ -152,61 +157,100 @@ const AgentApplicationsPage: React.FC = () => {
 
   return (
     <Layout role="agent">
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-neutral-900">Заявки клиентов</h1>
-          <div className="flex space-x-2">
-            {/* Items per page selector */}
-            <select
-              value={itemsPerPage}
-              onChange={(e) => {
-                setItemsPerPage(Number(e.target.value))
-                setCurrentPage(1)
-              }}
-              className="px-3 py-2 border rounded-md bg-white"
-            >
-              <option value={10}>10 заявок</option>
-              <option value={25}>25 заявок</option>
-              <option value={50}>50 заявок</option>
-              <option value={100}>100 заявок</option>
-            </select>
-            {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border rounded-md bg-white"
-            >
-              <option value="all">Все статусы</option>
-              <option value="pending">В ожидании</option>
-              <option value="in_progress">В работе</option>
-              <option value="sent_to_commercial">В ком. отделе</option>
-              <option value="approved">Одобрена</option>
-              <option value="rejected">Отклонена</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Поиск по ID заявки..."
-              className="px-3 py-2 border rounded-md"
-              onChange={(e) => {
-                const query = e.target.value.toLowerCase()
-                if (!query) {
-                  if (statusFilter === 'all') {
-                    setFilteredApplications(applications)
-                  } else {
-                    setFilteredApplications(applications.filter(app => app.status === statusFilter))
+      <div className="space-y-6">
+        {/* Modern Header with Gradient Background */}
+        <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Заявки клиентов</h1>
+              <p className="text-primary-100">Управление заявками и коммуникация с клиентами</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                <div className="text-white text-sm font-medium">Всего заявок</div>
+                <div className="text-3xl font-bold text-white">{applications.length}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Modern Filter Bar */}
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-4">
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Items per page */}
+            <div className="flex items-center gap-2">
+              <Filter className="h-5 w-5 text-neutral-500" />
+              <div className="relative">
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value))
+                    setCurrentPage(1)
+                  }}
+                  className="appearance-none pl-3 pr-10 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer"
+                >
+                  <option value={10}>10 заявок</option>
+                  <option value={25}>25 заявок</option>
+                  <option value={50}>50 заявок</option>
+                  <option value={100}>100 заявок</option>
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Status Filter with Badge Count */}
+            <div className="relative flex-1 min-w-[200px]">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="appearance-none w-full pl-3 pr-10 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm font-medium text-neutral-700 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer"
+              >
+                <option value="all">Все статусы ({getStatusCount('all')})</option>
+                <option value="pending">В ожидании ({getStatusCount('pending')})</option>
+                <option value="in_progress">В работе ({getStatusCount('in_progress')})</option>
+                <option value="sent_to_commercial">В ком. отделе ({getStatusCount('sent_to_commercial')})</option>
+                <option value="approved">Одобрена ({getStatusCount('approved')})</option>
+                <option value="rejected">Отклонена ({getStatusCount('rejected')})</option>
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500 pointer-events-none" />
+            </div>
+
+            {/* Modern Search Bar */}
+            <div className="relative flex-1 min-w-[250px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
+              <input
+                type="text"
+                placeholder="Поиск по ID заявки..."
+                className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-900 placeholder-neutral-400 hover:bg-white focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                onChange={(e) => {
+                  const query = e.target.value.toLowerCase()
+                  if (!query) {
+                    if (statusFilter === 'all') {
+                      setFilteredApplications(applications)
+                    } else {
+                      setFilteredApplications(applications.filter(app => app.status === statusFilter))
+                    }
+                    setCurrentPage(1)
+                    return
                   }
+                  const baseList = statusFilter === 'all' ? applications : applications.filter(app => app.status === statusFilter)
+                  const filtered = baseList.filter(app => 
+                    app.id.toLowerCase().includes(query)
+                  )
+                  setFilteredApplications(filtered)
                   setCurrentPage(1)
-                  return
-                }
-                const baseList = statusFilter === 'all' ? applications : applications.filter(app => app.status === statusFilter)
-                const filtered = baseList.filter(app => 
-                  app.id.toLowerCase().includes(query)
-                )
-                setFilteredApplications(filtered)
-                setCurrentPage(1)
-              }}
-            />
-            <button onClick={loadApplications} className="px-4 py-2 bg-primary-600 text-white rounded-md">Обновить</button>
+                }}
+              />
+            </div>
+
+            {/* Refresh Button */}
+            <button 
+              onClick={loadApplications}
+              className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all font-medium text-sm shadow-sm hover:shadow-md"
+            >
+              <RefreshCw className="h-4 w-4" />
+              <span>Обновить</span>
+            </button>
           </div>
         </div>
 
