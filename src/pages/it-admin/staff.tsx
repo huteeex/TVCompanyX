@@ -5,14 +5,14 @@ import Layout from '../../components/layout/Layout'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import {
-  UserPlusIcon,
-  PencilIcon,
-  TrashIcon,
-  XMarkIcon,
-  CheckIcon,
-  EyeIcon,
-  EyeSlashIcon
-} from '@heroicons/react/24/outline'
+  UserPlus,
+  Pencil,
+  Trash2,
+  X,
+  Check,
+  Eye,
+  EyeOff
+} from 'lucide-react'
 
 interface StaffMember {
   id: string
@@ -198,14 +198,14 @@ const StaffManagementPage: React.FC = () => {
 
   const getRoleColor = (role: string) => {
     const colors: { [key: string]: string } = {
-      agent: 'bg-green-100 text-green-800',
-      commercial: 'bg-purple-100 text-purple-800',
-      director: 'bg-red-100 text-red-800',
-      accountant: 'bg-yellow-100 text-yellow-800',
-      company: 'bg-blue-100 text-blue-800',
-      it_admin: 'bg-gray-100 text-gray-800'
+      agent: 'bg-primary-100 text-primary-700',
+      commercial: 'bg-accent-100 text-accent-700',
+      director: 'bg-primary-200 text-primary-800',
+      accountant: 'bg-accent-200 text-accent-800',
+      company: 'bg-primary-50 text-primary-600',
+      it_admin: 'bg-neutral-100 text-neutral-700'
     }
-    return colors[role] || 'bg-gray-100 text-gray-800'
+    return colors[role] || 'bg-neutral-100 text-neutral-700'
   }
 
   return (
@@ -232,9 +232,9 @@ const StaffManagementPage: React.FC = () => {
               setShowPassword(false)
               setShowCreateModal(true)
             }}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:shadow-soft-lg flex items-center gap-2 transition-all duration-300 font-medium"
           >
-            <UserPlusIcon className="h-5 w-5" />
+            <UserPlus className="h-5 w-5" />
             Создать сотрудника
           </button>
         </div>
@@ -246,10 +246,10 @@ const StaffManagementPage: React.FC = () => {
               <button
                 key={role}
                 onClick={() => setFilteredRole(role)}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                   filteredRole === role
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-soft'
+                    : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50'
                 }`}
               >
                 {role === 'all' ? 'Все' : getRoleName(role)}
@@ -300,12 +300,12 @@ const StaffManagementPage: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {member.is_active ? (
                         <span className="flex items-center text-green-600 text-sm">
-                          <CheckIcon className="h-4 w-4 mr-1" />
+                          <Check className="h-4 w-4 mr-1" />
                           Активен
                         </span>
                       ) : (
                         <span className="flex items-center text-red-600 text-sm">
-                          <XMarkIcon className="h-4 w-4 mr-1" />
+                          <X className="h-4 w-4 mr-1" />
                           Деактивирован
                         </span>
                       )}
@@ -329,14 +329,14 @@ const StaffManagementPage: React.FC = () => {
                         }}
                         className="text-blue-600 hover:text-blue-900 mr-4"
                       >
-                        <PencilIcon className="h-5 w-5 inline" />
+                        <Pencil className="h-5 w-5 inline" />
                       </button>
                       {member.is_active && (
                         <button
                           onClick={() => handleDeactivateStaff(member.id)}
                           className="text-red-600 hover:text-red-900"
                         >
-                          <TrashIcon className="h-5 w-5 inline" />
+                          <Trash2 className="h-5 w-5 inline" />
                         </button>
                       )}
                     </td>
@@ -351,10 +351,10 @@ const StaffManagementPage: React.FC = () => {
         {showCreateModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="bg-blue-600 px-6 py-4 flex justify-between items-center">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4 flex justify-between items-center">
                 <h2 className="text-xl font-bold text-white">Создать сотрудника</h2>
-                <button onClick={() => setShowCreateModal(false)} className="text-white">
-                  <XMarkIcon className="h-6 w-6" />
+                <button onClick={() => setShowCreateModal(false)} className="text-white hover:text-white/80 transition-colors">
+                  <X className="h-6 w-6" />
                 </button>
               </div>
 
@@ -420,9 +420,9 @@ const StaffManagementPage: React.FC = () => {
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                     >
                       {showPassword ? (
-                        <EyeSlashIcon className="h-5 w-5" />
+                        <EyeOff className="h-5 w-5" />
                       ) : (
-                        <EyeIcon className="h-5 w-5" />
+                        <Eye className="h-5 w-5" />
                       )}
                     </button>
                   </div>
@@ -458,7 +458,7 @@ const StaffManagementPage: React.FC = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:shadow-soft-lg transition-all duration-300 font-medium"
                   >
                     Создать
                   </button>
@@ -479,13 +479,13 @@ const StaffManagementPage: React.FC = () => {
         {showEditModal && selectedStaff && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="bg-green-600 px-6 py-4 flex justify-between items-center">
+              <div className="bg-gradient-to-r from-accent-500 to-accent-600 px-6 py-4 flex justify-between items-center">
                 <h2 className="text-xl font-bold text-white">Редактировать сотрудника</h2>
                 <button onClick={() => {
                   setShowEditModal(false)
                   setSelectedStaff(null)
-                }} className="text-white">
-                  <XMarkIcon className="h-6 w-6" />
+                }} className="text-white hover:text-white/80 transition-colors">
+                  <X className="h-6 w-6" />
                 </button>
               </div>
 
@@ -547,9 +547,9 @@ const StaffManagementPage: React.FC = () => {
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                     >
                       {showEditPassword ? (
-                        <EyeSlashIcon className="h-5 w-5" />
+                        <EyeOff className="h-5 w-5" />
                       ) : (
-                        <EyeIcon className="h-5 w-5" />
+                        <Eye className="h-5 w-5" />
                       )}
                     </button>
                   </div>
@@ -584,7 +584,7 @@ const StaffManagementPage: React.FC = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-accent-500 to-accent-600 text-white rounded-xl hover:shadow-soft-lg transition-all duration-300 font-medium"
                   >
                     Сохранить
                   </button>

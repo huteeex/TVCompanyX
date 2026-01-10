@@ -240,7 +240,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   const navigationItems = getNavigationItems(role)
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-neutral-200/50 lg:static lg:inset-0">
+    <aside className="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-neutral-200/50 lg:static lg:inset-0 min-h-screen">
       <div className="flex flex-col h-full">
         {/* Header */}
         <div className="flex items-center justify-between px-4 h-16 border-b border-neutral-200/50">
