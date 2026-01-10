@@ -62,13 +62,76 @@ const DirectorCommissionsPage: React.FC = () => {
   const loadCommissions = async () => {
     setLoading(true)
     try {
-      // Load commission rules
-      const rulesResponse = await axios.get('/api/director/commission-rules')
-      setCommissionRules(rulesResponse.data.rules || [])
+      // Load staff data from existing endpoint
+      const response = await axios.get('/api/director/staff-kpi')
+      const staffData = response.data.staff_kpi || []
 
-      // Load staff commissions
-      const staffResponse = await axios.get('/api/director/staff-commissions')
-      setStaffCommissions(staffResponse.data.staff || [])
+      // Mock commission rules (will be configured in DB later)
+      const mockRules: CommissionRule[] = [
+        {
+          id: '1',
+          role: 'agent',
+          role_display: 'Агент',
+          base_rate: 5.0,
+          tier_1_threshold: 10,
+          tier_1_bonus: 1.0,
+          tier_2_threshold: 20,
+          tier_2_bonus: 2.0,
+          tier_3_threshold: 30,
+          tier_3_bonus: 3.0,
+          revenue_multiplier: 0.02,
+        },
+        {
+          id: '2',
+          role: 'commercial',
+          role_display: 'Коммерческий отдел',
+          base_rate: 3.0,
+          tier_1_threshold: 15,
+          tier_1_bonus: 0.5,
+          tier_2_threshold: 30,
+          tier_2_bonus: 1.5,
+          tier_3_threshold: 50,
+          tier_3_bonus: 2.5,
+          revenue_multiplier: 0.015,
+        },
+      ]
+      setCommissionRules(mockRules)
+
+      // Calculate commissions for staff
+      const staffWithCommissions: StaffCommission[] = staffData.map((s: any) => {
+        const rule = mockRules.find(r => r.role === s.role) || mockRules[0]
+        
+        // Determine tier based on approved applications
+        let currentTier = 0
+        let bonusRate = 0
+        if (s.approved_applications >= rule.tier_3_threshold) {
+          currentTier = 3
+          bonusRate = rule.tier_3_bonus
+        } else if (s.approved_applications >= rule.tier_2_threshold) {
+          currentTier = 2
+          bonusRate = rule.tier_2_bonus
+        } else if (s.approved_applications >= rule.tier_1_threshold) {
+          currentTier = 1
+          bonusRate = rule.tier_1_bonus
+        }
+
+        const commissionRate = rule.base_rate + bonusRate
+        const totalCommission = (s.revenue * commissionRate) / 100
+
+        return {
+          id: s.id,
+          name: s.name,
+          role: s.role,
+          role_display: s.role_display,
+          approved_applications: s.approved_applications,
+          revenue: s.revenue,
+          current_tier: currentTier,
+          commission_rate: commissionRate,
+          total_commission: Math.round(totalCommission),
+        }
+      })
+
+      setStaffCommissions(staffWithCommissions)
     } catch (error: any) {
       console.error('Error loading commissions:', error)
       toast.error('Ошибка загрузки данных о комиссиях')
@@ -91,11 +154,13 @@ const DirectorCommissionsPage: React.FC = () => {
     if (!editedRule) return
 
     try {
-      await axios.put(`/api/director/commission-rules/${editedRule.id}`, editedRule)
-      toast.success('Правило комиссии обновлено')
+      // Update local state (API endpoint will be implemented later)
+      setCommissionRules(commissionRules.map(r => r.id === editedRule.id ? editedRule : r))
+      toast.success('Правило комиссии обновлено (локально)')
       setEditingRule(null)
       setEditedRule(null)
-      loadCommissions()
+      // Recalculate commissions
+      setTimeout(() => loadCommissions(), 100)
     } catch (error: any) {
       console.error('Error saving rule:', error)
       toast.error('Ошибка сохранения правила')
