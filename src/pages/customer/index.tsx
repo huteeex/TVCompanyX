@@ -154,35 +154,35 @@ const CustomerDashboard: React.FC = () => {
 
   return (
     <Layout role="customer">
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
-            <h1 className="text-2xl font-bold text-neutral-900">
+            <h1 className="text-xl sm:text-2xl font-bold text-neutral-900">
               Добро пожаловать, {user?.name}!
             </h1>
-            <p className="text-neutral-600">
+            <p className="text-sm sm:text-base text-neutral-600">
               Панель управления заказчика рекламы
             </p>
           </div>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
           {quickActions.map((action, index) => (
             <a
               key={index}
               href={action.href}
-              className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
+              className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-6 hover:shadow-md transition-shadow duration-200 active:scale-95"
             >
-              <div className="flex items-center space-x-4">
-                <div className={`p-3 rounded-lg ${action.color}`}>
-                  <action.icon className="h-6 w-6 text-white" />
+              <div className="flex items-center space-x-3 sm:space-x-4">
+                <div className={`p-2.5 sm:p-3 rounded-lg ${action.color} flex-shrink-0`}>
+                  <action.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-neutral-900">
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-lg font-semibold text-neutral-900 truncate">
                     {action.title}
                   </h3>
-                  <p className="text-sm text-neutral-600">
+                  <p className="text-xs sm:text-sm text-neutral-600 line-clamp-2">
                     {action.description}
                   </p>
                 </div>
@@ -196,25 +196,54 @@ const CustomerDashboard: React.FC = () => {
 
         {/* Recent Applications */}
         <div className="bg-white rounded-lg shadow-sm border border-neutral-200">
-          <div className="p-6 border-b border-neutral-200 flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-neutral-900">
+          <div className="p-4 sm:p-6 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <h3 className="text-base sm:text-lg font-semibold text-neutral-900">
               Последние заявки
             </h3>
             {recentApplications.length > 0 && (
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600">
                 Показано {startIndex + 1}-{Math.min(endIndex, recentApplications.length)} из {recentApplications.length}
               </p>
             )}
           </div>
-          <div className="p-6">
+          <div className="p-3 sm:p-6">
             {recentApplications.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
-                <DocumentTextIcon className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                <p>У вас пока нет заявок</p>
+                <DocumentTextIcon className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-4 text-gray-400" />
+                <p className="text-sm sm:text-base">У вас пока нет заявок</p>
               </div>
             ) : (
               <>
-                <div className="overflow-x-auto">
+                {/* Mobile Cards */}
+                <div className="block lg:hidden space-y-3">
+                  {paginatedApplications.map((application: any, index: number) => (
+                    <div key={index} className="border border-neutral-200 rounded-lg p-4 space-y-2">
+                      <div className="flex items-start justify-between">
+                        <h4 className="font-semibold text-neutral-900 text-sm">{application.show}</h4>
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(application.status)} flex-shrink-0 ml-2`}>
+                          {getStatusText(application.status)}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-xs text-neutral-600">
+                        <div>
+                          <span className="font-medium">Дата:</span>
+                          <p className="text-neutral-900">{new Date(application.date).toLocaleDateString('ru-RU')}</p>
+                        </div>
+                        <div>
+                          <span className="font-medium">Длительность:</span>
+                          <p className="text-neutral-900">{application.duration} сек</p>
+                        </div>
+                        <div className="col-span-2">
+                          <span className="font-medium">Стоимость:</span>
+                          <p className="text-lg font-bold text-primary-600">{application.cost} ₽</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table */}
+                <div className="hidden lg:block overflow-x-auto">
                   <table className="min-w-full divide-y divide-neutral-200">
                     <thead className="bg-neutral-50">
                       <tr>
@@ -263,22 +292,22 @@ const CustomerDashboard: React.FC = () => {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                  <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
-                    <div className="flex items-center gap-2">
+                  <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-gray-200 pt-4">
+                    <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-transform"
                       >
                         ← Назад
                       </button>
                       
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 overflow-x-auto max-w-[200px] sm:max-w-none">
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                           <button
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            className={`px-3 py-2 text-sm font-medium rounded-md ${
+                            className={`px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-all active:scale-95 ${
                               currentPage === page
                                 ? 'bg-primary-600 text-white'
                                 : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
@@ -292,13 +321,13 @@ const CustomerDashboard: React.FC = () => {
                       <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 transition-transform"
                       >
                         Вперед →
                       </button>
                     </div>
 
-                    <div className="text-sm text-gray-600">
+                    <div className="text-xs sm:text-sm text-gray-600 text-center">
                       Страница {currentPage} из {totalPages}
                     </div>
                   </div>

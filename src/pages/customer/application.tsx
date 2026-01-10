@@ -259,14 +259,14 @@ const ApplicationPage: React.FC = () => {
 
   return (
     <Layout role="customer">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex items-center space-x-3">
-          <DocumentTextIcon className="h-8 w-8 text-primary-600" />
-          <div>
-            <h1 className="text-2xl font-bold text-neutral-900">
+      <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-2 sm:px-0">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          <DocumentTextIcon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-600 flex-shrink-0" />
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-2xl font-bold text-neutral-900 truncate">
               Подача заявки на рекламу
             </h1>
-            <p className="text-neutral-600">
+            <p className="text-xs sm:text-base text-neutral-600 hidden sm:block">
               Пошаговая подача заявки на размещение рекламы
             </p>
           </div>
@@ -274,20 +274,20 @@ const ApplicationPage: React.FC = () => {
 
         {/* Bank Details Missing Alert */}
         {bankMissingAlert && (
-          <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-6">
+          <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </div>
-              <div className="ml-3 flex-1">
-                <p className="text-sm font-medium text-red-800">
+              <div className="ml-2 sm:ml-3 flex-1">
+                <p className="text-xs sm:text-sm font-medium text-red-800">
                   {bankMissingAlert}
                 </p>
                 <button
                   onClick={() => router.push('/customer/profile')}
-                  className="mt-2 text-sm font-medium text-red-800 underline hover:text-red-900"
+                  className="mt-2 text-xs sm:text-sm font-medium text-red-800 underline hover:text-red-900 active:scale-95 transition-transform"
                 >
                   Перейти в профиль →
                 </button>
@@ -297,8 +297,34 @@ const ApplicationPage: React.FC = () => {
         )}
 
         {/* Progress Steps */}
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
-          <div className="flex items-center justify-between">
+        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-6">
+          {/* Mobile: Compact horizontal progress */}
+          <div className="md:hidden flex items-center justify-between overflow-x-auto">
+            {[
+              { step: 1, title: 'Дата', icon: CalendarIcon },
+              { step: 2, title: 'Шоу', icon: ClockIcon },
+              { step: 3, title: 'Параметры', icon: DocumentTextIcon },
+              { step: 4, title: 'Готово', icon: CheckCircleIcon }
+            ].map(({ step, title, icon: Icon }) => (
+              <div key={step} className="flex flex-col items-center flex-1">
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full mb-1 ${
+                  currentStep >= step 
+                    ? 'bg-primary-600 text-white' 
+                    : 'bg-gray-200 text-gray-600'
+                }`}>
+                  <Icon className="h-4 w-4" />
+                </div>
+                <span className={`text-xs font-medium text-center ${
+                  currentStep >= step ? 'text-primary-600' : 'text-gray-500'
+                }`}>
+                  {title}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Full horizontal progress */}
+          <div className="hidden md:flex items-center justify-between">
             {[
               { step: 1, title: 'Выбор даты', icon: CalendarIcon },
               { step: 2, title: 'Выбор шоу', icon: ClockIcon },
@@ -328,15 +354,15 @@ const ApplicationPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Main Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-6">
               <form onSubmit={handleSubmit}>
                 {/* Step 1: Date Selection */}
                 {currentStep === 1 && (
-                  <div className="space-y-6">
-                    <h2 className="text-lg font-semibold text-neutral-900">
+                  <div className="space-y-4 sm:space-y-6">
+                    <h2 className="text-base sm:text-lg font-semibold text-neutral-900">
                       Шаг 1: Выберите дату показа
                     </h2>
                     <div>
@@ -351,9 +377,9 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleDateChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2.5 text-base border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
-                      <p className="mt-1 text-sm text-neutral-500">
+                      <p className="mt-2 text-xs sm:text-sm text-neutral-500">
                         Выберите дату, чтобы увидеть доступные шоу
                       </p>
                     </div>
@@ -361,7 +387,7 @@ const ApplicationPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={nextStep}
-                        className="w-full bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors"
+                        className="w-full bg-primary-600 text-white px-4 py-3 rounded-md hover:bg-primary-700 transition-colors text-base font-medium active:scale-95"
                       >
                         Продолжить
                       </button>
@@ -371,22 +397,22 @@ const ApplicationPage: React.FC = () => {
 
                 {/* Step 2: Show Selection */}
                 {currentStep === 2 && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-neutral-900">
+                      <h2 className="text-base sm:text-lg font-semibold text-neutral-900">
                         Шаг 2: Выберите шоу
                       </h2>
                       <button
                         type="button"
                         onClick={prevStep}
-                        className="text-sm text-primary-600 hover:text-primary-700"
+                        className="text-xs sm:text-sm text-primary-600 hover:text-primary-700 active:scale-95 transition-transform"
                       >
                         ← Назад
                       </button>
                     </div>
                     
                     <div>
-                      <p className="text-sm text-neutral-600 mb-4">
+                      <p className="text-xs sm:text-sm text-neutral-600 mb-4">
                         Доступные шоу на {formData.selectedDate 
                           ? new Date(formData.selectedDate).toLocaleDateString('ru-RU')
                           : 'выбранную дату'}:
@@ -395,32 +421,32 @@ const ApplicationPage: React.FC = () => {
                       {showsLoading ? (
                         <div className="text-center py-8">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                          <p className="text-neutral-600">Загрузка шоу...</p>
+                          <p className="text-sm text-neutral-600">Загрузка шоу...</p>
                         </div>
                       ) : shows.length === 0 ? (
                         <div className="text-center py-8">
-                          <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                          <p className="text-gray-600">На выбранную дату нет запланированных шоу</p>
+                          <CalendarIcon className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-4" />
+                          <p className="text-sm text-gray-600">На выбранную дату нет запланированных шоу</p>
                         </div>
                       ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 gap-3 sm:gap-4">
                           {shows.map((show) => (
                             <div
                               key={show.id}
                               onClick={() => handleShowSelect(show.id)}
-                              className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                              className={`p-3 sm:p-4 border rounded-lg cursor-pointer transition-all active:scale-98 ${
                                 formData.showId === show.id
                                   ? 'border-primary-500 bg-primary-50'
                                   : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
                               }`}
                             >
-                              <div className="flex items-center justify-between mb-2">
-                                <h3 className="font-medium text-gray-900">{show.name}</h3>
+                              <div className="flex items-start justify-between mb-2">
+                                <h3 className="font-medium text-sm sm:text-base text-gray-900 flex-1">{show.name}</h3>
                                 {formData.showId === show.id && (
-                                  <CheckCircleIcon className="h-5 w-5 text-primary-600" />
+                                  <CheckCircleIcon className="h-5 w-5 text-primary-600 flex-shrink-0 ml-2" />
                                 )}
                               </div>
-                              <div className="text-sm text-gray-600 space-y-1">
+                              <div className="text-xs sm:text-sm text-gray-600 space-y-1">
                                 <div className="flex justify-between">
                                   <span>Время:</span>
                                   <span className="font-medium">{show.time_slot}</span>
@@ -453,24 +479,24 @@ const ApplicationPage: React.FC = () => {
 
                 {/* Step 3: Parameters */}
                 {currentStep === 3 && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-neutral-900">
+                      <h2 className="text-base sm:text-lg font-semibold text-neutral-900">
                         Шаг 3: Параметры рекламы
                       </h2>
                       <button
                         type="button"
                         onClick={prevStep}
-                        className="text-sm text-primary-600 hover:text-primary-700"
+                        className="text-xs sm:text-sm text-primary-600 hover:text-primary-700 active:scale-95 transition-transform"
                       >
                         ← Назад
                       </button>
                     </div>
 
                     {selectedShow && (
-                      <div className="bg-primary-50 rounded-lg p-4 mb-6">
-                        <h3 className="font-medium text-primary-900 mb-2">Выбранное шоу</h3>
-                        <div className="text-sm text-primary-800">
+                      <div className="bg-primary-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+                        <h3 className="text-sm font-medium text-primary-900 mb-2">Выбранное шоу</h3>
+                        <div className="text-xs sm:text-sm text-primary-800 space-y-1">
                           <p><strong>{selectedShow.name}</strong> - {selectedShow.time_slot}</p>
                           <p>Длительность шоу: {selectedShow.duration_minutes} минут</p>
                         </div>
@@ -490,9 +516,9 @@ const ApplicationPage: React.FC = () => {
                         required
                         min="5"
                         max="300"
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2.5 text-base border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
-                      <p className="mt-1 text-sm text-neutral-500">
+                      <p className="mt-2 text-xs sm:text-sm text-neutral-500">
                         Минимум 5 секунд, максимум 300 секунд (5 минут)
                       </p>
                     </div>
@@ -501,8 +527,7 @@ const ApplicationPage: React.FC = () => {
                       <label htmlFor="contactPhone" className="block text-sm font-medium text-neutral-700 mb-2">
                         Контактный телефон *
                       </label>
-                      <div className="flex items-center space-x-3 mb-2">
-                        <input
+                      <input
                         type="tel"
                         id="contactPhone"
                         name="contactPhone"
@@ -510,19 +535,28 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleInputChange}
                         required
                         placeholder="+7 (999) 123-45-67"
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2.5 text-base border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 mb-2"
                       />
-                        <div className="flex items-center">
-                          <input id="useProfilePhone" type="checkbox" checked={useProfilePhone} onChange={(e) => {
-                            const v = e.target.checked
-                            setUseProfilePhone(v)
-                            if (v && profilePhone) {
-                              setFormData(prev => ({ ...prev, contactPhone: profilePhone }))
-                            }
-                          }} className="h-4 w-4" />
-                          <label htmlFor="useProfilePhone" className="ml-2 text-sm text-neutral-600">Использовать номер из профиля</label>
+                      {profilePhone && (
+                        <div className="flex items-center text-xs sm:text-sm">
+                          <input 
+                            id="useProfilePhone" 
+                            type="checkbox" 
+                            checked={useProfilePhone} 
+                            onChange={(e) => {
+                              const v = e.target.checked
+                              setUseProfilePhone(v)
+                              if (v && profilePhone) {
+                                setFormData(prev => ({ ...prev, contactPhone: profilePhone }))
+                              }
+                            }} 
+                            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" 
+                          />
+                          <label htmlFor="useProfilePhone" className="ml-2 text-neutral-600">
+                            Использовать номер из профиля
+                          </label>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     <div>
@@ -536,14 +570,14 @@ const ApplicationPage: React.FC = () => {
                         onChange={handleInputChange}
                         rows={4}
                         placeholder="Опишите содержание рекламы, целевую аудиторию и другие важные детали..."
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full px-3 py-2.5 text-base border border-neutral-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
                     </div>
 
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="w-full bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors"
+                      className="w-full bg-primary-600 text-white px-4 py-3 rounded-md hover:bg-primary-700 transition-colors text-base font-medium active:scale-95"
                     >
                       Продолжить
                     </button>
@@ -552,16 +586,84 @@ const ApplicationPage: React.FC = () => {
 
                 {/* Step 4: Confirmation */}
                 {currentStep === 4 && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-lg font-semibold text-neutral-900">
+                      <h2 className="text-base sm:text-lg font-semibold text-neutral-900">
                         Шаг 4: Подтверждение заявки
                       </h2>
                       <button
                         type="button"
                         onClick={prevStep}
-                        className="text-sm text-primary-600 hover:text-primary-700"
+                        className="text-xs sm:text-sm text-primary-600 hover:text-primary-700 active:scale-95 transition-transform"
                       >
+                        ← Назад
+                      </button>
+                    </div>
+
+                    {selectedShow && (
+                      <div className="bg-gray-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                        <h3 className="text-sm sm:text-base font-semibold text-gray-900">Детали заявки</h3>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                          <div>
+                            <span className="text-gray-600">Дата показа:</span>
+                            <p className="font-medium text-gray-900 mt-1">
+                              {formData.selectedDate 
+                                ? new Date(formData.selectedDate).toLocaleDateString('ru-RU')
+                                : '—'}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Шоу:</span>
+                            <p className="font-medium text-gray-900 mt-1">{selectedShow.name}</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Время шоу:</span>
+                            <p className="font-medium text-gray-900 mt-1">{selectedShow.time_slot}</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Длительность рекламы:</span>
+                            <p className="font-medium text-gray-900 mt-1">
+                              {formData.durationSeconds} сек ({(formData.durationSeconds / 60).toFixed(2)} мин)
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Базовая цена:</span>
+                            <p className="font-medium text-gray-900 mt-1">{selectedShow.base_price_per_min} ₽/мин</p>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Контактный телефон:</span>
+                            <p className="font-medium text-gray-900 mt-1">{formData.contactPhone}</p>
+                          </div>
+                        </div>
+
+                        {formData.description && (
+                          <div>
+                            <span className="text-xs sm:text-sm text-gray-600">Описание:</span>
+                            <p className="mt-1 text-xs sm:text-sm text-gray-900">{formData.description}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="submit"
+                        disabled={loading || !hasBankDetails}
+                        className="flex-1 bg-green-600 text-white px-4 py-3 text-base rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium active:scale-95"
+                      >
+                        {loading ? 'Отправка...' : 'Подать заявку'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => router.back()}
+                        className="px-4 py-3 text-base border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200 active:scale-95"
+                      >
+                        Отмена
+                      </button>
+                    </div>
+                  </div>
+                )}
                         ← Назад
                       </button>
                     </div>
@@ -634,8 +736,8 @@ const ApplicationPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Summary Sidebar */}
-          <div className="lg:col-span-1">
+          {/* Summary Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 sticky top-6">
               <h3 className="text-lg font-semibold text-neutral-900 mb-4">
                 📋 Сводка заявки

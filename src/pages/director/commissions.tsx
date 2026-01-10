@@ -62,74 +62,33 @@ const DirectorCommissionsPage: React.FC = () => {
   const loadCommissions = async () => {
     setLoading(true)
     try {
-      // Load staff data from existing endpoint
-      const response = await axios.get('/api/director/staff-kpi')
-      const staffData = response.data.staff_kpi || []
+      // Load commission rules from DB
+      const rulesResponse = await axios.get('/api/director/commission-rules')
+      const rules = rulesResponse.data || []
+      
+      // Add display names
+      const rulesWithDisplay = rules.map((r: any) => ({
+        ...r,
+        role_display: r.role === 'agent' ? 'Агент' : r.role === 'commercial' ? 'Коммерческий отдел' : r.role
+      }))
+      setCommissionRules(rulesWithDisplay)
 
-      // Mock commission rules (will be configured in DB later)
-      const mockRules: CommissionRule[] = [
-        {
-          id: '1',
-          role: 'agent',
-          role_display: 'Агент',
-          base_rate: 5.0,
-          tier_1_threshold: 10,
-          tier_1_bonus: 1.0,
-          tier_2_threshold: 20,
-          tier_2_bonus: 2.0,
-          tier_3_threshold: 30,
-          tier_3_bonus: 3.0,
-          revenue_multiplier: 0.02,
-        },
-        {
-          id: '2',
-          role: 'commercial',
-          role_display: 'Коммерческий отдел',
-          base_rate: 3.0,
-          tier_1_threshold: 15,
-          tier_1_bonus: 0.5,
-          tier_2_threshold: 30,
-          tier_2_bonus: 1.5,
-          tier_3_threshold: 50,
-          tier_3_bonus: 2.5,
-          revenue_multiplier: 0.015,
-        },
-      ]
-      setCommissionRules(mockRules)
+      // Load staff commissions (calculated on backend)
+      const commissionsResponse = await axios.get('/api/director/staff-commissions')
+      const staffData = commissionsResponse.data || []
 
-      // Calculate commissions for staff
-      const staffWithCommissions: StaffCommission[] = staffData.map((s: any) => {
-        const rule = mockRules.find(r => r.role === s.role) || mockRules[0]
-        
-        // Determine tier based on approved applications
-        let currentTier = 0
-        let bonusRate = 0
-        if (s.approved_applications >= rule.tier_3_threshold) {
-          currentTier = 3
-          bonusRate = rule.tier_3_bonus
-        } else if (s.approved_applications >= rule.tier_2_threshold) {
-          currentTier = 2
-          bonusRate = rule.tier_2_bonus
-        } else if (s.approved_applications >= rule.tier_1_threshold) {
-          currentTier = 1
-          bonusRate = rule.tier_1_bonus
-        }
-
-        const commissionRate = rule.base_rate + bonusRate
-        const totalCommission = (s.revenue * commissionRate) / 100
-
-        return {
-          id: s.id,
-          name: s.name,
-          role: s.role,
-          role_display: s.role_display,
-          approved_applications: s.approved_applications,
-          revenue: s.revenue,
-          current_tier: currentTier,
-          commission_rate: commissionRate,
-          total_commission: Math.round(totalCommission),
-        }
-      })
+      // Format staff commissions
+      const staffWithCommissions: StaffCommission[] = staffData.map((s: any) => ({
+        id: s.id,
+        name: `${s.first_name || ''} ${s.middle_name || ''} ${s.last_name || ''}`.trim() || s.email,
+        role: s.role,
+        role_display: s.role === 'agent' ? 'Агент' : s.role === 'commercial' ? 'Коммерческий отдел' : s.role,
+        approved_applications: s.approved_applications || 0,
+        revenue: parseFloat(s.total_revenue) || 0,
+        current_tier: s.tier || 0,
+        commission_rate: parseFloat(s.commission_rate) || 0,
+        total_commission: parseFloat(s.total_commission) || 0,
+      }))
 
       setStaffCommissions(staffWithCommissions)
     } catch (error: any) {
@@ -154,13 +113,23 @@ const DirectorCommissionsPage: React.FC = () => {
     if (!editedRule) return
 
     try {
-      // Update local state (API endpoint will be implemented later)
-      setCommissionRules(commissionRules.map(r => r.id === editedRule.id ? editedRule : r))
-      toast.success('Правило комиссии обновлено (локально)')
+      // Save to database via API
+      await axios.put(`/api/director/commission-rules/${editedRule.id}`, {
+        base_rate: editedRule.base_rate,
+        revenue_multiplier: editedRule.revenue_multiplier,
+        tier_1_threshold: editedRule.tier_1_threshold,
+        tier_1_bonus: editedRule.tier_1_bonus,
+        tier_2_threshold: editedRule.tier_2_threshold,
+        tier_2_bonus: editedRule.tier_2_bonus,
+        tier_3_threshold: editedRule.tier_3_threshold,
+        tier_3_bonus: editedRule.tier_3_bonus,
+      })
+      
+      toast.success('Правило комиссии обновлено')
       setEditingRule(null)
       setEditedRule(null)
-      // Recalculate commissions
-      setTimeout(() => loadCommissions(), 100)
+      // Reload data from server
+      loadCommissions()
     } catch (error: any) {
       console.error('Error saving rule:', error)
       toast.error('Ошибка сохранения правила')
@@ -168,10 +137,10 @@ const DirectorCommissionsPage: React.FC = () => {
   }
 
   const getTierBadge = (tier: number) => {
-    if (tier === 3) return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-primary-600 text-white">⭐⭐⭐ Tier 3</span>
-    if (tier === 2) return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-primary-400 text-white">⭐⭐ Tier 2</span>
-    if (tier === 1) return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-primary-200 text-primary-700">⭐ Tier 1</span>
-    return <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-neutral-200 text-neutral-700">Base</span>
+    if (tier === 3) return <span className="px-3 py-1.5 text-xs font-bold rounded-lg bg-primary-600 text-white shadow-sm">Уровень 3</span>
+    if (tier === 2) return <span className="px-3 py-1.5 text-xs font-bold rounded-lg bg-primary-500 text-white shadow-sm">Уровень 2</span>
+    if (tier === 1) return <span className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-primary-400 text-white shadow-sm">Уровень 1</span>
+    return <span className="px-3 py-1.5 text-xs font-medium rounded-lg bg-neutral-300 text-neutral-700 shadow-sm">Базовый</span>
   }
 
   const totalCommissions = staffCommissions.reduce((sum, s) => sum + s.total_commission, 0)
