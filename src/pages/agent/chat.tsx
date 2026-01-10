@@ -72,7 +72,8 @@ const AgentChatPage: React.FC = () => {
         const showsData = await showsResp.json()
         setShows(showsData || [])
 
-        const resp = await (await fetch('/api/applications', { credentials: 'same-origin' })).json()
+        // Load only MY applications (assigned to current agent)
+        const resp = await (await fetch(`/api/applications?agentId=${user?.id}`, { credentials: 'same-origin' })).json()
         const apps: any[] = resp || []
 
         // Check and auto-reject expired applications
@@ -80,12 +81,14 @@ const AgentChatPage: React.FC = () => {
         await Promise.all(checkPromises)
         
         // Reload applications after potential auto-rejections
-        const updatedResp = await (await fetch('/api/applications', { credentials: 'same-origin' })).json()
+        const updatedResp = await (await fetch(`/api/applications?agentId=${user?.id}`, { credentials: 'same-origin' })).json()
         const updatedApps: any[] = updatedResp || []
 
-        // Filter out only pending applications (no chat exists yet)
-        // Keep in_progress, sent_to_commercial, approved, rejected for chat history
-        const appsWithChats = updatedApps.filter(a => a.status !== 'pending')
+        // Filter out only assigned applications with status in_progress or higher
+        // Don't show pending applications here (they should be taken from available-applications page)
+        const appsWithChats = updatedApps.filter(a => 
+          a.agent_id === user?.id && a.status !== 'pending'
+        )
 
         // Build list of customer chats (by application)
         const customerChats = appsWithChats.map(a => {
@@ -117,7 +120,45 @@ const AgentChatPage: React.FC = () => {
         setLoading(false)
       }
     })()
-  }, [])
+  }, [user?.id])
+
+  // Reload when user changes (for safety)
+  useEffect(() => {
+    if (user?.id && rooms.length === 0 && !loading) {
+      // Reload applications when user is set
+      ;(async () => {
+        setLoading(true)
+        try {
+          const resp = await (await fetch(`/api/applications?agentId=${user?.id}`, { credentials: 'same-origin' })).json()
+          const apps: any[] = resp || []
+          const appsWithChats = apps.filter(a => 
+            a.agent_id === user?.id && a.status !== 'pending'
+          )
+          const customerChats = appsWithChats.map(a => {
+            const rawId = a.id || ''
+            const roomId = rawId.startsWith('application-') ? rawId : `application-${rawId}`
+            const reduxRoom = reduxRooms.find(rr => rr.id === roomId)
+            const customerDisplayName = a.customerName || a.customer_name || (reduxRoom && reduxRoom.name) || 'Клиент'
+            const showInfo = a.show || a.show_name ? ` • ${a.show || a.show_name}` : ''
+            const costInfo = a.cost ? ` • ${a.cost}₽` : ''
+            return {
+              id: roomId,
+              name: customerDisplayName,
+              subtitle: `#${(a.id || '').slice(-8)}${showInfo}${costInfo}`,
+              unread: reduxRoom ? reduxRoom.unreadCount : 0,
+              status: a.status,
+              raw: a,
+            }
+          })
+          setRooms([...customerChats])
+        } catch (e) {
+          console.error('Failed to load applications:', e)
+        } finally {
+          setLoading(false)
+        }
+      })()
+    }
+  }, [user?.id])
 
   // Filter rooms by status
   useEffect(() => {
@@ -520,6 +561,17 @@ const AgentChatPage: React.FC = () => {
             <h3 className="text-lg font-bold text-neutral-900 mb-1">Чаты</h3>
             <p className="text-xs text-neutral-500">Активные диалоги с клиентами</p>
           </div>
+          
+          {/* Take New Application Button */}
+          <button
+            onClick={() => router.push('/agent/available-applications')}
+            className="mb-4 w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all duration-300 hover:scale-105 shadow-md font-medium"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Взять новую заявку
+          </button>
           
           {/* Status filter */}
           <div className="mb-4 flex-shrink-0">

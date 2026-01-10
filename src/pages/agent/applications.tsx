@@ -45,9 +45,12 @@ const AgentApplicationsPage: React.FC = () => {
   const loadApplications = async () => {
     setLoading(true)
     try {
-      // Request all applications (server will return combined workflow rows). Passing agentId can filter too aggressively in some setups.
-      const response = await adAPI.getApplications()
-      setApplications(response.data)
+      // Load only MY applications (assigned to current agent)
+      const response = await fetch(`/api/applications?agentId=${user?.id}`, {
+        credentials: 'same-origin'
+      })
+      const data = await response.json()
+      setApplications(data)
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Ошибка загрузки заявок')
     } finally {
