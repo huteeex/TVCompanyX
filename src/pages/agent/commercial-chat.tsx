@@ -145,10 +145,10 @@ const CommercialChatPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800'
-      case 'approved': return 'bg-green-100 text-green-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      case 'sent_to_commercial': return 'bg-blue-100 text-blue-800'
+      case 'pending': return 'bg-neutral-200 text-neutral-700'
+      case 'approved': return 'bg-primary-100 text-primary-700'
+      case 'rejected': return 'bg-neutral-200 text-neutral-700'
+      case 'sent_to_commercial': return 'bg-primary-200 text-primary-800'
       default: return 'bg-gray-100 text-gray-800'
     }
   }
@@ -272,7 +272,7 @@ const CommercialChatPage: React.FC = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={handleSaveEdit}
-                    className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
                   >
                     Сохранить
                   </button>
@@ -346,14 +346,14 @@ const CommercialChatPage: React.FC = () => {
                 <button
                   onClick={handleApprove}
                   disabled={application.status === 'approved'}
-                  className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 >
                   Одобрить
                 </button>
                 <button
                   onClick={handleReject}
                   disabled={application.status === 'rejected'}
-                  className="w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 >
                   Отклонить
                 </button>
