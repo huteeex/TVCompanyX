@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Layout from '../../components/layout/Layout'
 import Dashboard from '../../components/dashboard/Dashboard'
-import { ChartBarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import { ChartBar, DollarSign } from 'lucide-react'
 
 interface CommissionData {
   month: string
@@ -144,7 +144,7 @@ const CommissionsPage: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <ChartBarIcon className="h-8 w-8 text-primary-600" />
+            <ChartBar className="h-8 w-8 text-primary-600" />
             <div>
               <h1 className="text-2xl font-bold text-neutral-900">
                 Комиссии
@@ -239,7 +239,7 @@ const CommissionsPage: React.FC = () => {
         </div>
 
         {/* Commission Information */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">
             Информация о комиссиях
           </h3>
