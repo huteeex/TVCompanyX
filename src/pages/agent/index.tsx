@@ -7,14 +7,14 @@ import Layout from '../../components/layout/Layout'
 import Dashboard from '../../components/dashboard/Dashboard'
 import toast from 'react-hot-toast'
 import { 
-  ClipboardDocumentListIcon, 
-  ChartBarIcon, 
-  DocumentArrowDownIcon,
-  ChatBubbleLeftRightIcon,
-  CheckIcon,
-  XMarkIcon,
-  TrashIcon
-} from '@heroicons/react/24/outline'
+  ClipboardList, 
+  ChartBar, 
+  Download,
+  MessageSquare,
+  Check,
+  X,
+  Trash2
+} from 'lucide-react'
 
 interface Application {
   id: string
@@ -197,11 +197,11 @@ const AgentDashboard: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      pending: { color: 'bg-yellow-100 text-yellow-800', text: 'На рассмотрении' },
-      in_progress: { color: 'bg-blue-100 text-blue-800', text: 'В работе' },
-      sent_to_commercial: { color: 'bg-purple-100 text-purple-800', text: 'В ком. отделе' },
-      approved: { color: 'bg-green-100 text-green-800', text: 'Одобрено' },
-      rejected: { color: 'bg-red-100 text-red-800', text: 'Отклонено' },
+      pending: { color: 'bg-neutral-200 text-neutral-700', text: 'На рассмотрении' },
+      in_progress: { color: 'bg-primary-100 text-primary-700', text: 'В работе' },
+      sent_to_commercial: { color: 'bg-primary-200 text-primary-800', text: 'В ком. отделе' },
+      approved: { color: 'bg-primary-100 text-primary-700', text: 'Одобрено' },
+      rejected: { color: 'bg-neutral-200 text-neutral-700', text: 'Отклонено' },
     }
 
     const config = statusConfig[status as keyof typeof statusConfig]
@@ -270,8 +270,8 @@ const AgentDashboard: React.FC = () => {
                 onClick={() => setStatusFilter('pending')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'pending'
-                    ? 'bg-yellow-600 text-white'
-                    : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 На рассмотрении ({getStatusCount('pending')})
@@ -280,8 +280,8 @@ const AgentDashboard: React.FC = () => {
                 onClick={() => setStatusFilter('in_progress')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'in_progress'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
                 }`}
               >
                 В работе ({getStatusCount('in_progress')})
@@ -290,8 +290,8 @@ const AgentDashboard: React.FC = () => {
                 onClick={() => setStatusFilter('sent_to_commercial')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'sent_to_commercial'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
                 }`}
               >
                 В ком. отделе ({getStatusCount('sent_to_commercial')})
@@ -300,8 +300,8 @@ const AgentDashboard: React.FC = () => {
                 onClick={() => setStatusFilter('approved')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'approved'
-                    ? 'bg-green-600 text-white'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
                 }`}
               >
                 Одобрено ({getStatusCount('approved')})
@@ -310,8 +310,8 @@ const AgentDashboard: React.FC = () => {
                 onClick={() => setStatusFilter('rejected')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   statusFilter === 'rejected'
-                    ? 'bg-red-600 text-white'
-                    : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    ? 'bg-neutral-600 text-white'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                 }`}
               >
                 Отклонено ({getStatusCount('rejected')})
@@ -326,7 +326,7 @@ const AgentDashboard: React.FC = () => {
               </div>
             ) : filteredApplications.length === 0 ? (
               <div className="text-center py-8">
-                <ClipboardDocumentListIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <ClipboardList className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-neutral-900 mb-2">
                   {statusFilter === 'all' ? 'Заявки не найдены' : 'Заявки с этим статусом не найдены'}
                 </h3>
@@ -399,7 +399,7 @@ const AgentDashboard: React.FC = () => {
                                 className="text-green-600 hover:text-green-900"
                                 title="Отправить в коммерческий отдел"
                               >
-                                <CheckIcon className="h-5 w-5" />
+                                <Check className="h-5 w-5" />
                               </button>
                             )}
                             {application.status === 'sent_to_commercial' && (
@@ -410,7 +410,7 @@ const AgentDashboard: React.FC = () => {
                               className="text-red-600 hover:text-red-900"
                               title="Удалить заявку"
                             >
-                              <TrashIcon className="h-5 w-5" />
+                              <Trash2 className="h-5 w-5" />
                             </button>
                           </td>
                         </tr>
@@ -494,7 +494,7 @@ const AgentDashboard: React.FC = () => {
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-green-500">
-                <ChartBarIcon className="h-6 w-6 text-white" />
+                <ChartBar className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-neutral-900">
@@ -513,7 +513,7 @@ const AgentDashboard: React.FC = () => {
           >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-500">
-                <DocumentArrowDownIcon className="h-6 w-6 text-white" />
+                <Download className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-neutral-900">
@@ -531,8 +531,8 @@ const AgentDashboard: React.FC = () => {
             className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow duration-200"
           >
             <div className="flex items-center space-x-4">
-              <div className="p-3 rounded-lg bg-purple-500">
-                <ChatBubbleLeftRightIcon className="h-6 w-6 text-white" />
+              <div className="p-3 rounded-lg bg-primary-500">
+                <MessageSquare className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-neutral-900">
