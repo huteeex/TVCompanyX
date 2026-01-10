@@ -88,7 +88,15 @@ export const db = {
     }
     if (userData.bank_details !== undefined) {
       fields.push(`bank_details = $${paramCount++}`)
-      values.push(userData.bank_details ? JSON.stringify(userData.bank_details) : null)
+      // Если bank_details это объект с пустыми значениями, сохраняем null
+      let bankDetailsValue = null
+      if (userData.bank_details && typeof userData.bank_details === 'object') {
+        const hasNonEmptyValues = Object.values(userData.bank_details).some(val => val && String(val).trim() !== '')
+        if (hasNonEmptyValues) {
+          bankDetailsValue = JSON.stringify(userData.bank_details)
+        }
+      }
+      values.push(bankDetailsValue)
     }
     if (userData.phone !== undefined) {
       fields.push(`phone = $${paramCount++}`)
