@@ -10,10 +10,17 @@ import {
   Settings,
   LogOut,
   Play,
-  ChevronDown
+  ChevronDown,
+  Menu,
+  X
 } from 'lucide-react'
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  mobileMenuOpen?: boolean
+  setMobileMenuOpen?: (open: boolean) => void
+}
+
+const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useSelector((state: RootState) => state.auth)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -38,13 +45,28 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-neutral-200/50">
-      <div className="flex items-center justify-between px-4 lg:px-6 py-3">
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-soft">
-            <Play className="h-5 w-5 text-white" fill="white" />
+      <div className="flex items-center justify-between px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Hamburger Menu Button - Mobile Only */}
+          {setMobileMenuOpen && (
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-neutral-100 active:scale-95 transition-all"
+              aria-label="Меню"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-5 w-5 text-neutral-700" />
+              ) : (
+                <Menu className="h-5 w-5 text-neutral-700" />
+              )}
+            </button>
+          )}
+          
+          <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-soft">
+            <Play className="h-4 w-4 sm:h-5 sm:w-5 text-white" fill="white" />
           </div>
           <div className="hidden sm:block">
-            <h1 className="text-base font-semibold text-neutral-950 tracking-tight">
+            <h1 className="text-sm sm:text-base font-semibold text-neutral-950 tracking-tight">
               TV Company
             </h1>
             <p className="text-xs text-neutral-500">
@@ -53,7 +75,7 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           {/* Notifications */}
           <NotificationBell />
 

@@ -19,6 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children, role }) => {
   const { sidebarOpen } = useSelector((state: RootState) => state.ui)
   const [dbConnected, setDbConnected] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const DatabaseStatus = dynamic(() => import('../DatabaseStatus'), { ssr: false })
 
@@ -89,13 +90,32 @@ const Layout: React.FC<LayoutProps> = ({ children, role }) => {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <Header />
+      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       
       <div className="flex">
-        <Sidebar role={userRole} />
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block">
+          <Sidebar role={userRole} />
+        </div>
         
-        <main className="flex-1">
-          <div className="p-6">
+        {/* Mobile Menu Drawer */}
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            
+            {/* Drawer */}
+            <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto">
+              <Sidebar role={userRole} mobile onClose={() => setMobileMenuOpen(false)} />
+            </div>
+          </>
+        )}
+        
+        <main className="flex-1 min-w-0">
+          <div className="p-3 sm:p-4 lg:p-6">
             {children}
           </div>
         </main>

@@ -27,15 +27,23 @@ import {
 
 interface SidebarProps {
   role: string
+  mobile?: boolean
+  onClose?: () => void
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ role }) => {
+const Sidebar: React.FC<SidebarProps> = ({ role, mobile = false, onClose }) => {
   const router = useRouter()
   const { sidebarOpen } = useSelector((state: RootState) => state.ui)
   const { rooms } = useSelector((state: RootState) => state.chat)
   
   // Calculate total unread messages
   const totalUnread = rooms.reduce((sum, room) => sum + (room.unreadCount || 0), 0)
+
+  const handleNavClick = () => {
+    if (mobile && onClose) {
+      onClose()
+    }
+  }
 
   const getNavigationItems = (userRole: string) => {
     const baseItems = [
@@ -240,78 +248,87 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   const navigationItems = getNavigationItems(role)
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-neutral-200/50 lg:static lg:inset-0 min-h-screen">
-      <div className="flex flex-col h-full">
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 h-16 border-b border-neutral-200/50">
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700">
-              <Play className="h-4 w-4 text-white" fill="white" />
-            </div>
-            <span className="text-sm font-semibold text-neutral-950">Меню</span>
+    <aside className="w-full h-full bg-white flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 h-14 border-b border-neutral-200/50 flex-shrink-0">
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700">
+            <Play className="h-4 w-4 text-white" fill="white" />
           </div>
+          <span className="text-sm font-semibold text-neutral-950">Меню</span>
         </div>
+        {mobile && onClose && (
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg hover:bg-neutral-100 active:scale-95 transition-all"
+            aria-label="Закрыть меню"
+          >
+            <Play className="h-5 w-5 text-neutral-600 rotate-180" />
+          </button>
+        )}
+      </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {navigationItems.map((item, index) => {
-            const isActive = router.pathname === item.href
-            const isChatLink = item.href.includes('/chat')
-            const showBadge = isChatLink && totalUnread > 0
-            
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
+      {/* Navigation */}
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        {navigationItems.map((item, index) => {
+          const isActive = router.pathname === item.href
+          const isChatLink = item.href.includes('/chat')
+          const showBadge = isChatLink && totalUnread > 0
+          
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              onClick={handleNavClick}
+            >
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: mobile ? 0 : index * 0.05 }}
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.98 }}
+                className={`group relative flex items-center justify-between px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200 active:scale-95 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/50 text-primary-700 shadow-soft'
+                    : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-950'
+                }`}
               >
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ x: 4 }}
-                  className={`group relative flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-primary-50 to-primary-100/50 text-primary-700 shadow-soft'
-                      : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-950'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="sidebar-active"
-                      className="absolute left-0 w-1 h-8 bg-gradient-to-b from-primary-500 to-primary-600 rounded-r-full"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  
-                  <div className="flex items-center ml-2">
-                    <item.icon className={`h-5 w-5 mr-3 transition-colors ${
-                      isActive ? 'text-primary-600' : 'text-neutral-500 group-hover:text-neutral-700'
-                    }`} />
-                    <span>{item.name}</span>
-                  </div>
-                  
-                  {showBadge && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-soft"
-                    >
-                      {totalUnread}
-                    </motion.span>
-                  )}
-                </motion.div>
-              </Link>
-            )
-          })}
-        </nav>
+                {isActive && (
+                  <motion.div
+                    layoutId="sidebar-active"
+                    className="absolute left-0 w-1 h-8 bg-gradient-to-b from-primary-500 to-primary-600 rounded-r-full"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                
+                <div className="flex items-center ml-2">
+                  <item.icon className={`h-5 w-5 mr-3 transition-colors ${
+                    isActive ? 'text-primary-600' : 'text-neutral-500 group-hover:text-neutral-700'
+                  }`} />
+                  <span>{item.name}</span>
+                </div>
+                
+                {showBadge && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-soft"
+                  >
+                    {totalUnread}
+                  </motion.span>
+                )}
+              </motion.div>
+            </Link>
+          )
+        })}
+      </nav>
 
-        {/* Footer */}
-        <div className="px-4 py-4 border-t border-neutral-200/50">
-          <div className="flex items-center justify-center space-x-1.5 text-xs text-neutral-400">
-            <span>v1.0.0</span>
-            <span>•</span>
-            <span className="font-medium">2026</span>
-          </div>
+      {/* Footer */}
+      <div className="px-4 py-4 border-t border-neutral-200/50 flex-shrink-0">
+        <div className="flex items-center justify-center space-x-1.5 text-xs text-neutral-400">
+          <span>v1.0.0</span>
+          <span>•</span>
+          <span className="font-medium">2026</span>
         </div>
       </div>
     </aside>
