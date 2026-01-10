@@ -778,7 +778,24 @@ const AgentChatPage: React.FC = () => {
 
               {/* Commercial Department Chat - Only when status is sent_to_commercial */}
               {applicationData && applicationData.status === 'sent_to_commercial' ? (
-                <div className="bg-white rounded-r-xl flex flex-col overflow-hidden">\n                  <div className="border-b border-neutral-200 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 flex-shrink-0">\n                    <div className="flex items-center gap-3">\n                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">\n                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />\n                        </svg>\n                      </div>\n                      <div className="flex-1 min-w-0">\n                        <h3 className="font-bold text-white text-sm">\n                          Коммерческий отдел\n                        </h3>\n                        <p className="text-xs text-primary-100">\n                          Обсуждение деталей заявки\n                        </p>\n                      </div>\n                    </div>\n                  </div>
+                <div className="bg-white rounded-r-xl flex flex-col overflow-hidden">
+                  <div className="border-b border-neutral-200 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 flex-shrink-0">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-white text-sm">
+                          Коммерческий отдел
+                        </h3>
+                        <p className="text-xs text-primary-100">
+                          Обсуждение деталей заявки
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                   <div className="border-b px-2 py-1.5 bg-gradient-to-r from-purple-50 to-purple-100 flex-shrink-0">
                     <h3 className="font-semibold text-purple-900 flex items-center gap-1 text-xs">
                       <span className="text-sm">🏢</span>
