@@ -1,0 +1,42 @@
+@model IEnumerable<Lab12TVCompanyX.Models.AuditLog>
+@{ ViewData["Title"] = "Журнал аудита"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Журнал аудита</h4>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Сущность</th>
+                    <th>ID записи</th>
+                    <th>Действие</th>
+                    <th>Кем выполнено</th>
+                    <th>Дата</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr>
+                        <td>@a.AuditId</td>
+                        <td>@a.EntityName</td>
+                        <td>@a.EntityId</td>
+                        <td>@a.Action</td>
+                        <td>@(a.PerformedBy != null ? a.PerformedBy.LastName + " " + a.PerformedBy.FirstName : "система")</td>
+                        <td>@a.PerformedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@a.AuditId" class="btn btn-sm btn-outline-secondary">Детали</a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">Записей нет</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

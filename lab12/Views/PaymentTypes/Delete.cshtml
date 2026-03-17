@@ -1,0 +1,16 @@
+@model Lab12TVCompanyX.Models.PaymentType
+@{ ViewData["Title"] = "Удалить способ оплаты"; }
+<div class="row justify-content-center"><div class="col-lg-5">
+    <div class="card border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">Удалить способ оплаты</div>
+        <div class="card-body">
+            <p>Удалить: <strong>@Model.Name</strong>?</p>
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="PaymentTypeId" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div></div>

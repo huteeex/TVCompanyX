@@ -1,0 +1,49 @@
+services:
+
+  # ── База данных PostgreSQL ───────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: tvcompanyx_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       TVVVV
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: 0112
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # данные живут между перезапусками
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d TVVVV"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus:   "0.20"   # не более 20% ядра
+          memory: 300M
+
+  # ── ASP.NET Core MVC приложение ─────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tvcompanyx_app
+    restart: unless-stopped
+    ports:
+      - "80:8080"          # ВПС:80 → контейнер:8080  (доступно через браузер)
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Строка подключения к контейнеру db (переопределяет appsettings.json)
+      ConnectionStrings__DefaultConnection: >-
+        Host=db;Port=5432;Database=TVVVV;Username=postgres;Password=0112
+    depends_on:
+      db:
+        condition: service_healthy   # ждём готовности БД перед стартом
+    deploy:
+      resources:
+        limits:
+          cpus:   "0.40"   # не более 40% ядра
+          memory: 700M     # вместе с db — до ~1 ГБ
+
+volumes:
+  pgdata:   # именованный том, хранится на ВПС между перезапусками

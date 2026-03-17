@@ -1,0 +1,28 @@
+@model Lab12TVCompanyX.Models.Request
+@{
+    ViewData["Title"] = "Удалить заявку";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger shadow-sm">
+            <div class="card-header bg-danger text-white"><i class="bi bi-trash"></i> Удалить заявку</div>
+            <div class="card-body">
+                <p class="mb-1">Вы действительно хотите удалить заявку:</p>
+                <p class="fw-bold fs-5">#@Model.RequestId — @(Model.Customer != null ? $"{Model.Customer.LastName} {Model.Customer.FirstName}" : "—")</p>
+                <p class="text-muted small">
+                    Шоу: @(Model.Schedule?.TvShow?.Title ?? "—") |
+                    Статус: @(Model.Status?.Name ?? "—")
+                </p>
+                <div class="d-flex gap-2 mt-4">
+                    <form asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="RequestId" />
+                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Удалить</button>
+                    </form>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

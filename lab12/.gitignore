@@ -1,0 +1,17 @@
+## Build output
+bin/
+obj/
+
+## VS / Rider
+.vs/
+*.user
+*.suo
+.idea/
+
+## Secrets — не коммитим реальные данные подключения
+# appsettings.Production.json содержит реальный пароль — пусть будет шаблон
+appsettings.Production.json
+
+## Логи
+*.log
+logs/

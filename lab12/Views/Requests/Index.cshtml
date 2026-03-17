@@ -1,0 +1,102 @@
+@model IEnumerable<Lab12TVCompanyX.Models.Request>
+@{
+    ViewData["Title"] = "Заявки";
+    var role = ViewBag.CurrentRole as string ?? "";
+    var userId = (int)(ViewBag.CurrentUserId ?? 0);
+    var isAdmin = role == "admin" || role == "director";
+    var canCreate = role == "customer" || isAdmin;
+}
+
+@{
+    string StatusBadgeClass(int statusId) => statusId switch
+    {
+        1 => "status-pending",
+        2 => "status-in-progress",
+        3 => "status-approved",
+        4 => "status-paid",
+        5 => "status-rejected",
+        _ => "bg-secondary"
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3 animate-fadeInUp">
+    <h4 class="fw-bold mb-0"><i class="bi bi-file-earmark-text"></i> Заявки</h4>
+    @if (canCreate)
+    {
+        <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Подать заявку</a>
+    }
+</div>
+
+@if (role == "agent")
+{
+    var poolCount = Model.Count(r => r.AgentId == null && r.StatusId == 1);
+    @if (poolCount > 0)
+    {
+        <div class="alert alert-info animate-fadeInUp delay-1">
+            <i class="bi bi-inbox"></i> Новых заявок в пуле: <strong>@poolCount</strong> — нажмите «Взять в работу».
+        </div>
+    }
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info animate-fadeInUp"><i class="bi bi-info-circle"></i> Заявок пока нет.</div>
+}
+else
+{
+    <div class="table-responsive animate-fadeInUp delay-1">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Заказчик</th>
+                    <th>Агент</th>
+                    <th>Шоу / Эфир</th>
+                    <th>Статус</th>
+                    <th class="text-end">Стоимость, ₽</th>
+                    <th>Дата</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td class="text-muted small">@r.RequestId</td>
+                        <td>@(r.Customer != null ? $"{r.Customer.LastName} {r.Customer.FirstName}" : "—")</td>
+                        <td>@(r.Agent != null ? $"{r.Agent.LastName} {r.Agent.FirstName}" : "<span class='text-muted'>не назначен</span>")</td>
+                        <td>
+                            @(r.Schedule?.TvShow?.Title ?? "—")
+                            @if (r.Schedule != null)
+                            {
+                                <span class="text-muted small d-block">@r.Schedule.AirDate.ToString("dd.MM.yyyy") @r.Schedule.AirTime.ToString(@"hh\:mm")</span>
+                            }
+                        </td>
+                        <td><span class="badge @StatusBadgeClass(r.StatusId)">@(r.Status?.Name ?? "—")</span></td>
+                        <td class="text-end">@r.TotalCost.ToString("N2")</td>
+                        <td class="small">@r.CreatedAt.ToString("dd.MM.yyyy")</td>
+                        <td class="text-nowrap">
+                            @* Agent can take unassigned requests *@
+                            @if (role == "agent" && r.AgentId == null && r.StatusId == 1)
+                            {
+                                <form asp-action="TakeInWork" asp-route-id="@r.RequestId" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-primary" title="Взять в работу"><i class="bi bi-hand-index"></i></button>
+                                </form>
+                            }
+                            <a asp-action="Details" asp-route-id="@r.RequestId" class="btn btn-sm btn-outline-primary" title="Просмотр"><i class="bi bi-eye"></i></a>
+                            @if (isAdmin || role == "agent")
+                            {
+                                <a asp-action="Edit" asp-route-id="@r.RequestId" class="btn btn-sm btn-outline-secondary" title="Редактировать"><i class="bi bi-pencil"></i></a>
+                            }
+                            @if (isAdmin)
+                            {
+                                <a asp-action="Delete" asp-route-id="@r.RequestId" class="btn btn-sm btn-outline-danger" title="Удалить"><i class="bi bi-trash"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,345 @@
+Лабораторная работа №12
+Разработка приложения. Часть 1
+Цель работы: Научиться создавать веб-приложения с применением технологий ASP.NET и Entity Framework
+Краткие теоретические сведения
+ASP.NET Core — это современный, кроссплатформенный (Windows, macOS, Linux) и с открытым исходным кодом фреймворк от Microsoft для создания высокопроизводительных веб-приложений, веб-сервисов и мобильных бэкендов, работающих на платформе .NET. Он отличается модульностью, гибким развертыванием (включая Docker) и высокой производительностью, являясь эволюцией классического ASP.NET. 
+Основные характеристики:
+Кроссплатформенность: Разработка и запуск на Windows, macOS, Linux и в контейнерах.
+Открытый исходный код: Разрабатывается Microsoft и сообществом.
+Модульность: Минимальная загрузка, возможность выбирать нужные компоненты.
+Производительность: Оптимизирован для современных облачных сценариев и показал высокие результаты в тестах.
+Гибкое развертывание: Приложение можно развернуть вместе со средой выполнения или установить централизованно.
+Поддержка языков: Основные языки — C# и F#.
+Современные подходы: Включает внедрение зависимостей (DI) и промежуточное ПО (middleware).
+Entity Framework Core (EF Core) — это современный объектно-реляционный модуль сопоставления (ORM) для .NET, который позволяет разработчикам работать с базами данных с помощью объектов .NET (классов C#) вместо написания SQL-запросов, упрощая доступ к данным, отслеживание изменений, миграции схемы и поддержку различных СУБД, таких как SQL Server, MySQL, PostgreSQL и SQLite. 
+Основные возможности и преимущества EF Core:
+ORM (Object-Relational Mapping): Сопоставляет таблицы базы данных с объектами .NET, позволяя манипулировать данными через объекты и коллекции, а не строки и столбцы.
+Поддержка LINQ: Позволяет писать запросы к базе данных, используя синтаксис Language Integrated Query (LINQ) прямо в C#, что делает код более читаемым.
+Кроссплатформенность: Работает на Windows, Linux и macOS, что делает его идеальным для современных приложений .NET.
+Расширяемость: Позволяет добавлять провайдеры для разных баз данных (SQL Server, SQLite, MySQL, PostgreSQL, Azure Cosmos DB и др.).
+Миграции: Управляет изменениями схемы базы данных, позволяя легко обновлять структуру БД в соответствии с изменениями в моделях .NET.
+Устранение бойлерплейт-кода: Значительно сокращает объем шаблонного кода, необходимого для доступа к данным.
+MVC (Model-View-Controller) — это архитектурный паттерн проектирования приложений, который разделяет их на три взаимосвязанные части: Модель (данные и логика), Представление (пользовательский интерфейс) и Контроллер (посредник, обрабатывающий действия пользователя и связывающий Модель с Представлением), что позволяет разработчикам управлять сложностью кода, делая его более модульным и легким для поддержки. 
+Компоненты MVC:
+Модель (Model): Управляет данными и бизнес-логикой приложения. Она не знает о том, как данные будут отображаться, и реагирует на запросы контроллера, изменяя свое состояние или предоставляя данные.
+Представление (View): Отвечает за визуализацию данных из Модели для пользователя. Это то, что видит пользователь (интерфейс). Одно и то же представление может использовать разные Модели, и наоборот.
+Контроллер (Controller): Принимает ввод от пользователя (например, нажатие кнопки), обрабатывает его и взаимодействует с Моделью для изменения данных. Затем он выбирает соответствующее Представление для отображения результата.
+Задание и порядок проведения работы
+ПОВТОРИТЕ НИЖЕОПИСАННЫЕ ШАГИ
+Для данного примера создадим тестовую БД в Management Studio. Имя БД придумайте и в дальнейшем подставляйте самостоятельно.
+Внимание: Дочитайте задание до конца и используйте свою БД из ЛР 11, если это возможно или вы НЕ хотите понижения оценки на 1 балл. Убедитесь, что в вашей БД присутствует таблица с логинами и паролями.
+CREATE DATABASE TRPOtest;
+GO
+
+USE TRPOtest;
+GO
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Login NVARCHAR(50) NOT NULL UNIQUE,
+    Password NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Items (
+    ItemID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Cost DECIMAL(10,2) NOT NULL,
+    IsValid BIT NOT NULL DEFAULT 1
+);
+
+-- Добавляем тестовые данные
+INSERT INTO Users (Login, Password) VALUES 
+('admin', 'admin123'),
+('user1', 'password1');
+
+INSERT INTO Items (Name, Cost, IsValid) VALUES
+('Item 1', 100.50, 1),
+('Item 2', 200.00, 0),
+('Item 3', 150.75, 1);
+
+Перейдем в Visual Studio и создадим новый проект Веб-приложение ASP.NET Core MVC (Майкрософт).
+
+
+Выберем .NET 8.0, тип проверки подлинности: нет (настроим вручную).
+
+Установим следующие пакеты через NuGet:
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.AspNetCore.Authentication.Cookies
+Для EF следует выбрать последнюю версию 8.* из-за версии .NET.
+
+
+
+
+Откроем Консоль диспетчера пакетов.
+
+В данной консоли можно автоматически создать модели (классы таблиц) и контекст  (класс доступа к БД) для вашей БД. Для этого выполните команду, используя строку подключения к БД:
+Scaffold-DbContext "Server=ADCLG1;Database=TRPOtest;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context MyDbContext -Force
+
+Добавим строку подключения в appsettings.json, чтобы не прописывать ее каждый раз:
+{
+  /******* Начало модификации *******/
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=ADCLG1;Database=TRPOtest;Trusted_Connection=True;TrustServerCertificate=True;"
+  },
+  /******* Конец модификации *******/
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+Добавим контекст БД и функцию аутентификацию через куки в Program.cs:
+using Example_Project.Models;
+/******* Начало модификации *******/
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+/******* Конец модификации *******/
+namespace Example_Project
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+
+            /******* Начало модификации *******/
+            // Добавляем контекст БД
+            builder.Services.AddDbContext<MyDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Настраиваем аутентификацию через куки
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                });
+            /******* Конец модификации *******/
+
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+            
+            /******* Начало модификации *******/
+            // ВАЖНО: UseAuthentication ДО UseAuthorization
+            app.UseAuthentication();
+            /******* Конец модификации *******/
+
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
+        }
+    }
+}
+
+
+Создадим контроллер (набор функций) для авторизации в папку Controllers.
+
+
+Назовем его AccountController.cs
+
+
+Заполним AccountController, добавив доступ к контексту и функции Login и Logout.
+/******* Начало модификации *******/
+using Example_Project.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
+namespace MyWebApp.Controllers
+{
+    public class AccountController : Controller
+    {
+        private readonly MyDbContext _context;
+
+        public AccountController(MyDbContext context)
+        {
+            _context = context;
+        }
+/******* Конец модификации *******/
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+/******* Начало модификации *******/
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string login, string password)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Login == login && u.Password == password);
+
+            if (user != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Login),
+                    new Claim("UserID", user.UserId.ToString())
+                };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.Error = "Неверный логин или пароль";
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
+        }
+    }
+}
+/******* Конец модификации *******/
+
+Создадим представления (страницы) авторизации. Для начала созддим папку Account в папке Views.
+
+
+
+Добавим новое пустое представление (может быть переведено как «Вид»). Назовем Login.cshtml.
+
+
+
+Создадим форму авторизации в Login.cshtml.
+Формат cshtml позволяет использовать команды c# внутри html, используя технологию Razor и конструкцию @{}.
+@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<h2>Авторизация</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label>Логин:</label>
+        <input type="text" name="login" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Пароль:</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+}
+
+Настроим HomeController.cs таким образом, чтобы любые страницы переадресовывали на страницу авторизации, если пользователь не авторизован. Заодно получаем имя пользователя, чтобы использовать его для отображения на страницах.
+
+using Example_Project.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+
+namespace Example_Project.Controllers
+{
+    [Authorize] // Добавляем этот атрибут
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+        public IActionResult Index()
+        {
+            ViewBag.UserName = User.Identity.Name; // Получаем логин пользователя
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
+
+
+
+Настроим главную страницу – Index.cshtml, добавив на нее имя вошедшего пользователя и кнопку выхода.
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<h1>Главная страница</h1>
+
+<p>Вы вошли как: <strong>@ViewBag.UserName</strong></p>
+
+<h3>Меню:</h3>
+<ul>
+    <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
+</ul>
+
+Все представления – это только основная часть страницы, которая вписывается в так называемый Макет – Layout, если не настроено иначе. Настроим этот макет, Shared/_Layout.cshtml, также добавив вверху страницы имя пользователя.
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <span class="navbar-text">
+        Вы вошли как: @User.Identity.Name
+    </span>
+}
+
+Настроим Program.cs, таким образом, чтобы все неавторизованные пользователи не просто получали заблокированный сайт, а именно перенаправлялись на страницу авторизации:
+
+/******* Начало модификации *******/
+// Дополнительный маршрут для перенаправления неавторизованных
+app.MapControllerRoute(
+    name: "login",
+    pattern: "{*url}",
+    defaults: new { controller = "Account", action = "Login" });
+/******* Конец модификации *******/
+
+
+Для запуска и проверки работоспособности выберите предпочитаемый браузер и http (https потребует сертификат, который вы, возможно, не сможете установить)
+
+Дополнительное задание для получения максимальной оценки
+Использовать собственную БД из ЛР 11. Задействовать собственную таблицу вместо предложенной Users для авторизации. Разделение на роли не требуется.
+Пароли должны храниться и передаваться захешированными, например, по протоколу SHA256.

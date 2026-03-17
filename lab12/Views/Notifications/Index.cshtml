@@ -1,0 +1,45 @@
+@model IEnumerable<Lab12TVCompanyX.Models.Notification>
+@{ ViewData["Title"] = "Уведомления"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Уведомления</h4>
+    <a asp-action="Create" class="btn btn-dark btn-sm">+ Добавить</a>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Тип</th>
+                    <th>Пользователь</th>
+                    <th>Сообщение</th>
+                    <th>Прочитано</th>
+                    <th>Создано</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var n in Model)
+                {
+                    <tr>
+                        <td>@n.NotificationId</td>
+                        <td>@(n.NotificationType?.Name ?? "—")</td>
+                        <td>@(n.User != null ? n.User.LastName + " " + n.User.FirstName : "—")</td>
+                        <td>@(n.Message.Length > 60 ? n.Message[..60] + "…" : n.Message)</td>
+                        <td>@(n.IsRead ? "Да" : "Нет")</td>
+                        <td>@n.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@n.NotificationId" class="btn btn-sm btn-outline-secondary">Детали</a>
+                            <a asp-action="Edit" asp-route-id="@n.NotificationId" class="btn btn-sm btn-outline-primary">Изменить</a>
+                            <a asp-action="Delete" asp-route-id="@n.NotificationId" class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">Уведомлений нет</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

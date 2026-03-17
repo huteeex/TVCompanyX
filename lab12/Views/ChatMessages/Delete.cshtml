@@ -1,0 +1,32 @@
+@model Lab12TVCompanyX.Models.ChatMessage
+@{ ViewData["Title"] = "Удаление сообщения"; }
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Сообщения чата</a></li>
+        <li class="breadcrumb-item active">Удалить</li>
+    </ol>
+</nav>
+<div class="row justify-content-center"><div class="col-lg-6">
+    <div class="card shadow-sm border-0 border-danger">
+        <div class="card-header bg-danger text-white">Подтверждение удаления</div>
+        <div class="card-body p-4">
+            <p class="text-danger mb-3">Вы уверены, что хотите удалить это сообщение?</p>
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Заявка</dt>
+                <dd class="col-sm-8">#@Model.RequestId</dd>
+                <dt class="col-sm-4">Отправитель</dt>
+                <dd class="col-sm-8">@(Model.Sender != null ? Model.Sender.LastName + " " + Model.Sender.FirstName : "—")</dd>
+                <dt class="col-sm-4">Сообщение</dt>
+                <dd class="col-sm-8">@(Model.Content.Length > 80 ? Model.Content[..80] + "…" : Model.Content)</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-transparent d-flex gap-2">
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MessageId" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+        </div>
+    </div>
+</div></div>

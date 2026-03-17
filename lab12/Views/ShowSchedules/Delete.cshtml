@@ -1,0 +1,32 @@
+@model Lab12TVCompanyX.Models.ShowSchedule
+@{ ViewData["Title"] = "Удаление эфира"; }
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Расписание</a></li>
+        <li class="breadcrumb-item active">Удалить</li>
+    </ol>
+</nav>
+<div class="row justify-content-center"><div class="col-lg-6">
+    <div class="card shadow-sm border-0 border-danger">
+        <div class="card-header bg-danger text-white">Подтверждение удаления</div>
+        <div class="card-body p-4">
+            <p class="text-danger mb-3">Вы уверены, что хотите удалить эту запись расписания?</p>
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Телешоу</dt>
+                <dd class="col-sm-8">@(Model.TvShow?.Title ?? "—")</dd>
+                <dt class="col-sm-4">Дата эфира</dt>
+                <dd class="col-sm-8">@Model.AirDate.ToString("dd.MM.yyyy")</dd>
+                <dt class="col-sm-4">Время эфира</dt>
+                <dd class="col-sm-8">@Model.AirTime.ToString(@"hh\:mm")</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-transparent d-flex gap-2">
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="ScheduleId" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+        </div>
+    </div>
+</div></div>

@@ -1,0 +1,139 @@
+@model Lab12TVCompanyX.Models.Request
+@{
+    ViewData["Title"] = "Заявка #" + Model.RequestId;
+    var role = ViewBag.CurrentRole as string ?? "";
+    var userId = (int)(ViewBag.CurrentUserId ?? 0);
+    var isAdmin = role == "admin" || role == "director";
+
+    string StatusBadgeClass(int statusId) => statusId switch
+    {
+        1 => "status-pending",
+        2 => "status-in-progress",
+        3 => "status-approved",
+        4 => "status-paid",
+        5 => "status-rejected",
+        _ => "bg-secondary"
+    };
+}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Заявки</a></li>
+        <li class="breadcrumb-item active">Заявка #@Model.RequestId</li>
+    </ol>
+</nav>
+
+<div class="card animate-fadeInUp mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-file-earmark-text"></i> Заявка #@Model.RequestId</span>
+        <span class="badge @StatusBadgeClass(Model.StatusId)">@(Model.Status?.Name ?? "—")</span>
+    </div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Заказчик</dt>
+            <dd class="col-sm-8">@(Model.Customer != null ? $"{Model.Customer.LastName} {Model.Customer.FirstName}" : "—")</dd>
+
+            <dt class="col-sm-4">Агент</dt>
+            <dd class="col-sm-8">@(Model.Agent != null ? $"{Model.Agent.LastName} {Model.Agent.FirstName}" : "не назначен")</dd>
+
+            <dt class="col-sm-4">Шоу</dt>
+            <dd class="col-sm-8">@(Model.Schedule?.TvShow?.Title ?? "—")</dd>
+
+            <dt class="col-sm-4">Дата эфира</dt>
+            <dd class="col-sm-8">
+                @if (Model.Schedule != null)
+                {
+                    var d = Model.Schedule.AirDate.ToString("dd.MM.yyyy");
+                    var t = Model.Schedule.AirTime.ToString(@"hh\:mm");
+                    @(d + " " + t)
+                }
+                else
+                {
+                    @:—
+                }
+            </dd>
+
+            <dt class="col-sm-4">Длительность</dt>
+            <dd class="col-sm-8">@Model.DurationSeconds сек</dd>
+
+            <dt class="col-sm-4">Стоимость, ₽</dt>
+            <dd class="col-sm-8">@Model.TotalCost.ToString("N2")</dd>
+
+            <dt class="col-sm-4">Контактный тел.</dt>
+            <dd class="col-sm-8">@Model.ContactPhone</dd>
+
+            <dt class="col-sm-4">Описание</dt>
+            <dd class="col-sm-8">@(Model.Description ?? "—")</dd>
+
+            <dt class="col-sm-4">Способ оплаты</dt>
+            <dd class="col-sm-8">@(Model.PaymentType?.Name ?? "—")</dd>
+
+            <dt class="col-sm-4">Дата оплаты</dt>
+            <dd class="col-sm-8">@(Model.PaymentDate?.ToString("dd.MM.yyyy") ?? "—")</dd>
+
+            <dt class="col-sm-4">Срок оплаты</dt>
+            <dd class="col-sm-8">@(Model.PaymentDueDate?.ToString("dd.MM.yyyy") ?? "—")</dd>
+
+            <dt class="col-sm-4">Создана</dt>
+            <dd class="col-sm-8">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+@if (Model.Contract != null)
+{
+    <div class="card animate-fadeInUp delay-1 mb-4">
+        <div class="card-header"><i class="bi bi-file-earmark-check"></i> Договор</div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Номер</dt>
+                <dd class="col-sm-8">@Model.Contract.ContractNumber</dd>
+                <dt class="col-sm-4">Дата</dt>
+                <dd class="col-sm-8">@Model.Contract.ContractDate.ToString("dd.MM.yyyy")</dd>
+                <dt class="col-sm-4">Сумма, ₽</dt>
+                <dd class="col-sm-8">@Model.Contract.Amount.ToString("N2")</dd>
+            </dl>
+        </div>
+    </div>
+}
+
+<!-- Workflow Actions -->
+<div class="d-flex gap-2 flex-wrap animate-fadeInUp delay-2">
+    @* Agent takes from pool *@
+    @if (role == "agent" && Model.AgentId == null && Model.StatusId == 1)
+    {
+        <form asp-action="TakeInWork" asp-route-id="@Model.RequestId" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary"><i class="bi bi-hand-index"></i> Взять в работу</button>
+        </form>
+    }
+    @* Commercial/Director/Admin approve *@
+    @if ((role == "commercial" || isAdmin) && Model.StatusId == 2)
+    {
+        <form asp-action="Approve" asp-route-id="@Model.RequestId" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i> Одобрить</button>
+        </form>
+    }
+    @* Agents / commercial / admin can reject (if not yet approved/paid) *@
+    @if ((role == "agent" || role == "commercial" || isAdmin) && Model.StatusId <= 2)
+    {
+        <form asp-action="Reject" asp-route-id="@Model.RequestId" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger"><i class="bi bi-x-lg"></i> Отменить</button>
+        </form>
+    }
+    @* Accountant / admin mark as paid *@
+    @if ((role == "accountant" || isAdmin) && Model.StatusId == 3)
+    {
+        <form asp-action="MarkPaid" asp-route-id="@Model.RequestId" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success"><i class="bi bi-cash-coin"></i> Оплачено</button>
+        </form>
+    }
+    @if (isAdmin || role == "agent")
+    {
+        <a asp-action="Edit" asp-route-id="@Model.RequestId" class="btn btn-outline-secondary"><i class="bi bi-pencil"></i> Редактировать</a>
+    }
+    <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+</div>

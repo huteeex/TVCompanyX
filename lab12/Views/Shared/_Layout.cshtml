@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — ТВ Компания X</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <style>
+        /* ══════════════════════════════════════════════════════
+           THEME — all colors in one place
+           ══════════════════════════════════════════════════════ */
+        :root {
+            /* Primary */
+            --c-primary:        #2563EB;
+            --c-primary-h:      #1D4ED8;
+            --c-primary-light:  #DBEAFE;
+            /* Neutral */
+            --c-heading:        #1E293B;
+            --c-slate:          #475569;
+            --c-muted:          #94A3B8;
+            --c-border:         #E2E8F0;
+            --c-bg:             #F8FAFC;
+            --c-card:           #FFFFFF;
+            --c-highlight:      #DBEAFE;
+            /* Status */
+            --c-success:        #16A34A;
+            --c-success-bg:     #DCFCE7;
+            --c-danger:         #DC2626;
+            --c-danger-bg:      #FEF2F2;
+            --c-warning:        #CA8A04;
+            --c-warning-bg:     #FEF9C3;
+            --c-purple:         #7C3AED;
+            --c-purple-bg:      #EDE9FE;
+            /* Shadows */
+            --shadow-sm:   0 1px 3px rgba(0,0,0,.04);
+            --shadow-md:   0 4px 14px rgba(0,0,0,.07);
+            --shadow-lg:   0 8px 28px rgba(0,0,0,.10);
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        /* ── Base ── */
+        body {
+            background: var(--c-bg);
+            color: var(--c-slate);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: .9375rem;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 { color: var(--c-heading); font-weight: 700; }
+        a { color: var(--c-primary); text-decoration: none; transition: color .2s; }
+        a:hover { color: var(--c-primary-h); }
+
+        /* ── Animations ── */
+        @@keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @@keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @@keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @@keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-fadeInUp { animation: fadeInUp .5s cubic-bezier(.16,1,.3,1) both; }
+        .animate-fadeIn   { animation: fadeIn .4s ease both; }
+        .animate-slideDown{ animation: slideDown .3s ease both; }
+        .animate-scaleIn  { animation: scaleIn .35s cubic-bezier(.16,1,.3,1) both; }
+
+        .delay-1 { animation-delay: .08s; }
+        .delay-2 { animation-delay: .16s; }
+        .delay-3 { animation-delay: .24s; }
+        .delay-4 { animation-delay: .32s; }
+
+        /* ── Navbar ── */
+        .app-nav {
+            background: var(--c-card);
+            border-bottom: 1px solid var(--c-border);
+            box-shadow: var(--shadow-sm);
+        }
+        .app-nav .navbar-brand {
+            font-size: .9375rem;
+            font-weight: 700;
+            color: var(--c-heading);
+            display: flex; align-items: center; gap: .4rem;
+            transition: opacity .2s;
+        }
+        .app-nav .navbar-brand:hover { opacity: .8; }
+        .app-nav .navbar-brand svg { color: var(--c-primary); }
+        .app-nav .nav-link {
+            font-size: .875rem; font-weight: 500; color: var(--c-slate);
+            padding: .375rem .625rem; border-radius: var(--radius-sm);
+            transition: background .15s, color .15s;
+        }
+        .app-nav .nav-link:hover,
+        .app-nav .nav-link.active { color: var(--c-primary); background: var(--c-primary-light); }
+        .app-nav .dropdown-menu {
+            border: 1px solid var(--c-border); border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md); padding: .3rem; min-width: 200px;
+            animation: slideDown .2s ease;
+        }
+        .app-nav .dropdown-item {
+            font-size: .875rem; color: var(--c-slate); border-radius: var(--radius-sm);
+            padding: .4rem .75rem; transition: background .12s, color .12s;
+        }
+        .app-nav .dropdown-item:hover { background: var(--c-primary-light); color: var(--c-primary); }
+        .app-nav .dropdown-divider { border-color: var(--c-border); }
+        .app-nav .navbar-toggler { border-color: var(--c-border); }
+        .app-nav .user-pill {
+            display: flex; align-items: center; gap: .5rem;
+            font-size: .8125rem; color: var(--c-slate);
+        }
+        .app-nav .user-role {
+            background: var(--c-primary-light); color: var(--c-primary);
+            font-size: .75rem; font-weight: 600; border-radius: 4px;
+            padding: .1rem .45rem;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--c-card);
+            border: 1px solid var(--c-border) !important;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm) !important;
+            transition: box-shadow .25s, transform .25s;
+        }
+        .card:hover { box-shadow: var(--shadow-md) !important; }
+        .card-header {
+            background: var(--c-highlight) !important;
+            border-bottom: 1px solid var(--c-border) !important;
+            color: var(--c-heading) !important;
+            font-weight: 600; font-size: .875rem;
+            padding: .75rem 1.25rem;
+            border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+        }
+        .card-header.bg-dark,
+        .card-header.bg-secondary { background: var(--c-highlight) !important; color: var(--c-heading) !important; }
+        .card-header.bg-danger { background: var(--c-danger-bg) !important; color: var(--c-danger) !important; border-bottom-color: #f0c0c0 !important; }
+        .card-footer {
+            background: var(--c-highlight) !important;
+            border-top: 1px solid var(--c-border) !important;
+            border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            font-weight: 500; border-radius: var(--radius-sm);
+            transition: all .2s cubic-bezier(.16,1,.3,1);
+        }
+        .btn:active { transform: scale(.97); }
+        .btn-primary, .btn-dark {
+            background-color: var(--c-primary) !important;
+            border-color: var(--c-primary) !important; color: #fff !important;
+        }
+        .btn-primary:hover, .btn-dark:hover {
+            background-color: var(--c-primary-h) !important;
+            border-color: var(--c-primary-h) !important;
+            box-shadow: 0 2px 8px rgba(37,99,235,.3);
+        }
+        .btn-outline-primary, .btn-outline-dark {
+            color: var(--c-primary) !important;
+            border-color: var(--c-primary) !important; background: transparent !important;
+        }
+        .btn-outline-primary:hover, .btn-outline-dark:hover {
+            background-color: var(--c-primary) !important; color: #fff !important;
+        }
+        .btn-outline-secondary {
+            color: var(--c-slate) !important;
+            border-color: var(--c-border) !important; background: transparent !important;
+        }
+        .btn-outline-secondary:hover {
+            background-color: var(--c-highlight) !important;
+            border-color: var(--c-slate) !important;
+        }
+        .btn-outline-danger {
+            color: var(--c-danger) !important;
+            border-color: var(--c-danger) !important;
+        }
+        .btn-outline-danger:hover {
+            background-color: var(--c-danger) !important; color: #fff !important;
+        }
+        .btn-outline-light {
+            color: var(--c-slate) !important; border-color: var(--c-border) !important;
+        }
+        .btn-outline-light:hover { background: var(--c-highlight) !important; }
+        .btn-danger { background-color: var(--c-danger) !important; border-color: var(--c-danger) !important; }
+        .btn-danger:hover { background-color: #B91C1C !important; box-shadow: 0 2px 8px rgba(220,38,38,.3); }
+        .btn-success { background-color: var(--c-success) !important; border-color: var(--c-success) !important; }
+
+        /* ── Tables ── */
+        .table { color: var(--c-slate); }
+        .table thead th, .table-dark th, thead.table-dark th {
+            background-color: var(--c-highlight) !important;
+            color: var(--c-muted) !important;
+            font-size: .75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .05em;
+            border-bottom: 1px solid var(--c-border) !important;
+            border-top: none; padding: .7rem 1rem;
+        }
+        .table td {
+            padding: .7rem 1rem; border-color: var(--c-highlight);
+            vertical-align: middle;
+        }
+        .table tbody tr {
+            transition: background .15s;
+        }
+        .table tbody tr:hover { background-color: var(--c-primary-light); }
+
+        /* ── Badges ── */
+        .badge.bg-dark, .badge.bg-secondary {
+            background-color: var(--c-slate) !important; font-weight: 500;
+        }
+        .badge.bg-success { background-color: var(--c-success) !important; }
+        .badge.bg-danger { background-color: var(--c-danger) !important; }
+
+        /* ── Forms ── */
+        .form-control, .form-select {
+            border-color: var(--c-border); color: var(--c-slate);
+            border-radius: var(--radius-sm);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--c-primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+        }
+        .form-label { font-weight: 500; font-size: .875rem; color: var(--c-slate); }
+        .fw-semibold { font-weight: 600 !important; }
+
+        /* ── Breadcrumb ── */
+        .breadcrumb { font-size: .8125rem; }
+        .breadcrumb-item a { color: var(--c-primary); }
+        .breadcrumb-item.active { color: var(--c-muted); }
+        .breadcrumb-item + .breadcrumb-item::before { color: var(--c-muted); }
+
+        /* ── Alerts ── */
+        .alert-info { background: var(--c-highlight); border-color: #93C5FD; color: #1E40AF; }
+        .alert-danger { background: var(--c-danger-bg); border-color: #FECACA; color: var(--c-danger); }
+        .alert-success { background: var(--c-success-bg); border-color: #86EFAC; color: var(--c-success); }
+        .alert-warning { background: var(--c-warning-bg); border-color: #FDE68A; color: var(--c-warning); }
+
+        /* ── Misc ── */
+        .text-muted { color: var(--c-muted) !important; }
+        .user-role {
+            background: var(--c-primary-light); color: var(--c-primary);
+            font-size: .75rem; font-weight: 600;
+            border-radius: 4px; padding: .1rem .45rem;
+        }
+
+        /* ── List Group ── */
+        .list-group-item-action {
+            transition: background .15s, padding-left .2s;
+        }
+        .list-group-item-action:hover {
+            background: var(--c-primary-light);
+            padding-left: 1.25rem;
+        }
+
+        /* ── Stat card ── */
+        .stat-card {
+            text-align: center; padding: 1.5rem 1rem;
+            transition: transform .25s, box-shadow .25s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md) !important;
+        }
+        .stat-value {
+            font-size: 2rem; font-weight: 700; color: var(--c-primary);
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: .8125rem; color: var(--c-muted); margin-top: .25rem;
+        }
+
+        /* ── Footer ── */
+        .app-footer {
+            background: var(--c-card);
+            border-top: 1px solid var(--c-border);
+            color: var(--c-muted);
+            font-size: .8125rem;
+            padding: .9rem 0;
+            text-align: center;
+        }
+
+        /* ── Status badges (workflow) ── */
+        .status-pending     { background: var(--c-warning-bg); color: var(--c-warning); }
+        .status-in-progress { background: var(--c-highlight); color: var(--c-primary); }
+        .status-sent        { background: var(--c-purple-bg); color: var(--c-purple); }
+        .status-approved    { background: var(--c-success-bg); color: var(--c-success); }
+        .status-rejected    { background: var(--c-danger-bg); color: var(--c-danger); }
+        .status-paid        { background: #D1FAE5; color: #065F46; }
+
+        /* ── Page transitions ── */
+        main { animation: fadeInUp .45s cubic-bezier(.16,1,.3,1) both; flex: 1; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg app-nav">
+    <div class="container">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+            ТВ Компания X
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "";
+                var isAdmin = userRole == "admin" || userRole == "director";
+                var isStaff = isAdmin || userRole == "agent" || userRole == "commercial" || userRole == "accountant";
+
+                <ul class="navbar-nav me-auto gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house-door"></i> Главная
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="TvShows" asp-action="Index">
+                            <i class="bi bi-tv"></i> Телешоу
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ShowSchedules" asp-action="Index">
+                            <i class="bi bi-calendar3"></i> Расписание
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Requests" asp-action="Index">
+                            <i class="bi bi-file-earmark-text"></i> Заявки
+                        </a>
+                    </li>
+
+                    @if (isStaff)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Contracts" asp-action="Index">
+                                <i class="bi bi-file-earmark-check"></i> Договоры
+                            </a>
+                        </li>
+                    }
+
+                    @if (isAdmin)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Users" asp-action="Index">
+                                <i class="bi bi-people"></i> Пользователи
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-database"></i> Справочники
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="ShowTypes" asp-action="Index"><i class="bi bi-tags"></i> Типы шоу</a></li>
+                                <li><a class="dropdown-item" asp-controller="RequestStatusTypes" asp-action="Index"><i class="bi bi-diagram-3"></i> Статусы заявок</a></li>
+                                <li><a class="dropdown-item" asp-controller="PaymentTypes" asp-action="Index"><i class="bi bi-credit-card"></i> Типы оплаты</a></li>
+                                <li><a class="dropdown-item" asp-controller="NotificationTypes" asp-action="Index"><i class="bi bi-bell"></i> Типы уведомлений</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots"></i> Прочее
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Notifications" asp-action="Index"><i class="bi bi-bell"></i> Уведомления</a></li>
+                            <li><a class="dropdown-item" asp-controller="ChatMessages" asp-action="Index"><i class="bi bi-chat-dots"></i> Чат</a></li>
+                            @if (isAdmin)
+                            {
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" asp-controller="AuditLogs" asp-action="Index"><i class="bi bi-journal-text"></i> Журнал аудита</a></li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-pill">
+                        <i class="bi bi-person-circle"></i>
+                        @User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value
+                        <span class="user-role">@userRole</span>
+                    </div>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1">
+                            <i class="bi bi-box-arrow-right"></i> Выход
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</nav>
+
+<main class="container mt-4 mb-5">
+    @RenderBody()
+</main>
+
+<footer class="app-footer">
+    ТВ Компания X &copy; @DateTime.Now.Year
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

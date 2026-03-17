@@ -1,0 +1,57 @@
+@model IEnumerable<Lab12TVCompanyX.Models.TvShow>
+@{
+    ViewData["Title"] = "Телешоу";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0"><i class="bi bi-camera-video"></i> Телешоу</h2>
+    <a asp-action="Create" class="btn btn-dark">
+        <i class="bi bi-plus-lg"></i> Добавить
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info"><i class="bi bi-info-circle"></i> Телешоу ещё не добавлены.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle shadow-sm bg-white rounded">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Название</th>
+                    <th>Тип</th>
+                    <th class="text-end">Рекл., мин</th>
+                    <th class="text-end">Цена / мин, ₽</th>
+                    <th>Активно</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var show in Model)
+                {
+                    <tr>
+                        <td class="text-muted small">@show.TvShowId</td>
+                        <td class="fw-semibold">@show.Title</td>
+                        <td><span class="badge bg-secondary">@(show.ShowType?.Name ?? "—")</span></td>
+                        <td class="text-end">@show.AdvertisingMinutes.ToString("N1")</td>
+                        <td class="text-end">@show.PricePerMinute.ToString("N2")</td>
+                        <td>
+                            @if (show.IsActive)
+                            { <span class="badge bg-success">Да</span> }
+                            else
+                            { <span class="badge bg-danger">Нет</span> }
+                        </td>
+                        <td class="text-nowrap">
+                            <a asp-action="Details" asp-route-id="@show.TvShowId" class="btn btn-sm btn-outline-secondary" title="Просмотр"><i class="bi bi-eye"></i></a>
+                            <a asp-action="Edit"    asp-route-id="@show.TvShowId" class="btn btn-sm btn-outline-dark"      title="Редактировать"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete"  asp-route-id="@show.TvShowId" class="btn btn-sm btn-outline-danger"    title="Удалить"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

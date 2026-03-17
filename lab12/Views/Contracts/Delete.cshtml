@@ -1,0 +1,32 @@
+@model Lab12TVCompanyX.Models.Contract
+@{ ViewData["Title"] = "Удаление договора"; }
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Договоры</a></li>
+        <li class="breadcrumb-item active">Удалить</li>
+    </ol>
+</nav>
+<div class="row justify-content-center"><div class="col-lg-6">
+    <div class="card shadow-sm border-0 border-danger">
+        <div class="card-header bg-danger text-white">Подтверждение удаления</div>
+        <div class="card-body p-4">
+            <p class="text-danger mb-3">Вы уверены, что хотите удалить этот договор?</p>
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Номер договора</dt>
+                <dd class="col-sm-8">@Model.ContractNumber</dd>
+                <dt class="col-sm-4">Заявка</dt>
+                <dd class="col-sm-8">#@Model.RequestId</dd>
+                <dt class="col-sm-4">Сумма</dt>
+                <dd class="col-sm-8">@Model.Amount.ToString("N2") руб.</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-transparent d-flex gap-2">
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="RequestId" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+        </div>
+    </div>
+</div></div>

@@ -1,0 +1,69 @@
+@model Lab12TVCompanyX.Models.TvShow
+@{
+    ViewData["Title"] = "Новое телешоу";
+}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Телешоу</a></li>
+        <li class="breadcrumb-item active">Добавить</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white"><i class="bi bi-plus-lg"></i> Новое телешоу</div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post" novalidate>
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"
+                         style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label fw-semibold">Название</label>
+                        <input asp-for="Title" class="form-control" placeholder="Утренние новости" />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ShowTypeId" class="form-label fw-semibold">Тип шоу</label>
+                        <select asp-for="ShowTypeId" class="form-select"
+                                asp-items="@(ViewBag.ShowTypeId as Microsoft.AspNetCore.Mvc.Rendering.SelectList)">
+                            <option value="">— не выбран —</option>
+                        </select>
+                        <span asp-validation-for="ShowTypeId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="AdvertisingMinutes" class="form-label fw-semibold">Рекламных минут</label>
+                            <input asp-for="AdvertisingMinutes" class="form-control" type="number" step="0.1" lang="en" inputmode="decimal" />
+                            <span asp-validation-for="AdvertisingMinutes" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PricePerMinute" class="form-label fw-semibold">Цена за минуту, ₽</label>
+                            <input asp-for="PricePerMinute" class="form-control" type="number" step="0.01" lang="en" inputmode="decimal" />
+                            <span asp-validation-for="PricePerMinute" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label fw-semibold">Описание</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-4 form-check">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
+                        <label asp-for="IsActive" class="form-check-label fw-semibold">Активно</label>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-dark px-4"><i class="bi bi-check-lg"></i> Сохранить</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

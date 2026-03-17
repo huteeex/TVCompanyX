@@ -1,0 +1,43 @@
+@model IEnumerable<Lab12TVCompanyX.Models.Contract>
+@{ ViewData["Title"] = "Договоры"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Договоры</h4>
+    <a asp-action="Create" class="btn btn-dark btn-sm">+ Добавить</a>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>№ договора</th>
+                    <th>Заявка</th>
+                    <th>Дата договора</th>
+                    <th>Сумма</th>
+                    <th>Комиссия агента</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@c.ContractNumber</td>
+                        <td>#@c.RequestId</td>
+                        <td>@c.ContractDate.ToString("dd.MM.yyyy")</td>
+                        <td>@c.Amount.ToString("N2") руб.</td>
+                        <td>@(c.AgentCommission.HasValue ? c.AgentCommission.Value.ToString("N2") + " руб." : "—")</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@c.RequestId" class="btn btn-sm btn-outline-secondary">Детали</a>
+                            <a asp-action="Edit" asp-route-id="@c.RequestId" class="btn btn-sm btn-outline-primary">Изменить</a>
+                            <a asp-action="Delete" asp-route-id="@c.RequestId" class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-muted py-4">Записи отсутствуют</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

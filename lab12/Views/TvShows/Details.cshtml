@@ -1,0 +1,64 @@
+@model Lab12TVCompanyX.Models.TvShow
+@{
+    ViewData["Title"] = "Телешоу — " + Model.Title;
+}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Телешоу</a></li>
+        <li class="breadcrumb-item active">@Model.Title</li>
+    </ol>
+</nav>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-dark text-white"><i class="bi bi-camera-video"></i> @Model.Title</div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Тип шоу</dt>
+            <dd class="col-sm-8"><span class="badge bg-secondary">@(Model.ShowType?.Name ?? "—")</span></dd>
+
+            <dt class="col-sm-4">Рекл. минут</dt>
+            <dd class="col-sm-8">@Model.AdvertisingMinutes.ToString("N1")</dd>
+
+            <dt class="col-sm-4">Цена / мин, ₽</dt>
+            <dd class="col-sm-8">@Model.PricePerMinute.ToString("N2")</dd>
+
+            <dt class="col-sm-4">Описание</dt>
+            <dd class="col-sm-8">@(Model.Description ?? "—")</dd>
+
+            <dt class="col-sm-4">Активно</dt>
+            <dd class="col-sm-8">
+                @if (Model.IsActive)
+                { <span class="badge bg-success">Да</span> }
+                else
+                { <span class="badge bg-danger">Нет</span> }
+            </dd>
+
+            <dt class="col-sm-4">Обновлено</dt>
+            <dd class="col-sm-8">@Model.UpdatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+@if (Model.Schedules?.Any() == true)
+{
+    <h5>Расписание эфиров</h5>
+    <table class="table table-sm table-bordered bg-white">
+        <thead class="table-secondary"><tr><th>Дата</th><th>Время</th><th>Начало периода</th></tr></thead>
+        <tbody>
+            @foreach (var s in Model.Schedules.OrderBy(x => x.AirDate).ThenBy(x => x.AirTime))
+            {
+                <tr>
+                    <td>@s.AirDate.ToString("dd.MM.yyyy")</td>
+                    <td>@s.AirTime.ToString(@"hh\:mm")</td>
+                    <td>@s.StartDatetime.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="d-flex gap-2 mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.TvShowId" class="btn btn-dark"><i class="bi bi-pencil"></i> Редактировать</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Назад</a>
+</div>

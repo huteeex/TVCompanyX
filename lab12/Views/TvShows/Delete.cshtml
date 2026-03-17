@@ -1,0 +1,25 @@
+@model Lab12TVCompanyX.Models.TvShow
+@{
+    ViewData["Title"] = "Удалить телешоу";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger shadow-sm">
+            <div class="card-header bg-danger text-white"><i class="bi bi-trash"></i> Удалить телешоу</div>
+            <div class="card-body">
+                <p class="mb-1">Вы действительно хотите удалить:</p>
+                <p class="fw-bold fs-5">@Model.Title</p>
+                <p class="text-muted small">Тип: @(Model.ShowType?.Name ?? "—")</p>
+                <div class="d-flex gap-2 mt-4">
+                    <form asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="TvShowId" />
+                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Удалить</button>
+                    </form>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Отмена</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

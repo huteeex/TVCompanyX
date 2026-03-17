@@ -1,0 +1,106 @@
+@{
+    ViewData["Title"] = "Главная страница";
+    var user = ViewBag.User as Lab12TVCompanyX.Models.User;
+    var role = user?.Role?.Name ?? "";
+    var isAdmin = role == "admin" || role == "director";
+    var isStaff = isAdmin || role == "agent" || role == "commercial" || role == "accountant";
+
+    string roleRu = role switch {
+        "customer"   => "Заказчик",
+        "agent"      => "Агент",
+        "commercial" => "Коммерческий отдел",
+        "accountant" => "Бухгалтер",
+        "admin"      => "Администратор",
+        "director"   => "Директор",
+        _            => role
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 animate-fadeInUp">
+    <div>
+        <h4 class="fw-bold mb-1">Добро пожаловать, @user?.FirstName @user?.LastName!</h4>
+        <p class="text-muted mb-0 small">@roleRu &mdash; ТВ Компания X</p>
+    </div>
+</div>
+
+<!-- Статистика -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3 animate-fadeInUp delay-1">
+        <div class="card stat-card">
+            <div class="stat-value">@ViewBag.ShowCount</div>
+            <div class="stat-label"><i class="bi bi-tv"></i> Телешоу</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 animate-fadeInUp delay-2">
+        <div class="card stat-card">
+            <div class="stat-value">@ViewBag.AppCount</div>
+            <div class="stat-label"><i class="bi bi-file-earmark-text"></i> Заявок</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 animate-fadeInUp delay-3">
+        <div class="card stat-card">
+            <div class="stat-value">@ViewBag.UserCount</div>
+            <div class="stat-label"><i class="bi bi-people"></i> Пользователей</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 animate-fadeInUp delay-4">
+        <div class="card stat-card">
+            <div class="stat-value">@ViewBag.ContractCount</div>
+            <div class="stat-label"><i class="bi bi-file-earmark-check"></i> Договоров</div>
+        </div>
+    </div>
+</div>
+
+<!-- Профиль -->
+<div class="row g-4">
+    <div class="col-lg-8 animate-fadeInUp delay-2">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-person"></i> Профиль</span>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-borderless mb-0">
+                    <tbody>
+                        <tr><td class="text-muted small ps-3" style="width:30%;">ФИО</td><td class="pe-3">@user?.LastName @user?.FirstName @user?.MiddleName</td></tr>
+                        <tr><td class="text-muted small ps-3">Email</td><td class="pe-3">@user?.Email</td></tr>
+                        <tr><td class="text-muted small ps-3">Телефон</td><td class="pe-3">@(user?.Phone ?? "—")</td></tr>
+                        <tr><td class="text-muted small ps-3">Роль</td><td class="pe-3"><span class="badge" style="background:var(--c-highlight);color:var(--c-primary);font-weight:600;">@roleRu</span></td></tr>
+                        <tr>
+                            <td class="text-muted small ps-3">Статус</td>
+                            <td class="pe-3">
+                                @if (user?.IsActive == true) { <span class="badge bg-success">Активен</span> }
+                                else { <span class="badge bg-danger">Заблокирован</span> }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 animate-fadeInUp delay-3">
+        <div class="card h-100">
+            <div class="card-header"><i class="bi bi-lightning"></i> Быстрые действия</div>
+            <div class="card-body d-flex flex-column gap-2">
+                @if (role == "customer" || isAdmin)
+                {
+                    <a asp-controller="Requests" asp-action="Create" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg"></i> Подать заявку
+                    </a>
+                }
+                <a asp-controller="TvShows" asp-action="Index" class="btn btn-outline-primary w-100">
+                    <i class="bi bi-tv"></i> Каталог шоу
+                </a>
+                <a asp-controller="ShowSchedules" asp-action="Index" class="btn btn-outline-primary w-100">
+                    <i class="bi bi-calendar3"></i> Расписание
+                </a>
+                @if (role == "agent")
+                {
+                    <a asp-controller="Requests" asp-action="Index" class="btn btn-primary w-100">
+                        <i class="bi bi-clipboard-check"></i> Заявки клиентов
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

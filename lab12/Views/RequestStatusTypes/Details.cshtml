@@ -1,0 +1,8 @@
+@model Lab12TVCompanyX.Models.RequestStatusType
+@{ ViewData["Title"] = "Статус #" + Model.StatusId; }
+<div class="card shadow-sm border-0"><div class="card-header bg-dark text-white">@Model.Name</div>
+<div class="card-body"><p><strong>#</strong> @Model.StatusId &nbsp; <strong>Название:</strong> @Model.Name</p></div></div>
+<div class="d-flex gap-2 mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.StatusId" class="btn btn-dark">Редактировать</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Назад</a>
+</div>

@@ -1,0 +1,98 @@
+@model Lab12TVCompanyX.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center" style="margin-top:3rem">
+    <div class="col-sm-10 col-md-7 col-lg-5">
+
+        <div class="text-center mb-4">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2"/>
+                <polyline points="17 2 12 7 7 2"/>
+            </svg>
+            <h5 class="mt-2 mb-0" style="color:var(--c-heading);font-weight:700;">ТВ Компания X</h5>
+            <p class="text-muted small mb-0">Создание учётной записи</p>
+        </div>
+
+        <div class="card animate-fadeIn">
+            <div class="card-body p-4">
+                <h6 class="mb-3" style="font-weight:700;color:var(--c-heading);">Регистрация</h6>
+                <form asp-action="Register" method="post" novalidate>
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="alert alert-danger py-2 small mb-3"
+                         style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")">
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label">Фамилия</label>
+                            <input asp-for="LastName"
+                                   class="form-control @(ViewData.ModelState["LastName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   placeholder="Иванов" />
+                            <span asp-validation-for="LastName" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label">Имя</label>
+                            <input asp-for="FirstName"
+                                   class="form-control @(ViewData.ModelState["FirstName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   placeholder="Иван" />
+                            <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MiddleName" class="form-label">Отчество <small class="text-muted">(необязательно)</small></label>
+                        <input asp-for="MiddleName" class="form-control" placeholder="Иванович" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email"
+                               class="form-control @(ViewData.ModelState["Email"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               placeholder="you@example.com"
+                               autocomplete="email" />
+                        <span asp-validation-for="Email" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label">Телефон <small class="text-muted">(необязательно)</small></label>
+                        <input asp-for="Phone"
+                               class="form-control"
+                               placeholder="+7-900-000-00-00" />
+                        <span asp-validation-for="Phone" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="Password" class="form-label">Пароль</label>
+                            <input asp-for="Password"
+                                   class="form-control @(ViewData.ModelState["Password"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   placeholder="Минимум 6 символов"
+                                   autocomplete="new-password" />
+                            <span asp-validation-for="Password" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="ConfirmPassword" class="form-label">Подтверждение</label>
+                            <input asp-for="ConfirmPassword"
+                                   class="form-control @(ViewData.ModelState["ConfirmPassword"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   placeholder="Повторите пароль"
+                                   autocomplete="new-password" />
+                            <span asp-validation-for="ConfirmPassword" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="text-center text-muted small mt-3">
+            Уже есть аккаунт?
+            <a asp-controller="Account" asp-action="Login">Войти</a>
+        </p>
+    </div>
+</div>

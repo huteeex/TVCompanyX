@@ -1,0 +1,6 @@
+@model Lab12TVCompanyX.Models.NotificationType
+@{ ViewData["Title"] = "Тип уведомления #" + Model.NotificationTypeId; }
+<div class="card shadow-sm border-0"><div class="card-header bg-dark text-white">@Model.Name</div>
+<div class="card-body"><p><strong>#</strong> @Model.NotificationTypeId &nbsp; <strong>Название:</strong> @Model.Name</p></div></div>
+<a asp-action="Edit" asp-route-id="@Model.NotificationTypeId" class="btn btn-dark mt-3">Редактировать</a>
+<a asp-action="Index" class="btn btn-outline-secondary mt-3">← Назад</a>
