@@ -1,0 +1,28 @@
+stateDiagram-v2
+    direction LR
+
+    [*] --> pending : Создание заявки
+
+    state "На рассмотрении" as pending
+    state "В работе у агента" as in_progress
+    state "В комм. отделе" as sent_to_commercial
+    state "Одобрена" as approved
+    state "Отклонена" as rejected
+    state "Оплачена" as paid
+    state "Просрочена" as overdue
+
+    pending --> in_progress : Взятие в работу
+    pending --> rejected : Отклонение
+
+    in_progress --> sent_to_commercial : Передача в комм. отдел
+    in_progress --> rejected : Отклонение
+
+    sent_to_commercial --> approved : Одобрение
+    sent_to_commercial --> rejected : Отклонение
+
+    approved --> paid : Оплата
+    approved --> overdue : Истек срок
+
+    rejected --> [*]
+    paid --> [*]
+    overdue --> [*]

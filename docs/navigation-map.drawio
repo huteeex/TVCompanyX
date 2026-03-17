@@ -1,0 +1,205 @@
+<mxfile host="app.diagrams.net" modified="2026-02-24T12:00:00.000Z" agent="draw.io" version="24.0.0" type="device">
+  <diagram id="nav-map" name="Карта навигации">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Главная страница -->
+        <mxCell id="start" value="Главная страница&#xa;(Лендинг)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="20" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Авторизация -->
+        <mxCell id="auth" value="Авторизация / Регистрация" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_start_auth" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="start" target="auth" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ЗАКАЗЧИК ==================== -->
+        <mxCell id="grp_customer" value="Заказчик (customer)" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="280" width="260" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c_dash" value="Главная заказчика" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="c_calc" value="Калькулятор стоимости" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c_app" value="Подать заявку" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c_apps" value="Мои заявки" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c_docs" value="Документы" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c_prof" value="Профиль" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="250" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="c_chat" value="Чат с агентом" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_customer">
+          <mxGeometry x="30" y="290" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ec1" edge="1" source="c_dash" target="c_calc" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec2" edge="1" source="c_dash" target="c_app" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec3" edge="1" source="c_dash" target="c_apps" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec4" edge="1" source="c_dash" target="c_docs" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec5" edge="1" source="c_dash" target="c_prof" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec6" edge="1" source="c_dash" target="c_chat" parent="grp_customer"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Стрелка auth -> customer -->
+        <mxCell id="e_auth_c" value="customer" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="c_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== АГЕНТ ==================== -->
+        <mxCell id="grp_agent" value="Агент (agent)" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="280" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="a_dash" value="Главная агента" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="grp_agent">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="a_apps" value="Заявки клиентов" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_agent">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="a_comm" value="Комиссии" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_agent">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="a_rep" value="Отчеты" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_agent">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="a_chat" value="Чат с клиентами" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_agent">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ea1" edge="1" source="a_dash" target="a_apps" parent="grp_agent"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ea2" edge="1" source="a_dash" target="a_comm" parent="grp_agent"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ea3" edge="1" source="a_dash" target="a_rep" parent="grp_agent"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ea4" edge="1" source="a_dash" target="a_chat" parent="grp_agent"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e_auth_a" value="agent" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="a_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== КОММЕРЧЕСКИЙ ОТДЕЛ ==================== -->
+        <mxCell id="grp_commercial" value="Коммерческий отдел (commercial)" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="280" width="260" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_dash" value="Главная комм. отдела" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_shows" value="Управление шоу" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_adsched" value="Расписание рекламы" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_sched" value="Расписание шоу" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_apps" value="Заявки от агентов" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="cm_chat" value="Чат с агентами" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_commercial">
+          <mxGeometry x="30" y="250" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ecm1" edge="1" source="cm_dash" target="cm_shows" parent="grp_commercial"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecm2" edge="1" source="cm_dash" target="cm_adsched" parent="grp_commercial"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecm3" edge="1" source="cm_dash" target="cm_sched" parent="grp_commercial"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecm4" edge="1" source="cm_dash" target="cm_apps" parent="grp_commercial"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ecm5" edge="1" source="cm_dash" target="cm_chat" parent="grp_commercial"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e_auth_cm" value="commercial" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="cm_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== БУХГАЛТЕР ==================== -->
+        <mxCell id="grp_accountant" value="Бухгалтер (accountant)" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="280" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ac_dash" value="Главная бухгалтера" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="grp_accountant">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ac_apps" value="Одобренные заявки" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_accountant">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ac_rep" value="Отчеты" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_accountant">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ac_rev" value="Доходы" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_accountant">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ac_not" value="Уведомления" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_accountant">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="eac1" edge="1" source="ac_dash" target="ac_apps" parent="grp_accountant"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eac2" edge="1" source="ac_dash" target="ac_rep" parent="grp_accountant"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eac3" edge="1" source="ac_dash" target="ac_rev" parent="grp_accountant"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eac4" edge="1" source="ac_dash" target="ac_not" parent="grp_accountant"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e_auth_ac" value="accountant" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="ac_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== АДМИНИСТРАТОР ==================== -->
+        <mxCell id="grp_admin" value="Администратор (admin)" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="280" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_dash" value="Главная администратора" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="grp_admin">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_users" value="Учетные записи" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_admin">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_stats" value="Статистика" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_admin">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_logs" value="Логи сервера" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_admin">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_sett" value="Настройки системы" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_admin">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ead1" edge="1" source="ad_dash" target="ad_users" parent="grp_admin"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ead2" edge="1" source="ad_dash" target="ad_stats" parent="grp_admin"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ead3" edge="1" source="ad_dash" target="ad_logs" parent="grp_admin"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ead4" edge="1" source="ad_dash" target="ad_sett" parent="grp_admin"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e_auth_ad" value="admin" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="ad_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ДИРЕКТОР ==================== -->
+        <mxCell id="grp_director" value="Директор (director)" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#56a65c;rounded=1;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="280" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="d_dash" value="Главная директора" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#56a65c;fontStyle=1;" vertex="1" parent="grp_director">
+          <mxGeometry x="30" y="40" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="d_staff" value="Статистика сотрудников" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_director">
+          <mxGeometry x="30" y="90" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="d_comm" value="Комиссии агентов" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_director">
+          <mxGeometry x="30" y="130" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="d_crep" value="Отчеты по клиентам" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_director">
+          <mxGeometry x="30" y="170" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="d_cstat" value="Статистика компании" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="grp_director">
+          <mxGeometry x="30" y="210" width="200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ed1" edge="1" source="d_dash" target="d_staff" parent="grp_director"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ed2" edge="1" source="d_dash" target="d_comm" parent="grp_director"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ed3" edge="1" source="d_dash" target="d_crep" parent="grp_director"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ed4" edge="1" source="d_dash" target="d_cstat" parent="grp_director"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e_auth_d" value="director" style="edgeStyle=orthogonalEdgeStyle;fontSize=11;" edge="1" source="auth" target="d_dash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

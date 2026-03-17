@@ -1,0 +1,89 @@
+{
+  "nodes": [
+    {"id":"start","type":"text","text":"# Главная страница\n(Лендинг)","x":-140,"y":-600,"width":280,"height":80},
+    {"id":"auth","type":"text","text":"# Авторизация / Регистрация","x":-140,"y":-460,"width":280,"height":80},
+
+    {"id":"c_dash","type":"text","text":"## Главная заказчика","x":-1200,"y":-300,"width":220,"height":60,"color":"4"},
+    {"id":"a_dash","type":"text","text":"## Главная агента","x":-880,"y":-300,"width":220,"height":60,"color":"4"},
+    {"id":"cm_dash","type":"text","text":"## Главная комм. отдела","x":-500,"y":-300,"width":220,"height":60,"color":"6"},
+    {"id":"ac_dash","type":"text","text":"## Главная бухгалтера","x":-180,"y":-300,"width":220,"height":60,"color":"5"},
+    {"id":"ad_dash","type":"text","text":"## Главная администратора","x":160,"y":-300,"width":240,"height":60,"color":"1"},
+    {"id":"d_dash","type":"text","text":"## Главная директора","x":520,"y":-300,"width":220,"height":60,"color":"3"},
+
+    {"id":"c_calc","type":"text","text":"Калькулятор стоимости","x":-1360,"y":-160,"width":200,"height":50,"color":"4"},
+    {"id":"c_app","type":"text","text":"Подать заявку","x":-1360,"y":-90,"width":200,"height":50,"color":"4"},
+    {"id":"c_apps","type":"text","text":"Мои заявки","x":-1360,"y":-20,"width":200,"height":50,"color":"4"},
+    {"id":"c_docs","type":"text","text":"Документы","x":-1100,"y":-160,"width":200,"height":50,"color":"4"},
+    {"id":"c_prof","type":"text","text":"Профиль","x":-1100,"y":-90,"width":200,"height":50,"color":"4"},
+    {"id":"c_chat","type":"text","text":"Чат с агентом","x":-1100,"y":-20,"width":200,"height":50,"color":"4"},
+
+    {"id":"a_apps","type":"text","text":"Заявки клиентов","x":-940,"y":-160,"width":200,"height":50,"color":"4"},
+    {"id":"a_comm","type":"text","text":"Комиссии","x":-940,"y":-90,"width":200,"height":50,"color":"4"},
+    {"id":"a_rep","type":"text","text":"Отчеты","x":-740,"y":-160,"width":200,"height":50,"color":"4"},
+    {"id":"a_chat","type":"text","text":"Чат с клиентами","x":-740,"y":-90,"width":200,"height":50,"color":"4"},
+
+    {"id":"cm_shows","type":"text","text":"Управление шоу","x":-600,"y":-160,"width":200,"height":50,"color":"6"},
+    {"id":"cm_adsched","type":"text","text":"Расписание рекламы","x":-600,"y":-90,"width":200,"height":50,"color":"6"},
+    {"id":"cm_sched","type":"text","text":"Расписание шоу","x":-400,"y":-160,"width":200,"height":50,"color":"6"},
+    {"id":"cm_apps","type":"text","text":"Заявки от агентов","x":-400,"y":-90,"width":200,"height":50,"color":"6"},
+    {"id":"cm_chat","type":"text","text":"Чат с агентами","x":-500,"y":-20,"width":200,"height":50,"color":"6"},
+
+    {"id":"ac_apps","type":"text","text":"Одобренные заявки","x":-280,"y":-160,"width":200,"height":50,"color":"5"},
+    {"id":"ac_rep","type":"text","text":"Отчеты","x":-280,"y":-90,"width":200,"height":50,"color":"5"},
+    {"id":"ac_rev","type":"text","text":"Доходы","x":-80,"y":-160,"width":200,"height":50,"color":"5"},
+    {"id":"ac_not","type":"text","text":"Уведомления","x":-80,"y":-90,"width":200,"height":50,"color":"5"},
+
+    {"id":"ad_users","type":"text","text":"Учетные записи","x":80,"y":-160,"width":200,"height":50,"color":"1"},
+    {"id":"ad_stats","type":"text","text":"Статистика","x":80,"y":-90,"width":200,"height":50,"color":"1"},
+    {"id":"ad_logs","type":"text","text":"Логи сервера","x":300,"y":-160,"width":200,"height":50,"color":"1"},
+    {"id":"ad_sett","type":"text","text":"Настройки системы","x":300,"y":-90,"width":200,"height":50,"color":"1"},
+
+    {"id":"d_staff","type":"text","text":"Статистика сотрудников","x":440,"y":-160,"width":210,"height":50,"color":"3"},
+    {"id":"d_comm","type":"text","text":"Комиссии агентов","x":440,"y":-90,"width":210,"height":50,"color":"3"},
+    {"id":"d_crep","type":"text","text":"Отчеты по клиентам","x":660,"y":-160,"width":210,"height":50,"color":"3"},
+    {"id":"d_cstat","type":"text","text":"Статистика компании","x":660,"y":-90,"width":210,"height":50,"color":"3"}
+  ],
+  "edges": [
+    {"id":"e_start_auth","fromNode":"start","toNode":"auth","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_auth_c","fromNode":"auth","toNode":"c_dash","fromSide":"bottom","toSide":"top","label":"customer"},
+    {"id":"e_auth_a","fromNode":"auth","toNode":"a_dash","fromSide":"bottom","toSide":"top","label":"agent"},
+    {"id":"e_auth_cm","fromNode":"auth","toNode":"cm_dash","fromSide":"bottom","toSide":"top","label":"commercial"},
+    {"id":"e_auth_ac","fromNode":"auth","toNode":"ac_dash","fromSide":"bottom","toSide":"top","label":"accountant"},
+    {"id":"e_auth_ad","fromNode":"auth","toNode":"ad_dash","fromSide":"bottom","toSide":"top","label":"admin"},
+    {"id":"e_auth_d","fromNode":"auth","toNode":"d_dash","fromSide":"bottom","toSide":"top","label":"director"},
+
+    {"id":"e_c1","fromNode":"c_dash","toNode":"c_calc","fromSide":"bottom","toSide":"top"},
+    {"id":"e_c2","fromNode":"c_dash","toNode":"c_app","fromSide":"bottom","toSide":"top"},
+    {"id":"e_c3","fromNode":"c_dash","toNode":"c_apps","fromSide":"bottom","toSide":"top"},
+    {"id":"e_c4","fromNode":"c_dash","toNode":"c_docs","fromSide":"bottom","toSide":"top"},
+    {"id":"e_c5","fromNode":"c_dash","toNode":"c_prof","fromSide":"bottom","toSide":"top"},
+    {"id":"e_c6","fromNode":"c_dash","toNode":"c_chat","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_a1","fromNode":"a_dash","toNode":"a_apps","fromSide":"bottom","toSide":"top"},
+    {"id":"e_a2","fromNode":"a_dash","toNode":"a_comm","fromSide":"bottom","toSide":"top"},
+    {"id":"e_a3","fromNode":"a_dash","toNode":"a_rep","fromSide":"bottom","toSide":"top"},
+    {"id":"e_a4","fromNode":"a_dash","toNode":"a_chat","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_cm1","fromNode":"cm_dash","toNode":"cm_shows","fromSide":"bottom","toSide":"top"},
+    {"id":"e_cm2","fromNode":"cm_dash","toNode":"cm_adsched","fromSide":"bottom","toSide":"top"},
+    {"id":"e_cm3","fromNode":"cm_dash","toNode":"cm_sched","fromSide":"bottom","toSide":"top"},
+    {"id":"e_cm4","fromNode":"cm_dash","toNode":"cm_apps","fromSide":"bottom","toSide":"top"},
+    {"id":"e_cm5","fromNode":"cm_dash","toNode":"cm_chat","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_ac1","fromNode":"ac_dash","toNode":"ac_apps","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ac2","fromNode":"ac_dash","toNode":"ac_rep","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ac3","fromNode":"ac_dash","toNode":"ac_rev","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ac4","fromNode":"ac_dash","toNode":"ac_not","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_ad1","fromNode":"ad_dash","toNode":"ad_users","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ad2","fromNode":"ad_dash","toNode":"ad_stats","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ad3","fromNode":"ad_dash","toNode":"ad_logs","fromSide":"bottom","toSide":"top"},
+    {"id":"e_ad4","fromNode":"ad_dash","toNode":"ad_sett","fromSide":"bottom","toSide":"top"},
+
+    {"id":"e_d1","fromNode":"d_dash","toNode":"d_staff","fromSide":"bottom","toSide":"top"},
+    {"id":"e_d2","fromNode":"d_dash","toNode":"d_comm","fromSide":"bottom","toSide":"top"},
+    {"id":"e_d3","fromNode":"d_dash","toNode":"d_crep","fromSide":"bottom","toSide":"top"},
+    {"id":"e_d4","fromNode":"d_dash","toNode":"d_cstat","fromSide":"bottom","toSide":"top"}
+  ]
+}
