@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict JpI6VBxbDcv1MZjla65yEmyEGNWJgAm08aVWUOntX3OtTuR8GypHxtbN6VGYL2a
+\restrict v04A9dICe0wwusBKXovd6x1a6jTp7Sg6bFDtQZWGPdwOf2EeaIqnvx9asERXtns
 
 -- Dumped from database version 18.2
 -- Dumped by pg_dump version 18.2
@@ -24,7 +24,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: audit_log; Type: TABLE; Schema: public; Owner: postgres
+-- Name: audit_log; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.audit_log (
@@ -41,10 +41,8 @@ CREATE TABLE public.audit_log (
 );
 
 
-ALTER TABLE public.audit_log OWNER TO postgres;
-
 --
--- Name: audit_log_audit_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: audit_log_audit_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.audit_log_audit_id_seq
@@ -56,17 +54,15 @@ CREATE SEQUENCE public.audit_log_audit_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.audit_log_audit_id_seq OWNER TO postgres;
-
 --
--- Name: audit_log_audit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: audit_log_audit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.audit_log_audit_id_seq OWNED BY public.audit_log.audit_id;
 
 
 --
--- Name: chat_message; Type: TABLE; Schema: public; Owner: postgres
+-- Name: chat_message; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.chat_message (
@@ -79,10 +75,8 @@ CREATE TABLE public.chat_message (
 );
 
 
-ALTER TABLE public.chat_message OWNER TO postgres;
-
 --
--- Name: chat_message_message_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: chat_message_message_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.chat_message_message_id_seq
@@ -94,17 +88,15 @@ CREATE SEQUENCE public.chat_message_message_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.chat_message_message_id_seq OWNER TO postgres;
-
 --
--- Name: chat_message_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: chat_message_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.chat_message_message_id_seq OWNED BY public.chat_message.message_id;
 
 
 --
--- Name: contract; Type: TABLE; Schema: public; Owner: postgres
+-- Name: contract; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.contract (
@@ -121,10 +113,8 @@ CREATE TABLE public.contract (
 );
 
 
-ALTER TABLE public.contract OWNER TO postgres;
-
 --
--- Name: notification; Type: TABLE; Schema: public; Owner: postgres
+-- Name: notification; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.notification (
@@ -138,10 +128,8 @@ CREATE TABLE public.notification (
 );
 
 
-ALTER TABLE public.notification OWNER TO postgres;
-
 --
--- Name: notification_notification_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: notification_notification_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.notification_notification_id_seq
@@ -153,17 +141,15 @@ CREATE SEQUENCE public.notification_notification_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.notification_notification_id_seq OWNER TO postgres;
-
 --
--- Name: notification_notification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: notification_notification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.notification_notification_id_seq OWNED BY public.notification.notification_id;
 
 
 --
--- Name: notification_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: notification_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.notification_type (
@@ -173,10 +159,8 @@ CREATE TABLE public.notification_type (
 );
 
 
-ALTER TABLE public.notification_type OWNER TO postgres;
-
 --
--- Name: notification_type_notification_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: notification_type_notification_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.notification_type_notification_type_id_seq
@@ -188,17 +172,15 @@ CREATE SEQUENCE public.notification_type_notification_type_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.notification_type_notification_type_id_seq OWNER TO postgres;
-
 --
--- Name: notification_type_notification_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: notification_type_notification_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.notification_type_notification_type_id_seq OWNED BY public.notification_type.notification_type_id;
 
 
 --
--- Name: payment_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: payment_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.payment_type (
@@ -208,10 +190,8 @@ CREATE TABLE public.payment_type (
 );
 
 
-ALTER TABLE public.payment_type OWNER TO postgres;
-
 --
--- Name: payment_type_payment_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: payment_type_payment_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.payment_type_payment_type_id_seq
@@ -223,17 +203,15 @@ CREATE SEQUENCE public.payment_type_payment_type_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.payment_type_payment_type_id_seq OWNER TO postgres;
-
 --
--- Name: payment_type_payment_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: payment_type_payment_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.payment_type_payment_type_id_seq OWNED BY public.payment_type.payment_type_id;
 
 
 --
--- Name: request; Type: TABLE; Schema: public; Owner: postgres
+-- Name: request; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.request (
@@ -258,10 +236,8 @@ CREATE TABLE public.request (
 );
 
 
-ALTER TABLE public.request OWNER TO postgres;
-
 --
--- Name: request_request_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: request_request_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.request_request_id_seq
@@ -273,17 +249,15 @@ CREATE SEQUENCE public.request_request_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.request_request_id_seq OWNER TO postgres;
-
 --
--- Name: request_request_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: request_request_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.request_request_id_seq OWNED BY public.request.request_id;
 
 
 --
--- Name: request_status_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: request_status_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.request_status_type (
@@ -293,10 +267,8 @@ CREATE TABLE public.request_status_type (
 );
 
 
-ALTER TABLE public.request_status_type OWNER TO postgres;
-
 --
--- Name: request_status_type_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: request_status_type_status_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.request_status_type_status_id_seq
@@ -308,17 +280,15 @@ CREATE SEQUENCE public.request_status_type_status_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.request_status_type_status_id_seq OWNER TO postgres;
-
 --
--- Name: request_status_type_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: request_status_type_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.request_status_type_status_id_seq OWNED BY public.request_status_type.status_id;
 
 
 --
--- Name: role; Type: TABLE; Schema: public; Owner: postgres
+-- Name: role; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.role (
@@ -327,10 +297,8 @@ CREATE TABLE public.role (
 );
 
 
-ALTER TABLE public.role OWNER TO postgres;
-
 --
--- Name: role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.role_role_id_seq
@@ -342,17 +310,15 @@ CREATE SEQUENCE public.role_role_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.role_role_id_seq OWNER TO postgres;
-
 --
--- Name: role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.role_role_id_seq OWNED BY public.role.role_id;
 
 
 --
--- Name: show_schedule; Type: TABLE; Schema: public; Owner: postgres
+-- Name: show_schedule; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.show_schedule (
@@ -365,10 +331,8 @@ CREATE TABLE public.show_schedule (
 );
 
 
-ALTER TABLE public.show_schedule OWNER TO postgres;
-
 --
--- Name: show_schedule_schedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: show_schedule_schedule_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.show_schedule_schedule_id_seq
@@ -380,17 +344,15 @@ CREATE SEQUENCE public.show_schedule_schedule_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.show_schedule_schedule_id_seq OWNER TO postgres;
-
 --
--- Name: show_schedule_schedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: show_schedule_schedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.show_schedule_schedule_id_seq OWNED BY public.show_schedule.schedule_id;
 
 
 --
--- Name: show_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: show_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.show_type (
@@ -400,10 +362,8 @@ CREATE TABLE public.show_type (
 );
 
 
-ALTER TABLE public.show_type OWNER TO postgres;
-
 --
--- Name: show_type_show_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: show_type_show_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.show_type_show_type_id_seq
@@ -415,17 +375,15 @@ CREATE SEQUENCE public.show_type_show_type_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.show_type_show_type_id_seq OWNER TO postgres;
-
 --
--- Name: show_type_show_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: show_type_show_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.show_type_show_type_id_seq OWNED BY public.show_type.show_type_id;
 
 
 --
--- Name: tv_show; Type: TABLE; Schema: public; Owner: postgres
+-- Name: tv_show; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.tv_show (
@@ -443,10 +401,8 @@ CREATE TABLE public.tv_show (
 );
 
 
-ALTER TABLE public.tv_show OWNER TO postgres;
-
 --
--- Name: tv_show_tv_show_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: tv_show_tv_show_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.tv_show_tv_show_id_seq
@@ -458,17 +414,15 @@ CREATE SEQUENCE public.tv_show_tv_show_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.tv_show_tv_show_id_seq OWNER TO postgres;
-
 --
--- Name: tv_show_tv_show_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: tv_show_tv_show_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.tv_show_tv_show_id_seq OWNED BY public.tv_show.tv_show_id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
@@ -488,10 +442,8 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
-
 --
--- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.users_user_id_seq
@@ -503,101 +455,99 @@ CREATE SEQUENCE public.users_user_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.users_user_id_seq OWNER TO postgres;
-
 --
--- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
--- Name: audit_log audit_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: audit_log audit_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.audit_log ALTER COLUMN audit_id SET DEFAULT nextval('public.audit_log_audit_id_seq'::regclass);
 
 
 --
--- Name: chat_message message_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: chat_message message_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chat_message ALTER COLUMN message_id SET DEFAULT nextval('public.chat_message_message_id_seq'::regclass);
 
 
 --
--- Name: notification notification_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: notification notification_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification ALTER COLUMN notification_id SET DEFAULT nextval('public.notification_notification_id_seq'::regclass);
 
 
 --
--- Name: notification_type notification_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: notification_type notification_type_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification_type ALTER COLUMN notification_type_id SET DEFAULT nextval('public.notification_type_notification_type_id_seq'::regclass);
 
 
 --
--- Name: payment_type payment_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: payment_type payment_type_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.payment_type ALTER COLUMN payment_type_id SET DEFAULT nextval('public.payment_type_payment_type_id_seq'::regclass);
 
 
 --
--- Name: request request_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: request request_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request ALTER COLUMN request_id SET DEFAULT nextval('public.request_request_id_seq'::regclass);
 
 
 --
--- Name: request_status_type status_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: request_status_type status_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request_status_type ALTER COLUMN status_id SET DEFAULT nextval('public.request_status_type_status_id_seq'::regclass);
 
 
 --
--- Name: role role_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: role role_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.role ALTER COLUMN role_id SET DEFAULT nextval('public.role_role_id_seq'::regclass);
 
 
 --
--- Name: show_schedule schedule_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: show_schedule schedule_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_schedule ALTER COLUMN schedule_id SET DEFAULT nextval('public.show_schedule_schedule_id_seq'::regclass);
 
 
 --
--- Name: show_type show_type_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: show_type show_type_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_type ALTER COLUMN show_type_id SET DEFAULT nextval('public.show_type_show_type_id_seq'::regclass);
 
 
 --
--- Name: tv_show tv_show_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: tv_show tv_show_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tv_show ALTER COLUMN tv_show_id SET DEFAULT nextval('public.tv_show_tv_show_id_seq'::regclass);
 
 
 --
--- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
 
 
 --
--- Data for Name: audit_log; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: audit_log; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.audit_log (audit_id, entity_name, entity_id, action, performed_by_id, performed_at, data) FROM stdin;
@@ -608,18 +558,18 @@ COPY public.audit_log (audit_id, entity_name, entity_id, action, performed_by_id
 
 
 --
--- Data for Name: chat_message; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: chat_message; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.chat_message (message_id, request_id, sender_id, content, created_at) FROM stdin;
-2	1	4	Добрый день! Принято, передаю на согласование коммерческому отделу.	2026-03-15 17:50:34.39562+03
 3	2	4	Орлов, прошу согласовать заявку на вечерние новости (ID 2).	2026-03-15 17:50:34.39562+03
 1	1	1	Здравствуйте! Хочу разместить рекламу в утреннем шоу.	2026-03-15 17:50:34.39562+03
+2	2	2	Тестовое сообщение для проверки чата	2026-03-15 17:50:34.39562+03
 \.
 
 
 --
--- Data for Name: contract; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: contract; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.contract (request_id, contract_number, contract_date, amount, description, created_at, agent_commission) FROM stdin;
@@ -630,7 +580,7 @@ COPY public.contract (request_id, contract_number, contract_date, amount, descri
 
 
 --
--- Data for Name: notification; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: notification; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.notification (notification_id, notification_type_id, user_id, message, is_read, created_at) FROM stdin;
@@ -641,7 +591,7 @@ COPY public.notification (notification_id, notification_type_id, user_id, messag
 
 
 --
--- Data for Name: notification_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: notification_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.notification_type (notification_type_id, name) FROM stdin;
@@ -652,7 +602,7 @@ COPY public.notification_type (notification_type_id, name) FROM stdin;
 
 
 --
--- Data for Name: payment_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: payment_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.payment_type (payment_type_id, name) FROM stdin;
@@ -664,7 +614,7 @@ COPY public.payment_type (payment_type_id, name) FROM stdin;
 
 
 --
--- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.request (request_id, customer_id, agent_id, schedule_id, planned_datetime, duration_seconds, status_id, total_cost, description, contact_phone, payment_type_id, payment_date, payment_due_date, created_at) FROM stdin;
@@ -672,11 +622,12 @@ COPY public.request (request_id, customer_id, agent_id, schedule_id, planned_dat
 2	2	4	2	\N	60	4	25000.00	Реклама автосалона «АвтоМир»	+7-900-222-22-22	1	\N	2026-03-10	2026-03-15 17:50:34.39562+03
 3	3	5	3	\N	15	1	3750.00	Реклама интернет-магазина «ТехноДом»	+7-900-333-33-33	\N	\N	\N	2026-03-15 17:50:34.39562+03
 4	10	4	4	\N	60	1	3000.00	\N	79013202919	3	2002-02-02	2030-02-02	2026-03-15 19:21:13.797225+03
+5	1	4	1	\N	30	2	15000.00	Рекламный ролик для тестирования	+7-900-111-22-33 	\N	\N	\N	2026-03-24 20:36:51.872741+03
 \.
 
 
 --
--- Data for Name: request_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: request_status_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.request_status_type (status_id, name) FROM stdin;
@@ -689,7 +640,7 @@ COPY public.request_status_type (status_id, name) FROM stdin;
 
 
 --
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.role (role_id, name) FROM stdin;
@@ -704,7 +655,7 @@ COPY public.role (role_id, name) FROM stdin;
 
 
 --
--- Data for Name: show_schedule; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: show_schedule; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.show_schedule (schedule_id, tv_show_id, start_datetime, air_date, air_time, updated_at) FROM stdin;
@@ -718,7 +669,7 @@ COPY public.show_schedule (schedule_id, tv_show_id, start_datetime, air_date, ai
 
 
 --
--- Data for Name: show_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: show_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.show_type (show_type_id, name) FROM stdin;
@@ -731,7 +682,7 @@ COPY public.show_type (show_type_id, name) FROM stdin;
 
 
 --
--- Data for Name: tv_show; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: tv_show; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.tv_show (tv_show_id, title, advertising_minutes, price_per_minute, show_type_id, description, is_active, updated_at) FROM stdin;
@@ -742,7 +693,7 @@ COPY public.tv_show (tv_show_id, title, advertising_minutes, price_per_minute, s
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.users (user_id, first_name, last_name, middle_name, email, password_hash, phone, is_active, updated_at, role_id) FROM stdin;
@@ -757,95 +708,96 @@ COPY public.users (user_id, first_name, last_name, middle_name, email, password_
 3	Кирилл	Сидоров	Петрович	sidorov@mail.ru	ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f	+7-900-333-33-33	t	2026-03-15 17:50:34.39562+03	7
 2	Анна	Петрова	Сергеевна	petrova@mail.ru	ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f	+7-900-222-22-22	t	2026-03-15 17:50:34.39562+03	7
 1	Иван	Иванов	Иванович	ivanov@mail.ru	ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f	+7-900-111-11-11	t	2026-03-15 17:50:34.39562+03	7
+12	Пётр 	Петров 	Петрович 	newuser@test.ru	d9b5f58f0b38198293971865a14074f59eba3e82595becbe86ae51f1d9f1f65e	+79001234567	t	2026-03-24 20:32:39.3382+03	7
 \.
 
 
 --
--- Name: audit_log_audit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: audit_log_audit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.audit_log_audit_id_seq', 3, true);
 
 
 --
--- Name: chat_message_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: chat_message_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.chat_message_message_id_seq', 3, true);
 
 
 --
--- Name: notification_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: notification_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.notification_notification_id_seq', 3, true);
 
 
 --
--- Name: notification_type_notification_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: notification_type_notification_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.notification_type_notification_type_id_seq', 3, true);
 
 
 --
--- Name: payment_type_payment_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: payment_type_payment_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.payment_type_payment_type_id_seq', 4, true);
 
 
 --
--- Name: request_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: request_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.request_request_id_seq', 4, true);
+SELECT pg_catalog.setval('public.request_request_id_seq', 5, true);
 
 
 --
--- Name: request_status_type_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: request_status_type_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.request_status_type_status_id_seq', 5, true);
 
 
 --
--- Name: role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.role_role_id_seq', 7, true);
 
 
 --
--- Name: show_schedule_schedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: show_schedule_schedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.show_schedule_schedule_id_seq', 6, true);
 
 
 --
--- Name: show_type_show_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: show_type_show_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.show_type_show_type_id_seq', 5, true);
 
 
 --
--- Name: tv_show_tv_show_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: tv_show_tv_show_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.tv_show_tv_show_id_seq', 3, true);
-
-
---
--- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.users_user_id_seq', 11, true);
+SELECT pg_catalog.setval('public.tv_show_tv_show_id_seq', 4, true);
 
 
 --
--- Name: audit_log pk_audit_log; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 12, true);
+
+
+--
+-- Name: audit_log pk_audit_log; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.audit_log
@@ -853,7 +805,7 @@ ALTER TABLE ONLY public.audit_log
 
 
 --
--- Name: chat_message pk_chat_message; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: chat_message pk_chat_message; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chat_message
@@ -861,7 +813,7 @@ ALTER TABLE ONLY public.chat_message
 
 
 --
--- Name: contract pk_contract; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: contract pk_contract; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.contract
@@ -869,7 +821,7 @@ ALTER TABLE ONLY public.contract
 
 
 --
--- Name: notification pk_notification; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notification pk_notification; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification
@@ -877,7 +829,7 @@ ALTER TABLE ONLY public.notification
 
 
 --
--- Name: notification_type pk_notification_type; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notification_type pk_notification_type; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification_type
@@ -885,7 +837,7 @@ ALTER TABLE ONLY public.notification_type
 
 
 --
--- Name: payment_type pk_payment_type; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: payment_type pk_payment_type; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.payment_type
@@ -893,7 +845,7 @@ ALTER TABLE ONLY public.payment_type
 
 
 --
--- Name: request pk_request; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request pk_request; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -901,7 +853,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: request_status_type pk_request_status_type; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request_status_type pk_request_status_type; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request_status_type
@@ -909,7 +861,7 @@ ALTER TABLE ONLY public.request_status_type
 
 
 --
--- Name: show_schedule pk_show_schedule; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: show_schedule pk_show_schedule; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_schedule
@@ -917,7 +869,7 @@ ALTER TABLE ONLY public.show_schedule
 
 
 --
--- Name: show_type pk_show_type; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: show_type pk_show_type; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_type
@@ -925,7 +877,7 @@ ALTER TABLE ONLY public.show_type
 
 
 --
--- Name: tv_show pk_tv_show; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tv_show pk_tv_show; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tv_show
@@ -933,7 +885,7 @@ ALTER TABLE ONLY public.tv_show
 
 
 --
--- Name: users pk_users; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users pk_users; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -941,7 +893,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: role role_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: role role_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.role
@@ -949,7 +901,7 @@ ALTER TABLE ONLY public.role
 
 
 --
--- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.role
@@ -957,7 +909,7 @@ ALTER TABLE ONLY public.role
 
 
 --
--- Name: contract uq_contract_number; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: contract uq_contract_number; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.contract
@@ -965,7 +917,7 @@ ALTER TABLE ONLY public.contract
 
 
 --
--- Name: notification_type uq_notification_type_name; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notification_type uq_notification_type_name; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification_type
@@ -973,7 +925,7 @@ ALTER TABLE ONLY public.notification_type
 
 
 --
--- Name: payment_type uq_payment_type_name; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: payment_type uq_payment_type_name; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.payment_type
@@ -981,7 +933,7 @@ ALTER TABLE ONLY public.payment_type
 
 
 --
--- Name: request_status_type uq_request_status_type_name; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request_status_type uq_request_status_type_name; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request_status_type
@@ -989,7 +941,7 @@ ALTER TABLE ONLY public.request_status_type
 
 
 --
--- Name: show_schedule uq_show_schedule_show_date; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: show_schedule uq_show_schedule_show_date; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_schedule
@@ -997,7 +949,7 @@ ALTER TABLE ONLY public.show_schedule
 
 
 --
--- Name: show_type uq_show_type_name; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: show_type uq_show_type_name; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_type
@@ -1005,7 +957,7 @@ ALTER TABLE ONLY public.show_type
 
 
 --
--- Name: users uq_users_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users uq_users_email; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -1013,126 +965,126 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: idx_audit_entity; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_audit_entity; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_audit_entity ON public.audit_log USING btree (entity_name, entity_id);
 
 
 --
--- Name: idx_audit_time; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_audit_time; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_audit_time ON public.audit_log USING btree (performed_at);
 
 
 --
--- Name: idx_chat_request; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_chat_request; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_chat_request ON public.chat_message USING btree (request_id);
 
 
 --
--- Name: idx_chat_request_ts; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_chat_request_ts; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_chat_request_ts ON public.chat_message USING btree (request_id, created_at);
 
 
 --
--- Name: idx_notification_user; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_notification_user; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_notification_user ON public.notification USING btree (user_id);
 
 
 --
--- Name: idx_notification_user_unread; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_notification_user_unread; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_notification_user_unread ON public.notification USING btree (user_id, is_read);
 
 
 --
--- Name: idx_request_agent; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_request_agent; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_request_agent ON public.request USING btree (agent_id);
 
 
 --
--- Name: idx_request_created; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_request_created; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_request_created ON public.request USING btree (created_at);
 
 
 --
--- Name: idx_request_customer; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_request_customer; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_request_customer ON public.request USING btree (customer_id);
 
 
 --
--- Name: idx_request_schedule; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_request_schedule; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_request_schedule ON public.request USING btree (schedule_id);
 
 
 --
--- Name: idx_request_status; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_request_status; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_request_status ON public.request USING btree (status_id);
 
 
 --
--- Name: idx_schedule_date; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_schedule_date; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_schedule_date ON public.show_schedule USING btree (air_date);
 
 
 --
--- Name: idx_schedule_show; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_schedule_show; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_schedule_show ON public.show_schedule USING btree (tv_show_id);
 
 
 --
--- Name: idx_tv_show_active; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_tv_show_active; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_tv_show_active ON public.tv_show USING btree (is_active);
 
 
 --
--- Name: idx_tv_show_type; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_tv_show_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_tv_show_type ON public.tv_show USING btree (show_type_id);
 
 
 --
--- Name: idx_users_active; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_users_active; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_users_active ON public.users USING btree (is_active);
 
 
 --
--- Name: idx_users_fullname; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_users_fullname; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_users_fullname ON public.users USING btree (last_name, first_name);
 
 
 --
--- Name: audit_log fk_audit_log_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: audit_log fk_audit_log_user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.audit_log
@@ -1140,7 +1092,7 @@ ALTER TABLE ONLY public.audit_log
 
 
 --
--- Name: chat_message fk_chat_message_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: chat_message fk_chat_message_request; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chat_message
@@ -1148,7 +1100,7 @@ ALTER TABLE ONLY public.chat_message
 
 
 --
--- Name: chat_message fk_chat_message_sender; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: chat_message fk_chat_message_sender; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.chat_message
@@ -1156,7 +1108,7 @@ ALTER TABLE ONLY public.chat_message
 
 
 --
--- Name: contract fk_contract_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: contract fk_contract_request; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.contract
@@ -1164,7 +1116,7 @@ ALTER TABLE ONLY public.contract
 
 
 --
--- Name: notification fk_notification_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notification fk_notification_type; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification
@@ -1172,7 +1124,7 @@ ALTER TABLE ONLY public.notification
 
 
 --
--- Name: notification fk_notification_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notification fk_notification_user; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notification
@@ -1180,7 +1132,7 @@ ALTER TABLE ONLY public.notification
 
 
 --
--- Name: request fk_request_agent; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request fk_request_agent; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -1188,7 +1140,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: request fk_request_customer; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request fk_request_customer; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -1196,7 +1148,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: request fk_request_payment_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request fk_request_payment_type; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -1204,7 +1156,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: request fk_request_schedule; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request fk_request_schedule; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -1212,7 +1164,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: request fk_request_status; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: request fk_request_status; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.request
@@ -1220,7 +1172,7 @@ ALTER TABLE ONLY public.request
 
 
 --
--- Name: show_schedule fk_show_schedule_tv_show; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: show_schedule fk_show_schedule_tv_show; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.show_schedule
@@ -1228,7 +1180,7 @@ ALTER TABLE ONLY public.show_schedule
 
 
 --
--- Name: tv_show fk_tv_show_show_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: tv_show fk_tv_show_show_type; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tv_show
@@ -1236,7 +1188,7 @@ ALTER TABLE ONLY public.tv_show
 
 
 --
--- Name: users fk_users_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users fk_users_role; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -1247,5 +1199,5 @@ ALTER TABLE ONLY public.users
 -- PostgreSQL database dump complete
 --
 
-\unrestrict JpI6VBxbDcv1MZjla65yEmyEGNWJgAm08aVWUOntX3OtTuR8GypHxtbN6VGYL2a
+\unrestrict v04A9dICe0wwusBKXovd6x1a6jTp7Sg6bFDtQZWGPdwOf2EeaIqnvx9asERXtns
 

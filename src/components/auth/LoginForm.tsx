@@ -37,6 +37,7 @@ const LoginForm: React.FC = () => {
           commercial: '/commercial',
           accountant: '/accountant',
           admin: '/admin',
+          it_admin: '/admin',
           director: '/director',
         }
         router.push(roleRoutes[payload.user.role] || '/customer')

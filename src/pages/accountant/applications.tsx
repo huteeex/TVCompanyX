@@ -86,7 +86,7 @@ const AccountantApplicationsPage: React.FC = () => {
       cash: { color: 'bg-yellow-100 text-yellow-800', text: 'Наличные' },
     }
 
-    const config = methodConfig[method as keyof typeof methodConfig]
+    const config = methodConfig[method as keyof typeof methodConfig] ?? { color: 'bg-gray-100 text-gray-800', text: method || 'Неизвестно' }
     return (
       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${config.color}`}>
         {config.text}

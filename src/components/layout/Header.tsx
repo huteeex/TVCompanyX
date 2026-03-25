@@ -28,6 +28,7 @@ const Header: React.FC = () => {
       commercial: 'Коммерческий отдел',
       accountant: 'Бухгалтер',
       admin: 'ИТ-администратор',
+      it_admin: 'ИТ-администратор',
       director: 'Директор',
     }
     return roleNames[role] || role

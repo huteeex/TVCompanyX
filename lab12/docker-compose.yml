@@ -11,6 +11,7 @@ services:
       POSTGRES_PASSWORD: 0112
     volumes:
       - pgdata:/var/lib/postgresql/data   # данные живут между перезапусками
+      - ./tvvvv.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d TVVVV"]
       interval: 5s

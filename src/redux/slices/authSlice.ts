@@ -6,7 +6,7 @@ export interface User {
   id: string
   name: string
   email: string
-  role: 'customer' | 'agent' | 'commercial' | 'accountant' | 'admin' | 'director'
+  role: 'customer' | 'agent' | 'commercial' | 'accountant' | 'admin' | 'it_admin' | 'director'
   avatar?: string
   bankDetails?: any
 }
