@@ -11,6 +11,8 @@ interface ChatProps {
   roomId: string
   roomName: string
   subtitle?: string
+  showApplicationInfo?: boolean
+  applicationId?: string
 }
 
 const Chat: React.FC<ChatProps> = ({ roomId, roomName, subtitle }) => {
