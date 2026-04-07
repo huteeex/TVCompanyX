@@ -1,13 +1,14 @@
 -- Seed minimal data for local development
+-- Default password for all users: password123
 
-INSERT INTO users (name, email, role)
+INSERT INTO users (name, email, password_hash, role)
 VALUES
-  ('Demo Customer', 'customer@example.com', 'customer'),
-  ('Demo Agent', 'agent@example.com', 'agent'),
-  ('Demo Commercial', 'commercial@example.com', 'commercial'),
-  ('Demo Accountant', 'accountant@example.com', 'accountant'),
-  ('Demo Admin', 'admin@example.com', 'admin'),
-  ('Demo Director', 'director@example.com', 'director')
+  ('Demo Customer', 'customer@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'customer'),
+  ('Demo Agent', 'agent@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'agent'),
+  ('Demo Commercial', 'commercial@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'commercial'),
+  ('Demo Accountant', 'accountant@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'accountant'),
+  ('Demo Admin', 'admin@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'admin'),
+  ('Demo Director', 'director@example.com', '$2b$10$W8GBOsHMm3ZxrCZtnM8t1euOqVjR13rusK0ZynU1kPSjAxTZvTo5i', 'director')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO shows (name, time_slot, base_price_per_min)
