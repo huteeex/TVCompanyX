@@ -1,47 +1,72 @@
-version: '3.8'
+# TVCompanyX — Next.js + PostgreSQL + Socket.io
+# Запуск: docker compose up -d --build
+# Порты (без конфликта со SmartKid):
+#   3000 → Next.js фронтенд + API routes
+#   4001 → Socket.io сервер
+#   5433 → PostgreSQL (host port; внутри контейнеров — стандартный 5432)
 
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: tvcompanyx_frontend
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://backend:4000
-      - NEXT_PUBLIC_SOCKET_URL=http://backend:4000
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD:-0112}@db:5432/tvshow
+      - JWT_SECRET=${JWT_SECRET:-change_me_on_production}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
+      - NEXT_PUBLIC_SOCKET_URL=${NEXT_PUBLIC_SOCKET_URL:-}
+      - SOCKET_API_URL=http://frontend:3000
     depends_on:
-      - backend
+      db:
+        condition: service_healthy
     networks:
-      - app-network
+      - tv-network
 
-  backend:
-    image: tv-company-backend:latest
+  socket:
+    build:
+      context: .
+      dockerfile: Dockerfile.socket
+    container_name: tvcompanyx_socket
+    restart: unless-stopped
     ports:
-      - "4000:4000"
+      - "4001:4001"
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://user:password@db:5432/tvcompany
+      - SOCKET_PORT=4001
+      - SOCKET_API_URL=http://frontend:3000
     depends_on:
-      - db
+      - frontend
     networks:
-      - app-network
+      - tv-network
 
   db:
     image: postgres:15-alpine
+    container_name: tvcompanyx_db
+    restart: unless-stopped
     environment:
-      - POSTGRES_DB=tvcompany
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      POSTGRES_DB: tvshow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-0112}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - tv_pgdata:/var/lib/postgresql/data
+      - ./docs/db/init_full_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tvshow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "5433:5432"
     networks:
-      - app-network
+      - tv-network
 
 volumes:
-  postgres_data:
+  tv_pgdata:
 
 networks:
-  app-network:
+  tv-network:
     driver: bridge
