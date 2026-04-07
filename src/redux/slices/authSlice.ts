@@ -188,6 +188,9 @@ const authSlice = createSlice({
         state.user = action.payload.user
         state.token = action.payload.token
         state.error = null
+        if (typeof window !== 'undefined' && action.payload.token) {
+          localStorage.setItem('token', action.payload.token)
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false
@@ -204,6 +207,9 @@ const authSlice = createSlice({
         state.user = action.payload.user
         state.token = action.payload.token
         state.error = null
+        if (typeof window !== 'undefined' && action.payload.token) {
+          localStorage.setItem('token', action.payload.token)
+        }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false

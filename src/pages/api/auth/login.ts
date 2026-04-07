@@ -55,8 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Set HttpOnly cookie for the token (server-side managed session)
     const maxAge = 7 * 24 * 60 * 60 // 7 days
-    const isProd = process.env.NODE_ENV === 'production'
-    const cookieOptions = `HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Lax${isProd ? '; Secure' : ''}`
+    const cookieOptions = `HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Lax`
     res.setHeader('Set-Cookie', `token=${token}; ${cookieOptions}`)
 
     res.status(200).json({
