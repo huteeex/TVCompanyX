@@ -1,9 +1,13 @@
 import { Pool } from 'pg'
 
 // Database connection pool
+const sslConfig = process.env.DB_SSL === 'true'
+  ? { rejectUnauthorized: false }
+  : false
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://postgres:0112@localhost:5432/TVShow',
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: sslConfig,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,

@@ -17,6 +17,7 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:${DB_PASSWORD:-0112}@db:5432/tvshow
+      - DB_SSL=false
       - JWT_SECRET=${JWT_SECRET:-change_me_on_production}
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
       - NEXT_PUBLIC_SOCKET_URL=${NEXT_PUBLIC_SOCKET_URL:-}
