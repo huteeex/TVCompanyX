@@ -30,8 +30,8 @@ interface ChartData {
   datasets: {
     label: string
     data: number[]
-    borderColor?: string
-    backgroundColor?: string
+    borderColor?: string | string[]
+    backgroundColor?: string | string[]
     fill?: boolean
   }[]
 }
